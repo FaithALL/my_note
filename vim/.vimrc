@@ -1,5 +1,6 @@
 
 set encoding=utf-8	"设置编码
+set nobomb	"utf-8 禁用bom
 set number "设置行号
 
 set shiftwidth=4	"默认缩进4个空格
