@@ -92,6 +92,8 @@ sudo apt-get install typora
   
 * [IDEA](https://www.jetbrains.com/idea/download/#section=linux)
 
+* [CLion](https://www.jetbrains.com/clion/download/#section=linux)
+
 * [QT](http://download.qt.io/archive/qt/)
 
   ```shell
