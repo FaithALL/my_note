@@ -6,6 +6,11 @@
   - `~/.local/share/applications` # 一部分本地图标
   - `/var/lib/snapd/desktop/applications` # snap 类软件在此
 
+* 软件路径
+
+  * /usr/lib
+  * /usr/bin
+
 * su初始密码设定
 
   ```shell

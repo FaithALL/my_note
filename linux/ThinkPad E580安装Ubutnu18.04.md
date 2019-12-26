@@ -57,6 +57,8 @@ sudo update-initramfs -u
 sudo apt install build-essential
 ```
 
+* java
+
 * vim
 * make
 * git
