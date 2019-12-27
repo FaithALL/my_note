@@ -6,7 +6,7 @@
 
 * [连接wifi](https://github.com/tomaspinho/rtl8821ce)(bios要禁用安全启动)
 
-* 拨号上网
+* 拨号上网，[方法二](https://jingyan.baidu.com/article/59a015e37dbea2f79588655c.html)
 
 ```shell
 #拨号上网
