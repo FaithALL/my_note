@@ -17,6 +17,8 @@
   
 * LLVM clang++
 
+  > clang++是编译器前端，LLVM是编译器后端
+
 ## 调试(debug)
 
 * GNU gdb
@@ -37,4 +39,11 @@
   ./application <infile >outfile
   ```
 
-  
+
+## 集成开发环境
+
+* 快捷键
+
+```
+代码格式化 Ctrl + Alt + L
+```

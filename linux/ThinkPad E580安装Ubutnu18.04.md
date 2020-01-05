@@ -16,6 +16,14 @@ sudo vim /etc/ppp/options
 ```
 
 * 换更新源（换阿里云）
+* 默认关闭蓝牙
+
+```shell
+sudo vim /etc/rc.local
+添加
+rfkill block bluetooth
+```
+
 * dock美化
 
 ```shell
