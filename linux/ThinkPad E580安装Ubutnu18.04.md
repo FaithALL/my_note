@@ -24,11 +24,6 @@ sudo apt install gnome-tweak-tool
 ```
 
 * [capslock映射为ctrl](https://www.cnblogs.com/litifeng/p/6667175.html)
-
-```shell
-优化 -> 键盘和鼠标 -> 键盘 -> 其他布局选项 -> caps lock behavior -> caps lock is also a ctrl
-```
-
 * [更改锁屏壁纸](https://blog.csdn.net/qq_36285997/article/details/80403620)
 * [开机动画](https://tianyijian.github.io/2018/04/05/ubuntu-boot-animation/#attention) [动画素材](https://www.gnome-look.org/p/1156215)
 
@@ -43,9 +38,8 @@ sudo cp -r Paw-Ubuntu-Floral /usr/share/plymouth/themes
 
 sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/Paw-Ubuntu-Floral/Paw-Ubuntu-Floral.plymouth 100
 
-sudo update-alternatives --config default.plysudo update-initramfs -umouth 
+sudo update-alternatives --config default.plymouth 
 # 选择Paw-Ubuntu-Floral.plymouth那个
-
 sudo update-initramfs -u
 ```
 
@@ -58,6 +52,10 @@ sudo apt install build-essential
 ```
 
 * java
+
+```shell
+sudo apt install default-jdk
+```
 
 * vim
 * make
