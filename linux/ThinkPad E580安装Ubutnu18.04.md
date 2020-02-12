@@ -57,6 +57,12 @@ sudo apt install build-essential
 sudo apt install default-jdk
 ```
 
+* exfat
+
+```shell
+sudo apt install exfat-utils
+```
+
 * vim
 * make
 * git
@@ -99,3 +105,13 @@ sudo apt-get install typora
   ```shell
   sudo apt install qt5-default qtcreator
   ```
+  
+* [virtualbox](https://blog.csdn.net/u010496966/article/details/99289405)
+
+  ```
+  sudo apt install virtulbox
+  sudo apt install virtualbox-guest-additions-iso
+  ```
+
+  
+
