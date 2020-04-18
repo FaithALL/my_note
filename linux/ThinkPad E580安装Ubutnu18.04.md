@@ -110,8 +110,24 @@ sudo apt-get install typora
 
   ```
   sudo apt install virtulbox
-  sudo apt install virtualbox-guest-additions-iso
+  ```
+  
+* 文档查看工具
+
+  ```shell
+  sudo apt install devhelp
+  ```
+
+  导入cppreference
+
+  ```shell
+  sudo apt install cppreference-doc-en-html 
+  ```
+
+* tmux
+
+  ```shell
+  sudo apt install tmux
   ```
 
   
-
