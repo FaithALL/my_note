@@ -59,7 +59,7 @@ Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}
   * 安装编译工具
 
     ```shell
-    sudo apt install build-essential cmake3 python3-dev
+    sudo apt install build-essential cmake python3-dev
     ```
 
   * 在.vimrc里添加
@@ -75,7 +75,7 @@ Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}
     ```shell
     cd ~/.vim/plugged/youcomplete/
     git submodule update --init --recursive
-    python3 install.py --clang-completer
+    python3 install.py --clangd-completer
     ```
 
     | 选项              | 快捷键        |

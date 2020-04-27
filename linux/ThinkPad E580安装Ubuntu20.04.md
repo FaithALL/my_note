@@ -1,12 +1,14 @@
 [TOC]
 
-# ThinkPad E580安装Ubutnu18.04
+# ThinkPad E580安装Ubuntu20.04
 
 ## 问题解决
 
-* [连接wifi](https://github.com/tomaspinho/rtl8821ce)(bios要禁用安全启动)
+* 连接wifi
 
-* 拨号上网，[方法二](https://jingyan.baidu.com/article/59a015e37dbea2f79588655c.html)
+  想办法连接上网后，使用`附加驱动`安装wifi驱动
+
+* 拨号上网，[方法二](https://jingyan.baidu.com/article/59a015e37dbea2f79588655c.html)(暂未尝试)
 
 ```shell
 #拨号上网
@@ -16,16 +18,27 @@ sudo vim /etc/ppp/options
 ```
 
 * 换更新源（换阿里云）
-* dock美化
+* [gnome扩展](https://www.linuxidc.com/Linux/2017-12/149813.htm)
 
 ```shell
 sudo apt install gnome-tweak-tool
-#安装dash to dock 用Ubuntu自带的应用商店
+sudo apt install chrome-gnome-shell
+#chrome安装GNOME Shell integration插件
+#搜索dash to dock ---> turn on
 ```
 
 * [capslock映射为ctrl](https://www.cnblogs.com/litifeng/p/6667175.html)
-* [更改锁屏壁纸](https://blog.csdn.net/qq_36285997/article/details/80403620)
-* [开机动画](https://tianyijian.github.io/2018/04/05/ubuntu-boot-animation/#attention) [动画素材](https://www.gnome-look.org/p/1156215)
+
+  ```shell
+  sudo vim /etc/default/keyboard
+  增加或修改 XKBOPTIONS="ctrl:nocaps"
+  #设置生效
+  sudo dpkg-reconfigure keyboard-configuration 
+  ```
+
+* [更改锁屏壁纸](https://blog.csdn.net/qq_36285997/article/details/80403620)(暂时弃用)
+
+* [开机动画](https://tianyijian.github.io/2018/04/05/ubuntu-boot-animation/#attention) [动画素材](https://www.gnome-look.org/p/1156215)(暂时弃用)
 
 ```shell
 tar zvxf Paw-Ubuntu-Floral.tar.gz 
@@ -57,17 +70,11 @@ sudo apt install build-essential
 sudo apt install default-jdk
 ```
 
-* exfat
-
-```shell
-sudo apt install exfat-utils
-```
-
 * vim
 * make
 * git
 * vlc(媒体播放)
-* [搜狗输入法](https://pinyin.sogou.com/linux/?r=pinyin)
+* [搜狗输入法](https://pinyin.sogou.com/linux/?r=pinyin)(弃用)
 
 ```shell
 #先安装Fcitx 和 Fcitx配置，用自带的Ubuntu软件市场安装
@@ -130,4 +137,38 @@ sudo apt-get install typora
   sudo apt install tmux
   ```
 
+* 安装字体
+
+  ```shell
+  在/usr/share/fonts/下创建子目录myfont
+  将字体复制的myfont下
+  mkfontscale
+  mkfontdir
+  fc-cache
+  ```
+
+* flameshot
+
+  ```shell
+  sudo apt install flameshot
+  #添加快捷键(命令为flameshot gui)
+  ```
+
+* vmware
+
+  ```shell
+  sudo chmod +x VMware-Workstation-Full-15.5.2-15785246.x86_64.bundle
+  sudo ./VMware-Workstation-Full-15.5.2-15785246.x86_64.bundle
+  #卸载命令
+  sudo vmware-installer -u vmware-workstation
+  #禁用开机自启服务
+sudo update-rc.d vmware disable
+  sudo update-rc.d vmware-USBArbitrator disable
+  sudo update-rc.d vmware-workstation-server disable
+  #手动开启vmware服务
+  sudo /etc/init.d/vmware start 
+  sudo /etc/init.d/vmware-workstation-server start
+  sudo /etc/init.d/vmware-USBArbitrator start
+  ```
+  
   
