@@ -15,6 +15,8 @@
 
   ```shell
   sudo passwd
+  #设置用户密码
+  sudo passwd 用户名
   ```
 
 * apt命令

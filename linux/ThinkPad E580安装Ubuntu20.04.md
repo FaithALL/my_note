@@ -1,6 +1,6 @@
 [TOC]
 
-# ThinkPad E580安装Ubuntu20.04
+# Ubuntu20.04
 
 ## 问题解决
 
@@ -82,7 +82,7 @@ sudo apt install default-jdk
 #fctix CPU占用100%解决 => fctix配置 -> 附加组件 -> 高级 -> 搜狗云拼音关闭
 ```
 
-* [坚果云](https://www.jianguoyun.com/s/downloads)
+* [坚果云](https://www.jianguoyun.com/s/downloads)(停用)
 * [typora](https://www.typora.io/#linux)
 
 ```shell
@@ -97,7 +97,7 @@ sudo apt-get update
 sudo apt-get install typora
 ```
 
-* [WPS Office 2019 For Linux](https://linux.wps.cn/)(安装字体)
+* [WPS Office 2019 For Linux](https://linux.wps.cn/)(安装字体)(停用)
 
 * [google chrome](https://www.google.com/chrome/)
   
@@ -111,12 +111,6 @@ sudo apt-get install typora
 
   ```shell
   sudo apt install qt5-default qtcreator
-  ```
-  
-* [virtualbox](https://blog.csdn.net/u010496966/article/details/99289405)
-
-  ```
-  sudo apt install virtulbox
   ```
   
 * 文档查看工具
@@ -137,7 +131,7 @@ sudo apt-get install typora
   sudo apt install tmux
   ```
 
-* 安装字体
+* 安装字体(存疑)
 
   ```shell
   在/usr/share/fonts/下创建子目录myfont
@@ -169,6 +163,28 @@ sudo update-rc.d vmware disable
   sudo /etc/init.d/vmware start 
   sudo /etc/init.d/vmware-workstation-server start
   sudo /etc/init.d/vmware-USBArbitrator start
+  ```
+  
+* wireshark
+
+  ```shell
+  sudo apt install wireshark #中途选Yes或者
+  #sudo dpkg-reconfigure wireshark-common 选Yes
+  #让非root用户可捕获
+  sudo usermod -a -G wireshark 用户名
+  ```
+
+* postgresql
+
+  ```shell
+  sudo apt install postgresql
+  #设置postgres用户密码
+sudo -u postgres psql
+  psql
+  \password
+  输入新密码
+  #禁止postgresql开机自启
+  sudo update-rc.d postgresql disable
   ```
   
   
