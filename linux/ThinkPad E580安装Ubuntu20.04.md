@@ -8,10 +8,21 @@
 
   想办法连接上网后，使用`附加驱动`安装wifi驱动
 
-* 拨号上网，[方法二](https://jingyan.baidu.com/article/59a015e37dbea2f79588655c.html)(暂未尝试)
+* 拨号上网
 
 ```shell
-#拨号上网
+#推荐使用
+nmcli connection edit type pppoe 
+set pppoe.username XXXXX
+set pppoe.password XXXXXX
+save
+yes
+quit
+#通过右上角连接pppoe
+```
+
+```shell
+#拨号上网,右上角图标会出现问题
 sudo pppoeconf
 #将lcp-echo-failure 4 改为 lcp-echo-failure 20 (或者更大，防止断断续续) 
 sudo vim /etc/ppp/options
