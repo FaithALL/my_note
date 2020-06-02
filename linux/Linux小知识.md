@@ -29,4 +29,11 @@
   | apt edit-sources | 编辑源列表               |
   | apt remove       | 删除软件包，保留配置文件 |
 
+* zip解压缩乱码解决
+
+  ```shell
+  uzip -O CP936 xxxx.zip
+  #CP936可以视为GBK
+  ```
+
   
