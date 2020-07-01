@@ -11,6 +11,16 @@
 * 拨号上网
 
 ```shell
+#最推荐(图形化配置)
+终端内nm-connection-editor
++ --> DSL/PPPoE
+修改Parent interface为有线网卡
+设置Username和Password
+保存
+重启
+```
+
+```shell
 #推荐使用
 nmcli connection edit type pppoe 
 set pppoe.username XXXXX
@@ -26,6 +36,19 @@ quit
 sudo pppoeconf
 #将lcp-echo-failure 4 改为 lcp-echo-failure 20 (或者更大，防止断断续续) 
 sudo vim /etc/ppp/options
+```
+
+* 热点
+
+```shell
+终端内nm-connection-editor
++ --> Wi-Fi
+设置SSID(热点名称)、Device(设置为有线网卡)
+Wi-Fi安全性-->Security(WPA及WPA个人)、密码
+常规-->所有用户都可连接这个网络不选
+保存
+重启
+Wi-Fi右上角-->连接到隐藏网络
 ```
 
 * 换更新源（换阿里云）
