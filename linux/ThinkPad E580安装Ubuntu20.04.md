@@ -166,14 +166,14 @@ sudo apt-get install typora
   sudo apt install tmux
   ```
 
-* 安装字体(存疑)
+* 安装字体
 
   ```shell
   在/usr/share/fonts/下创建子目录myfont
   将字体复制的myfont下
   mkfontscale
   mkfontdir
-  fc-cache
+  fc-cache -fv
   ```
 
 * flameshot
@@ -222,4 +222,10 @@ sudo -u postgres psql
   sudo update-rc.d postgresql disable
   ```
   
+* doxygen & graphviz
+
+  ```shell
+  sudo apt install doxygen doxygen-gui graphviz
+  ```
+
   
