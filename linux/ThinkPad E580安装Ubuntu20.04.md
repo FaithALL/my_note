@@ -200,6 +200,12 @@ sudo update-rc.d vmware disable
   sudo /etc/init.d/vmware-USBArbitrator start
   ```
   
+* virtualbox
+
+  ```shell
+  sudo apt install virtualbox virtualbox-ext-pack
+  ```
+  
 * wireshark
 
   ```shell
