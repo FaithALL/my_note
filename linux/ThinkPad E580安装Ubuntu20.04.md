@@ -233,6 +233,6 @@ sudo -u postgres psql
   ```shell
   sudo apt install tlp tlp-rdw
   sudo apt-get install tp-smapi-dkms acpi-call-dkms
-```
-  
-  
+  #设置充电阀值
+  sudo tlp setcharge [ START_THRESH STOP_THRESH [ BAT0 | BAT1 ] ] 
+  ```
