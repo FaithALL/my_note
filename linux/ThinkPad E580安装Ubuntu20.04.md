@@ -228,10 +228,11 @@ sudo -u postgres psql
   sudo update-rc.d postgresql disable
   ```
   
-* doxygen & graphviz
+* tlp
 
   ```shell
-  sudo apt install doxygen doxygen-gui graphviz
-  ```
-
+  sudo apt install tlp tlp-rdw
+  sudo apt-get install tp-smapi-dkms acpi-call-dkms
+```
+  
   
