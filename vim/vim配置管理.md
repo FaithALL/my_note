@@ -73,7 +73,7 @@ Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}
   * 为c系语言编译ycm_core
 
     ```shell
-    cd ~/.vim/plugged/youcomplete/
+    cd ~/.vim/plugged/youcompleteme/
     git submodule update --init --recursive
     python3 install.py --clangd-completer
     ```
