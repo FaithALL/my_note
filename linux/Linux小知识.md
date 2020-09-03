@@ -32,7 +32,7 @@
 * zip解压缩乱码解决
 
   ```shell
-  uzip -O CP936 xxxx.zip
+  unzip -O CP936 xxxx.zip
   #CP936可以视为GBK
   ```
 
