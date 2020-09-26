@@ -132,7 +132,7 @@ sudo apt-get update
 sudo apt-get install typora
 ```
 
-* [WPS Office 2019 For Linux](https://linux.wps.cn/)(安装字体)(停用)
+* [WPS Office 2019 For Linux](https://linux.wps.cn/)(安装字体)
 
 * [google chrome](https://www.google.com/chrome/)
   
