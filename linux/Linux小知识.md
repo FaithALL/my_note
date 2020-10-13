@@ -36,4 +36,13 @@
   #CP936可以视为GBK
   ```
 
+* [定位杀死僵尸进程](https://blog.csdn.net/wzy_1988/article/details/16944789)
+
+  ```shell
+  #打印所有进程带有用户自定义选项
+  ps -Ao stat,ppid,pid,cmd | grep -e '^[zZ]'
+  #重新加载父进程
+  kill -HUP ppid
+  ```
+
   
