@@ -45,4 +45,11 @@
   kill -HUP ppid
   ```
 
+* [设置snap代理](https://askubuntu.com/questions/764610/how-to-install-snap-packages-behind-web-proxy-on-ubuntu-16-04/1084862#1084862)
+
+  ```shell
+  sudo snap set system proxy.http="http://<proxy_addr>:<proxy_port>"
+  sudo snap set system proxy.https="http://<proxy_addr>:<proxy_port>"
+  ```
+
   
