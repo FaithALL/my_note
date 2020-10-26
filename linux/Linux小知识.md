@@ -50,6 +50,8 @@
   ```shell
   sudo snap set system proxy.http="http://<proxy_addr>:<proxy_port>"
   sudo snap set system proxy.https="http://<proxy_addr>:<proxy_port>"
+  #查看代理
+sudo snap get core proxy
   ```
-
+  
   
