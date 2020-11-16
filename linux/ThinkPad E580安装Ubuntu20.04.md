@@ -204,6 +204,8 @@ sudo update-rc.d vmware disable
 
   ```shell
   sudo apt install virtualbox virtualbox-ext-pack
+  #让虚拟机可以使用USB设备
+  sudo usermod -aG vboxusers 用户名
   ```
   
 * wireshark
