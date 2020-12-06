@@ -60,6 +60,7 @@ sudo apt install chrome-gnome-shell
 #chrome安装GNOME Shell integration插件
 #搜索dash to dock ---> turn on
 #搜索GSConnect --> turn on
+#搜索IBus Tweaker ---> turn on
 ```
 
 * [capslock映射为ctrl](https://www.cnblogs.com/litifeng/p/6667175.html)
