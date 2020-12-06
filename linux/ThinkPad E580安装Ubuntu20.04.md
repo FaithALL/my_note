@@ -195,6 +195,7 @@ sudo apt-get install typora
   将字体复制的myfont下
   mkfontscale
   mkfontdir
+  #上面两步可有可无，这步必要
   fc-cache -fv
   ```
 
