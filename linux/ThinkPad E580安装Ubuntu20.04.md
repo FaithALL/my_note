@@ -198,6 +198,9 @@ sudo apt-get install typora
   mkfontdir
   #上面两步可有可无，这步必要
   fc-cache -fv
+  #输入法字体 汉仪楷体
+  #编程字体 Source Code Variable
+  #终端字体 DejaVu Sans Mono Book
   ```
 
 * flameshot
