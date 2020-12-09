@@ -54,4 +54,8 @@
 sudo snap get core proxy
   ```
   
-  
+* ctrl+c、ctrl+z、ctrl+d
+
+  * ctrl + c：强行终止进程，发送SIGINT信号
+  * ctrl + z：挂起进程，发送SIGSTOP信号(可用bg使其在后台运行，使用fg转入前台运行)
+  * ctrl + d：一个特殊的二进制值，表示EOF，不发送信号(但进程接收后一般是选择终止运行)
