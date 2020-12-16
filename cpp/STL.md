@@ -4,6 +4,7 @@
     * array
     * list
     * deque
+    * valarray
   * 关联容器
     * set/unordered_set
     * map/unordered_set
@@ -14,11 +15,62 @@
   * priority_queue
   
 * 泛型算法
-  * sort
-  * iota
-  * find
-  * reverse
-  * distance
+  * 原地二叉堆
+    * make_heap
+    * push_heap
+    * pop_heap
+    * sort_heap
+  * 排序算法
+    * sort
+    * partial_sort
+    * nth_element
+    * inplace_merge
+  * 分割点：partition_point
+  * 排列算法
+    * rotate
+    * shuffle
+    * next_premutation
+    * prev_permutation
+    * reverse
+  * 数值算法
+    * count
+    * accumulate
+    * partial_sum
+  * 查找
+    * find
+    * epual_range
+    * lower_bound
+    * upper_bound
+    * binary_search
+  * 集合运算
+    * set_difference
+    * set_union
+    * set_intersection
+    * set_symmetric_difference
+  * 拷贝和移动
+    * copy
+    * move
+    * remove
+  * 修改序列中的值
+    * fill
+    * generate
+    * iota
+    * replace
+  * 遍历
+    * transform
+    * for_each
+  * 杂项
+    * distance
+    * back_inserter
+    * lexicographical_compare
+    * partition
+    * gcd lcm
+    * max_element
+    * min_element
+    * merge
+    * replace_copy
+    * pre_permutation
+    * mismatch
   
 * 迭代器
 
