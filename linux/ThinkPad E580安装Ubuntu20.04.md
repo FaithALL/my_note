@@ -265,3 +265,11 @@ sudo -u postgres psql
   #设置充电阀值
   sudo tlp setcharge [ START_THRESH STOP_THRESH [ BAT0 | BAT1 ] ] 
   ```
+  
+* rime
+
+  ```shell
+  sudo apt-get install ibus-rime
+  ```
+
+  
