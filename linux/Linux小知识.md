@@ -45,7 +45,7 @@
   kill -HUP ppid
   ```
 
-* [设置snap代理](https://askubuntu.com/questions/764610/how-to-install-snap-packages-behind-web-proxy-on-ubuntu-16-04/1084862#1084862)
+* [snap设置代理](https://askubuntu.com/questions/764610/how-to-install-snap-packages-behind-web-proxy-on-ubuntu-16-04/1084862#1084862)
 
   ```shell
   sudo snap set system proxy.http="http://<proxy_addr>:<proxy_port>"
@@ -54,6 +54,18 @@
 sudo snap get core proxy
   ```
   
+* [apt设置代理](https://zhuanlan.zhihu.com/p/44056084)
+
+  ```shell
+  #sudo后貌似不走全局代理
+  #为某次使用设置代理
+  #设置http
+  sudo apt-get -o Acquire::http::proxy="http://<proxy_addr>:<proxy_port>" upgrade
+  #设置https
+  sudo apt-get -o Acquire::https::proxy="http://<proxy_addr>:<proxy_port>" upgrade
+  #也同时设置http和https
+  ```
+
 * ctrl+c、ctrl+z、ctrl+d
 
   * ctrl + c：强行终止进程，发送SIGINT信号
