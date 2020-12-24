@@ -177,11 +177,10 @@
   sort(vec.begin(), vec.end());
   //选取哨兵，小于5的元素排前面，还有stable_partition
   partition(vec.begin(), vec.end(), [](int i){return i < 5;});
-  
   //部分排序，只排前n个元素
   partial_sort(vec.begin(), vec.begin() + n, vec.end());
   ```
-
+  
 * 查找问题
 
   ```c++
@@ -197,7 +196,7 @@
   find(vec.begin(), vec.end(), 2)
   ```
   
-* 拷贝、移动和替换
+* 拷贝、移动
 
   ```c++
   //把[begin, end)的元素复制到out之后，类似的还有copy_if
@@ -208,9 +207,6 @@
   
   //移动begin到end的2到末尾，类似的还有remove_if
   remove(vec.begin(), vec.end(), 2);
-  
-  //将[begin,end)中的2替换为6，类似的还有replcae_if
-  replace(vec.begin(), vec.end(), 2, 6);
   ```
   
 * 排列问题
@@ -226,9 +222,11 @@
   //上一个字典序
   prev_permutation(vec.begin(), vec.end());
   
-  rotate();
-      
-  reverse();
+  //旋转：[begin, begin+ n)和[begin +n, end)交换位置
+  rotate(vec.begin(), vec.begin() + n, vec.end());
+  
+  //反转[begin,end)的元素
+  reverse(vec.begin(), vec.end());
   ```
 
 * 二路归并
@@ -243,34 +241,49 @@
 * 原地二叉堆
 
   ```c++
-  make_heap
-  push_heap
-  pop_heap
-  sort_heap
+  //建堆，默认是大顶堆
+  make_heap(vec.begin(), vec.end());
+  //插入一个元素，进行堆调整
+  push_heap(vec.begin(), vec.end());
+  //将堆顶元素移动到end
+  pop_heap(vec.begin(), vec.end());
+  //堆排序
+  sort_heap(vec.begin(), vec.end());
   ```
   
 * 集合运算
 
   ```c++
-  set_difference
-  set_union
-  set_intersection
-  set_symmetric_difference
+  //集合差运算，v1 - v2存放到v3
+  set_difference(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v3));
+  //集合并运算，v1 并 v2存放到v3
+  set_union(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v3));
+  //集合交运算，v1 交 v2存放到v3
+  set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v3));
+  //对称差运算，v1并v2 - v1交v2存放到v3
+  set_symmetric_difference(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(v3));
   ```
 
 * 遍历与修改
 
-  ```;
-  for_each();
-  iota();
-  fill();
-  generate();
+  ```c++
+  //遍历每个元素，执行打印操作
+  for_each(vec.begin(), vec.end(), [](int x){cout << x << endl;});
+  
+  //从1升序，填充[begin, end）即{1, 2, 3...}
+  iota(vec.begin(), vec.end(), 1);
+  
+  //将vec全部填充为2
+  fill(vec.begin(), vec.end(), 2);
+  
+  //将[begin,end)中的2替换为6，类似的还有replcae_if
+  replace(vec.begin(), vec.end(), 2, 6);
   ```
 
 * 数值算法
 
   ```c++
-  //特值
+  //最值
   minmax_element(vec.begin(), vec.end());
   min_element(vec.begin(), vec.end());
   max_element(vec.begin(), vec.end());
@@ -280,13 +293,24 @@
   //将vec中的值限定在[minV, maxV]
   clamp(vec, minV, maxV);
   
-  //
-  gcd();
-  lcm();
+  //求x, y的最大公因数
+  gcd(x, y);
+  //求x, y的最小公倍数
+  lcm(x, y);
   
-  count
-  accumulate
-  partial_sum
+  //计算[begin, end)的运算，默认是+，初值为0
+  accumulate(vec.begin(), vec.end(), 0);
+  //计算[begin, end)的部分运算，结果从v2.begin()开始存储，默认是+，初值为0
+  partial_sum(vec.begin(), vec.end(), v2.begin());
+  
+  //计数，计算[begin, end)中2出现的次数
+  count(vec.begin(), vec.end(), 2);
+  //求距离，计算[begin, end)的距离(因为有的迭代器不支持 - 操作)
+  distance(vec.begin(), vec.end());
+  
+  //比较大小
+  greater<>();
+  less<>();
   ```
 
 ## 杂项
@@ -303,4 +327,4 @@
 * 智能指针：`shared_ptr`、`unique_ptr`、`weak_ptr`
 * 时间：`ratio`、`chrono`
 * 多线程：`thread`
-* 文件系统：`std::filesystem::path`、`directory_iterator`、`directory_entry`
+* 文件系统：`std::filesystem::path`
