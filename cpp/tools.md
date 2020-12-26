@@ -58,10 +58,7 @@
   ```
 
 
-## 集成开发环境
+## 测试(test)
 
-* 快捷键
-
-```
-代码格式化 Ctrl + Alt + L
-```
+* valgrind
+* google test
