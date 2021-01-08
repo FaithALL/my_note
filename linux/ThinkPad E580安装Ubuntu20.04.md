@@ -272,4 +272,12 @@ sudo -u postgres psql
   sudo apt-get install ibus-rime
   ```
 
-  
+* nodejs
+
+  ```shell
+  sudo apt install nodejs npm
+  #设置镜像源
+  npm config set registry https://registry.npm.taobao.org
+  #查看镜像源
+  npm config get registry
+  ```
