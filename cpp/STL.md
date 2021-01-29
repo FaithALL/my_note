@@ -315,16 +315,67 @@
 
 ## 杂项
 
+* 智能指针：内置指针只能直接初始化智能指针
+
+  * `shared_ptr`：允许多个指针指向同一对象
+  * `unique_ptr`：独占所指对象，不支持拷贝、赋值
+  * `weak_ptr`：弱引用，指向shared_ptr所管理的对象，但不改变其引用计数，解决shared_ptr的循环引用问题。
+
+  ```c++
+  //空智能指针
+  shared_ptr<T> sp;
+  unique_ptr<T> up;
+  weak_ptr<T> w;
+  //返回动态创建的T类型的对象的智能指针，用arg初始化
+  make_shared<T> (args);
+  make_unique<T> (args);   //c++14
+  //q为内置指针，p接管q所指对象，并且最后使用d来删除对象
+  shared_ptr<T> p(q, d);
+  p.reset(q, d);
+  //unique的删除器，u接管q所指对象，并且最后使用d来删除对象，没有reset版本
+  unique_ptr<T, D> u(q, d);
+  //u1接管u2所指对象，单独的u2.relsease()没有意义
+  u1.reset(u2.release());
+  ```
+
+* allocator：将内存分配与对象构造分离
+
+  ```c++
+  //定义一个allocator对象
+  allocator<T> a;
+  //分配n个T类型大小的内存，返回指针
+  a.allocate(n);
+  //使用args在地址p处构造一个T类型的对象
+  a.construct(p, args);
+  //使用p的析构函数销毁对象
+  a.destroy(p);
+  //释放p处的内存
+  a.deallocate(p, n);
+  //几个伴随算法
+  uninitialized_copy(b, e, b2);
+  uninitialized_copy_n(b, n, b2);
+  uninitialized_fill(b, e, t);
+  uninitialized_fill_n(b, n, t);
+  ```
+
 * IO：`istream`、`ostream`、`istringstream`、`ostringstream`、`ifstream`、`ofsream`
+
 * 多值类型`tuple`、`pair`
+
 * 任意类型`any`、`variant`
+
 * 失败标识`optional`
 
 * 移动语义`std::move`
+
 * 完美转发`std::forward`
+
 * 多态包装器`function`
+
 * `bind`
-* 智能指针：`shared_ptr`、`unique_ptr`、`weak_ptr`
+
 * 时间：`ratio`、`chrono`
+
 * 多线程：`thread`
+
 * 文件系统：`std::filesystem::path`
