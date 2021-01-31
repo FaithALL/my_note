@@ -195,13 +195,12 @@ cpp(C++) --- stl(标准库)
   * 可作用于表达式(sizeof expr)，也可作用于类型(sizeof (type))，结果是字节数(size_t)
     * 作用于指针，求的是指针本身(4/8)，作用于解引用，指针不需要有效
 
-* static_cast、dynamic_cast、const_cast和reinterpret_cast
+* 强制类型转换：一般应该避免使用，尤其是reinterpret_cast
 
-  * static_cast不包含底层const的明确定义的类型转换都可以使用
-  * const_cast只能改变对象的底层const，常用于函数重载场合，可增加或去除const属性
-  * reinterpret_cast为运算对象的位模式提供较低层次上的重新解释
-
-  > 一般应该尽量避免使用强制类型转换，尤其是reinterpret_cast
+  * static_cast：不包含const的明确定义的类型转换都可以使用
+  * dynamic_cast：运行时转换，在公有继承树上强制转换指针或引用
+  * const_cast：改变对象的底层const，去除const不是为了修改，而是适应已有的接口
+  * reinterpret_cast：为运算对象在位模式层次重新提供解释
 
 * 异常
 
