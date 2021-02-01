@@ -363,10 +363,12 @@
   ```c++
   //创建线程
   std::thread th(func);
-  std::thread th(func, parm);
+  //parm等func的参数是值传递的，类似std::bind
+  //如果想传引用需要std::ref(parm)
+  std::thread th(func, parm1, parm2, ...);
   //线程等待/分离
   th.join();
-  th.death();
+  th.detach();
   th.joinable();
   //获取线程id，cpu数目，获取thread native_handle。
   th.get_id();
@@ -392,6 +394,43 @@
   cond.notify_all();
   ```
 
+* bind绑定：调整可调用对象接口
+
+  ```c++
+  void func(string& parm1, int parm2);
+  //str是一个已有的stirng对象
+  auto newFunc = std::bind(func, str, std::placeholders::_1);
+  //那么可以如下使用，相当于调用了func(str, 2)
+  newFunc(2);
+  //注意：非占位符都是拷贝到bind返回的可调用对象中
+  //即尽管parm1希望是引用类型，但是对newFunc而言，它是拷贝的
+  //要引用，必须使用std::ref，类似要常引用，需使用std::cref
+  auto newFunc = std::bind(func, std::ref(str), std::placeholders::_1);
+  ```
+
+* 多态包装器`function`：将调用形式一样的可调用对象看成同类型的对象
+
+  ```c++
+  //函数，函数指针，lambda，bind返回的对象，重载()的类对象
+  int func(int, int);
+  int func2(int, int, int);
+  function<int(int, int)> f = func;
+  f = [](int a, int b) {return a + b;};
+  f = bind(_1, 0, _2);
+  ```
+
+* 移动语义`std::move`
+
+  ```c++
+  
+  ```
+
+* 完美转发`std::forward`
+
+  ```c++
+  
+  ```
+
 * IO：`istream`、`ostream`、`istringstream`、`ostringstream`、`ifstream`、`ofsream`
 
 * 多值类型`tuple`、`pair`
@@ -399,14 +438,6 @@
 * 任意类型`any`、`variant`
 
 * 失败标识`optional`
-
-* 移动语义`std::move`
-
-* 完美转发`std::forward`
-
-* 多态包装器`function`
-
-* `bind`
 
 * 时间：`ratio`、`chrono`
 
