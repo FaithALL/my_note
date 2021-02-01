@@ -422,13 +422,21 @@
 * 移动语义`std::move`
 
   ```c++
-  
+  //右值引用，只能绑定到一个将要销毁的对象
+  //获取var对应的右值，在move后，只能销毁var或者给它赋值
+  std::move(var); //底层通过static_cast
   ```
 
 * 完美转发`std::forward`
 
   ```c++
-  
+  //std::forward<T>()返回T&&类型，配合引用折叠达到完美转发的效果
+  template <typename T> 
+  void func(T&& t) {
+      f(std::forward<T>(t))
+  }
+  //t是左值，则T为左值引用，则传给f的为左值引用
+  //t是右值，则T为普通非引用类型，则传给f的为右值引用
   ```
 
 * IO：`istream`、`ostream`、`istringstream`、`ostringstream`、`ifstream`、`ofsream`
