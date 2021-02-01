@@ -358,6 +358,40 @@
   uninitialized_fill_n(b, n, t);
   ```
 
+* 多线程
+
+  ```c++
+  //创建线程
+  std::thread th(func);
+  std::thread th(func, parm);
+  //线程等待/分离
+  th.join();
+  th.death();
+  th.joinable();
+  //获取线程id，cpu数目，获取thread native_handle。
+  th.get_id();
+  std::thread::hardware_concurrency();
+  th.native_handle();
+  //线程休眠
+  std::this_thread::sleep_for(std::chrono::seconds(1));
+  
+  //线程同步
+  //互斥锁mutex、recursive_mutex、timed_mutex、recursive_timed_mutex
+  std::mutex m;
+  m.lock();
+  m.unlock();
+  //互斥锁的自动管理
+  std::lock_guard<mutex> lock(m);
+  std::unique_lock<mutex> lock(m);
+  //原子类型
+  std::atomic<int> 
+  //条件变量
+  std::condition_variable cond;
+  cond.wait();
+  cond.notify_one();
+  cond.notify_all();
+  ```
+
 * IO：`istream`、`ostream`、`istringstream`、`ostringstream`、`ifstream`、`ofsream`
 
 * 多值类型`tuple`、`pair`
@@ -375,7 +409,5 @@
 * `bind`
 
 * 时间：`ratio`、`chrono`
-
-* 多线程：`thread`
 
 * 文件系统：`std::filesystem::path`
