@@ -318,7 +318,7 @@
 * 智能指针：内置指针只能直接初始化智能指针
 
   * `shared_ptr`：允许多个指针指向同一对象
-  * `unique_ptr`：独占所指对象，不支持拷贝、赋值
+  * `unique_ptr`：独占所指对象，不支持拷贝、赋值，只可移动
   * `weak_ptr`：弱引用，指向shared_ptr所管理的对象，但不改变其引用计数，解决shared_ptr的循环引用问题。
 
   ```c++
@@ -363,8 +363,9 @@
   ```c++
   //创建线程
   std::thread th(func);
-  //parm等func的参数是值传递的，类似std::bind
+  //parm等左值是值传递的，类似std::bind
   //如果想传引用需要std::ref(parm)
+  //右值依然是按右值传递，thread对象可移动不可复制
   std::thread th(func, parm1, parm2, ...);
   //线程等待/分离
   th.join();
@@ -394,6 +395,14 @@
   cond.notify_all();
   ```
 
+* 移动语义`std::move`
+
+  ```c++
+  //右值引用，只能绑定到一个将要销毁的对象
+  //获取var对应的右值，在move后，只能销毁var或者给它赋值
+  std::move(var); //底层通过static_cast
+  ```
+  
 * bind绑定：调整可调用对象接口
 
   ```c++
@@ -417,14 +426,6 @@
   function<int(int, int)> f = func;
   f = [](int a, int b) {return a + b;};
   f = bind(_1, 0, _2);
-  ```
-
-* 移动语义`std::move`
-
-  ```c++
-  //右值引用，只能绑定到一个将要销毁的对象
-  //获取var对应的右值，在move后，只能销毁var或者给它赋值
-  std::move(var); //底层通过static_cast
   ```
 
 * 完美转发`std::forward`
