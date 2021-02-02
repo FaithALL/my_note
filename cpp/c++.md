@@ -205,7 +205,7 @@ cpp(C++) --- stl(标准库)
 
 * 强制类型转换：一般应该避免使用，尤其是reinterpret_cast
 
-  * static_cast：不包含const的明确定义的类型转换都可以使用
+  * static_cast：不包含const的明确定义的类型转换都可以使用，可以将左值转化为右值引用
   * dynamic_cast：运行时转换，在公有继承树上强制转换指针或引用
   * const_cast：改变对象的底层const，去除const不是为了修改，而是适应已有的接口
   * reinterpret_cast：为运算对象在位模式层次重新提供解释
@@ -341,3 +341,18 @@ cpp(C++) --- stl(标准库)
 * 第一次虚函数不要在类内定义
 
 * override表明该函数覆写了父类的虚函数，只能在类声明处写，不能在类定义出写
+
+* 编译器默认创建的类成员：无参构造函数，拷贝构造函数，移动构造函数，复制赋值运算符，移动赋值运算符，析构函数
+
+* 模板实参推断规则
+
+  ```c++
+  //引用折叠：X& &、X& &&、X&& &都会折叠成X&，X&& &&会折叠成X&&
+  template <typename T> void f(T&);
+  template <typename T> void f(const T&);
+  template <typename T> void f(T&&)
+  ```
+
+  
+
+  
