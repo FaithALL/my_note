@@ -371,28 +371,39 @@
   th.join();
   th.detach();
   th.joinable();
-  //获取线程id，cpu数目，获取thread native_handle。
-  th.get_id();
+  //获取线程id，线程id是std::thread::id类型的
+  th.get_id(); 
+  //获取本线程id
+  std::this_thread::get_id();
+  //获取cpu数目，获取thread native_handle。
   std::thread::hardware_concurrency();
   th.native_handle();
   //线程休眠
   std::this_thread::sleep_for(std::chrono::seconds(1));
   
   //线程同步
-  //互斥锁mutex、recursive_mutex、timed_mutex、recursive_timed_mutex
+  //互斥量mutex、recursive_mutex、timed_mutex、recursive_timed_mutex、shared_mutex、shared_timed_mutex
   std::mutex m;
   m.lock();
   m.unlock();
-  //互斥锁的自动管理
-  std::lock_guard<mutex> lock(m);
+  //互斥量的自动管理
+  std::lock_guard<mutex> guard(m);
+  std::scoped_lock<mutex,mutex> guard(m1, m2);   //c++17同时管理多个互斥量
   std::unique_lock<mutex> lock(m);
-  //原子类型
-  std::atomic<int> 
+  //类似互斥量
+  std::once_flag flag;
+  std::call_once(flag, func);   //线程安全的调用func一次
   //条件变量
   std::condition_variable cond;
   cond.wait();
   cond.notify_one();
   cond.notify_all();
+  //条件变量的补充
+  std::future<T> fut = std::async(func, parm1, std::ref(parm2));
+  //在新线程上执行std::launch::async或者当fut.wait()/fut.get()时执行
+  std::future<T> fut = std::async(std::launch::deferred | std::launch::async, func);
+  //原子类型
+  std::atomic<int> at;
   ```
 
 * 移动语义`std::move`
