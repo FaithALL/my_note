@@ -344,15 +344,77 @@ cpp(C++) --- stl(标准库)
 
 * 编译器默认创建的类成员：无参构造函数，拷贝构造函数，移动构造函数，复制赋值运算符，移动赋值运算符，析构函数
 
-* 模板实参推断规则
+* 模板：包括函数模板和类模板。
 
-  ```c++
-  //引用折叠：X& &、X& &&、X&& &都会折叠成X&，X&& &&会折叠成X&&
-  template <typename T> void f(T&);
-  template <typename T> void f(const T&);
-  template <typename T> void f(T&&)
-  ```
-
+  > 只有用到才实例化。
+  >
+  > 模板声明必须以`template<typename ......>`开头
   
-
+  * 函数模板
   
+    ```c++
+    //类型模板参数，T表示一个类型
+    template <typename T>
+    void func(const T& parm) {......}
+    //非类型模板参数，N表示一个值
+    //非类型模板参数可以是整型/指向对象或函数的指针或左值引用
+    //绑定到非类型整型参数的实参必须是一个常量表达式
+    //绑定到指针或引用非类型参数的实参必须是static，指针也可用nullptr或0
+    template <unsigned N>
+    void func(const char (&p)[N]) {.....}
+    ```
+    
+  * 类模板
+  
+    * 定义在类模板之外的成员函数，static属性，必须以`template <......>`开头
+  
+    * 在类作用域内，可以使用模板名而不提供实参
+  
+      ```c++
+      //模板与友元
+      //需要友元的前置声明
+      template <typename T>
+      class test {
+          //一对一
+          friend class test_help<T>;
+          //多对一
+          friend class help;
+          //多对多
+          template <typename X> friend class test_help2;
+          //模板类型对自己
+          friend T;
+          //类似还有一对多(具体对模板)
+          .....
+      }
+      //模板类型别名
+      template <typename T> using twin = pair<T, T>;
+      twin<string> test;   //等价于pair<string, string> test;
+      template <typename T> using twin = pair<T, int>; //指定类型
+      ```
+  
+  * 模板参数：类型模板参数和非类型模板参数。
+  
+    ```c++
+    //通过::运算符访问的名字默认不是类型，要表明是类型，加typename关键字
+    template <typename T>
+    typename T::value_type top(const T& t) {
+        //显示调用T类型中的value_type类型的默认构造函数
+        return typename T::value_type();
+    }
+    //默认实参
+    template <typenamte T = int>
+    class number{};
+    number<> test; //类模板使用默认实参
+    ```
+  
+  * 成员模板：类(普通类/模板类)的成员函数是模板，类模板的成员模板与类模板独立。
+  
+  * 显式实例化：类模板的实例化定义会实例化所有成员
+  
+    ```c++
+    //类似全局变量的用法
+    extern template declaration; 	//实例化声明
+    template declaration;			//实例化定义
+    ```
+  
+  * 模板实参推断
