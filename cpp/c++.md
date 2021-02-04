@@ -200,8 +200,10 @@ cpp(C++) --- stl(标准库)
 * sizeof、siziof...
 
   * sizeof
-  * 可作用于表达式(sizeof expr)，也可作用于类型(sizeof (type))，结果是字节数(size_t)
+    * 可作用于表达式(sizeof expr)，也可作用于类型(sizeof (type))，结果是字节数(size_t)
     * 作用于指针，求的是指针本身(4/8)，作用于解引用，指针不需要有效
+  * sizeof...
+    * 获取参数包中元素的数目
 
 * 强制类型转换：一般应该避免使用，尤其是reinterpret_cast
 
@@ -217,7 +219,7 @@ cpp(C++) --- stl(标准库)
   * 每个标准库异常类都只定义了what()无参成员函数，返回`const char*`
   * exception、bad_alloc、bad_cast只能默认初始化，其余异常类不能使用默认初始化
 
-* 可变行参函数
+* 可变形参函数
 
   * 实参相同类型，initializer_list<T>，需传{}参数
   * 实参不同类型，可变参数模板
@@ -346,12 +348,12 @@ cpp(C++) --- stl(标准库)
 
 * 模板：包括函数模板和类模板。
 
-  > 只有用到才实例化。
-  >
-  > 模板声明必须以`template<typename ......>`开头
-  
-  * 函数模板
-  
+  * 只有用到才实例化。
+
+  * 模板声明必须以`template<typename ......>`开头
+
+  * 类型模板参数、非类型模板参数
+
     ```c++
     //类型模板参数，T表示一个类型
     template <typename T>
@@ -363,13 +365,60 @@ cpp(C++) --- stl(标准库)
     template <unsigned N>
     void func(const char (&p)[N]) {.....}
     ```
+
+  * 默认模板参数
+
+    ```c++
+    //默认实参
+    template <typenamte T = int>
+    class number{};
+    number<> test; //类模板使用默认实参
+    ```
+    
+  * 表明模板参数是类型
+
+    ```c++
+    //通过::运算符访问的名字默认不是类型，要表明是类型，加typename关键字
+    template <typename T>
+    typename T::value_type top(const T& t) {
+        //显示调用T类型中的value_type类型的默认构造函数
+        return typename T::value_type();
+    }
+    ```
+
+  * 函数模板
+
+    * 可以在调用函数模板时显式指定模板实参。
+    
+    * 成员模板：类(普通类/模板类)的成员函数是模板。类模板的成员模板与类模板独立。成员模板不能是虚函数。
+    
+    * 模板实参推断：从函数实参确定模板实参的过程
+    
+      * 模板参数能自动转换的只有const转换及数组或函数到指针(引用不行)的转换。
+    
+      * 用函数模板名初始化/赋值一个函数指针时，用函数指针的类型推断函数模板实参。
+    
+      * 万能引用：右值引用可以绑定到左值或右值
+    
+        ```cpp
+        //右值引用绑定到左值，模板参数被推断为左值引用
+        //绑定到右值时，模板参数被推断为原类型
+        //X& &、X& &&、X&& & 被折叠成X&
+        //X&& &&折叠成X&&
+        template <typename T> void func(T&&);
+        int x = 0;
+        func(x);  //T被推断为int&，根据引用折叠，此func的形参为int&
+        func(1);  //T被推断为int
+        ```
     
   * 类模板
-  
+
     * 定义在类模板之外的成员函数，static属性，必须以`template <......>`开头
-  
+
     * 在类作用域内，可以使用模板名而不提供实参
-  
+
+    * 友元
+
       ```c++
       //模板与友元
       //需要友元的前置声明
@@ -386,35 +435,42 @@ cpp(C++) --- stl(标准库)
           //类似还有一对多(具体对模板)
           .....
       }
-      //模板类型别名
+      ```
+      
+    * 类模板的类型别名
+
+      ```c++
+      //模板类型别名，typedef不可
       template <typename T> using twin = pair<T, T>;
       twin<string> test;   //等价于pair<string, string> test;
       template <typename T> using twin = pair<T, int>; //指定类型
       ```
-  
-  * 模板参数：类型模板参数和非类型模板参数。
-  
+
+    * 显式实例化：减少多个文件中实例化相同模板的开销
+
+      ```c++
+      //实例化定义会实例化所有成员(方法、属性)。
+      //类似全局变量的用法
+      extern template declaration; 	//实例化声明
+      template declaration;			//实例化定义
+      ```
+
+  * 可变参数模板：可变数目的参数称为模板包，分为模板参数包、函数参数包。
+
     ```c++
-    //通过::运算符访问的名字默认不是类型，要表明是类型，加typename关键字
-    template <typename T>
-    typename T::value_type top(const T& t) {
-        //显示调用T类型中的value_type类型的默认构造函数
-        return typename T::value_type();
+    //Args为模板参数包，表示0-*个类型
+    //rest为函数参数包，表示0-*个函数参数
+    //sizeof...获取参数包中元素的数目
+    template <typename T, typename... Args>
+    void print(const T& t, const Args& ... rest) {
+        cout << sizeof...(Args) << endl;
+        cout << sizeof...(rest) << endl;
     }
-    //默认实参
-    template <typenamte T = int>
-    class number{};
-    number<> test; //类模板使用默认实参
+    //理解包扩展rest...
     ```
-  
-  * 成员模板：类(普通类/模板类)的成员函数是模板，类模板的成员模板与类模板独立。
-  
-  * 显式实例化：类模板的实例化定义会实例化所有成员
-  
-    ```c++
-    //类似全局变量的用法
-    extern template declaration; 	//实例化声明
-    template declaration;			//实例化定义
-    ```
-  
-  * 模板实参推断
+
+  * 模板特例化
+
+    * 特例化以`template <>`开头
+    * 全特例化
+    * 部分特例化(仅限类模板)
