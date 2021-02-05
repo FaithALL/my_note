@@ -11,6 +11,8 @@
   ```shell
   git config --global user.name "Your Name"
   git config --global user.email "email@example.com"
+  #让git status正确显示
+  git config --global core.quotepath off
   ```
 
 ### 创建(create)
