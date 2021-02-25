@@ -92,6 +92,15 @@ sudo update-alternatives --config default.plymouth
 sudo update-initramfs -u
 ```
 
+* [远程桌面](https://wiki.archlinux.org/index.php/Vino)
+
+```shell
+#安装gnome自带远程桌面
+sudo apt install vino
+#禁用加密,貌似是自带加密不兼容
+gsettings set org.gnome.Vino require-encryption false
+```
+
 ## 软件安装
 
 * gcc套件
@@ -281,3 +290,4 @@ sudo -u postgres psql
   #查看镜像源
   npm config get registry
   ```
+
