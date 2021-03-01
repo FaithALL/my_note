@@ -84,7 +84,21 @@
 
 ## 调试(debug)
 
-* GNU gdb
+* [GNU gdb](https://github.com/skywind3000/awesome-cheatsheets/blob/master/tools/gdb.txt)
+
+  ```shell
+  #gdb调试需g++在编译时加-g选项
+  gdb object                # 正常启动，加载可执行
+  gdb object core           # 对可执行 + core 文件进行调试
+  gdb object pid            # 对正在执行的进程进行调试
+  break 101                 # 对源代码的行号设置断点
+  run {args}                # 以某参数运行程序
+  print                     # 打印变量的值
+  next                      # 单步跳过，碰到函数不会进入
+  step                      # 单步进入，碰到函数会进去
+  continue                  # 一直运行到断点位置
+  set var = {expression}    # 变量赋值
+  ```
 
 ## 运行(run)
 
