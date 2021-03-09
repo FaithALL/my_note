@@ -92,12 +92,10 @@
   	...
   done
   
-#zip压缩/解压缩
+  #zip压缩/解压缩
   zip xxx.zip xxx/
   unzip xxx.zip
   #tar压缩/解压缩
   tar -zcvf xxx.tar.gz xxx/
   tar -zxvf xxx.tar.gz
   ```
-  
-  
