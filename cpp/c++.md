@@ -110,6 +110,26 @@ cpp(C++) --- stl(标准库)
   
   > nullptr在函数重载和模板上更安全、方便
   
+* new和delete
+
+  * new表达式原理，分三步
+
+    * 调用`operator new`或者`operator new[]`的标准库函数，分配原始内存
+    * 调用构造函数构造对象
+    * 返回指针
+
+  * delete表达式原理，分两步
+
+    * 调用析构函数析构对象
+    * 调用`operator delete`或者`operator delete[]`释放内存
+
+    > `operator new/new[]/delete/delete[]`的8种形式是可以重新自定义的(函数调用形式不能改变，new除外)，可以定义在全局空间，也可以定义在类空间(默认static)。如果给`operator new`提供额外的参数，则在调用时必须使用**定位new**。所谓的重载new/delete实质上，只是重载`operator new/delete`，即分配内存的方式。我们无法改变new运算符分配内存再构造的对象的过程，delete运算符同理。
+
+  * 定位new表达式两种作用
+
+    * 当只传递一个指针时，调用第9种形式`operator new(size_t, void*)`(不分配空间)，在指针指向的空间(可以不是动态内存)分配对象。
+    * 传递额外参数时，调用自定义的提供额外参数的`operator new`
+
 * inline
 
   * inline放在函数声明/定义返回类型之前，将函数声明为内联函数，类成员函数也可以inline，而且类内定义的成员函数默认内联。
