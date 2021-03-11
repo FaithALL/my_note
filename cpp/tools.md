@@ -99,6 +99,15 @@
   continue                  # 一直运行到断点位置
   set var = {expression}    # 变量赋值
   ```
+  
+  >linux下调试错误
+  >
+  >```shell
+  >ulimit -c unlimited		#设置可以生成core文件
+  >gcc -g test.c			#编译时加-g选项
+  >gdb ./a.out ./core		#开启调试
+  >where					#gdb中查询位置
+  >```
 
 ## 运行(run)
 
