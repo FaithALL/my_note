@@ -71,3 +71,15 @@ sudo snap get core proxy
   * ctrl + c：强行终止进程，发送SIGINT信号
   * ctrl + z：挂起进程，发送SIGSTOP信号(可用bg使其在后台运行，使用fg转入前台运行)
   * ctrl + d：一个特殊的二进制值，表示EOF，不发送信号(但进程接收后一般是选择终止运行)
+  
+* 文件描述符的限制
+
+  ```shell
+  #用户级文件描述符限制查看
+  ulimit -Hn	#硬限制
+  ulimit -Sn	#软限制
+  #文件描述符限制修改
+  具体在文件/etc/security/limits.conf中修改
+  ```
+
+  
