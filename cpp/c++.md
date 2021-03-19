@@ -325,6 +325,16 @@ cpp(C++) --- stl(标准库)
     * `__TIME__`存放文件编译时间的字符串字面值
     * `__DATE__`存放文件编译日期的字符串字面值
   
+* 枚举类型：枚举成员在编译器确定
+
+  ```c++
+  //限定作用域(C++11)，成员不转变整型
+  enum class open_modes {input, output, append};
+  //不限定作用域：命名和匿名，成员自动转为整型
+  enum color {red, yellow, green};
+  enum {red, yellow, green};
+  ```
+
 * this
 
   * 成员函数通过名为this的隐式参数来访问调用它的那个对象
