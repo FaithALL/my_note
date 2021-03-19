@@ -49,8 +49,15 @@
   
   #权限
   chmod ugo+-r/w/x {fn}		#更改user/group/other读写执行权限
-  ```
   
+  #[解]压缩
+  zip xxx.zip xxx/			#zip压缩
+  unzip xxx.zip				#zip解压缩
+  tar -zcvf xxx.tar.gz xxx/	#tar压缩
+  tar -zxvf xxx.tar.gz		#tar解压缩
+  
+  ```
+
   > `grep`正则表达式：
   >
   > * 行首`^`、行尾`$`
@@ -91,11 +98,4 @@
   do
   	...
   done
-  
-  #zip压缩/解压缩
-  zip xxx.zip xxx/
-  unzip xxx.zip
-  #tar压缩/解压缩
-  tar -zcvf xxx.tar.gz xxx/
-  tar -zxvf xxx.tar.gz
   ```
