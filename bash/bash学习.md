@@ -46,6 +46,7 @@
   head {fn} -n x				#查看文件头x行
   tail {fn} -n x				#查看文件尾x行
   less {fn}					#查看文件少量内容
+  find -name filename 2>/dev/null	#查找文件(过滤无权限提示)
   
   #权限
   chmod ugo+-r/w/x {fn}		#更改user/group/other读写执行权限
