@@ -39,6 +39,15 @@
   
   #网络
   dig {domain}				#获取域名dns信息
+  tcpdump	-i lo				#指定网卡为lo(本地回环)
+  tcpdump -ni lo				#不解析主机名和端口名(用ip和端口号)
+  #指定主机		  host {ip}	
+  #指定源主机		 src host {ip}
+  #指定目的主机		dst host {ip}
+  #指定端口		  port {number}
+  #指定抓包数		 -c {number}
+  #显示16进制格式	-X
+  #显示时间戳		 -t
   
   #文件
   grep {pat} {fn}             #在文件中查找出现过 pat 的内容
