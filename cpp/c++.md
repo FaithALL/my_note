@@ -85,6 +85,12 @@ cpp(C++) --- stl(标准库)
   * [类的静态属性](https://zh.cppreference.com/w/cpp/language/static)：全局数据区，类内是声明，类外定义时初始化(不要static)
   * [类的静态方法](https://zh.cppreference.com/w/cpp/language/static)：无this指针，类外定义不要static
 
+* [struct内存对齐](https://levphy.github.io/2017/03/23/memory-alignment.html)
+
+  * 结构体各个成员的偏移量必须是其大小的整数倍(第一个成员偏移量是0)
+  * 结构体大小必须是最大成员大小的整数倍
+  * `#pragma pack(n)`可指定结构体成员n字节一对齐，不再考虑前两条规则
+
 * 指针和引用
 
   * 指针变量是对象，它存储的是地址值(和机器字长位数一样)，引用是某个对象的别名
