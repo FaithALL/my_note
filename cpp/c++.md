@@ -380,11 +380,11 @@ cpp(C++) --- stl(标准库)
 
     * 类声明中的类名后加final，阻止该类被继承
 
-    | 成员访问\继承方式 | public | protected | private |
-    | ----------------- | ------ | --------- | ------- |
-    | public            |        |           |         |
-    | protected         |        |           |         |
-    | private           |        |           |         |
+    | 成员访问\继承方式 | public    | protected | private |
+    | ----------------- | --------- | --------- | ------- |
+    | public            | public    | protected | 不可见  |
+    | protected         | protected | protected | 不可见  |
+    | private           | private   | private   | 不可见  |
 
   * 虚函数：任何构造函数之外的非静态成员函数，在**类内部声明前**加virtual。
 
