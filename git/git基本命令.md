@@ -78,6 +78,11 @@
 
   ```shell
   #commit可以是HEAD(当前版本)、HEAD^(上一版本)、HEAD^^(上一版本)、HEAD~n(上n个版本)、#commit id
+  #撤销commit，不撤销add，不删除工作区改动
+  git reset --soft <commit>
+  #撤销commit，撤销add，不删除工作区改动
+  git reset --mixed <commit>
+  #撤销commit，撤销add，删除工作区改动
   git reset --hard <commit>
   ```
 
