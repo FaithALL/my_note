@@ -58,7 +58,7 @@
 * 网络
 
   * 应用层
-    * [https通信过程](https://blog.csdn.net/weixin_44233929/article/details/105850317)：非对称加密传输对称加密的密钥，对称密钥加密数据(不用非对称主要是效率)
+    * [https通信过程](https://blog.csdn.net/weixin_44233929/article/details/105850317)：非对称加密传输对称加密的密钥，对称密钥加密数据(不用非对称主要是效率)。[参考](https://zhuanlan.zhihu.com/p/36981565)
       * 客户端向服务端443端口发起http请求
       * 服务端发送证书、公钥
       * 客户端验证证书合法性
