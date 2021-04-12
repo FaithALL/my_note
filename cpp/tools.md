@@ -98,6 +98,9 @@
   step                      # 单步进入，碰到函数会进去
   continue                  # 一直运行到断点位置
   set var = {expression}    # 变量赋值
+  set follow-fork-mode mode # 在fork后执行父进程或子进程，mode可选parent、child
+  info threads              # 显示可调试的所有线程
+  thread id                 # 调试目标id指定的线程
   ```
   
   >linux下调试错误
