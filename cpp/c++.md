@@ -116,7 +116,7 @@ cpp(C++) --- stl(标准库)
   * NULL是头文件cstdlib的预处理变量，为0
   * nullptr是c++11新增关键字，使用起来更方便，推荐使用
   
-  > nullptr在函数重载和模板上更安全、方便
+  > nullptr在重载函数的匹配和模板实例化上更合适(因为NULL被识别成整型，而非指针)
   
 * new和delete
 
