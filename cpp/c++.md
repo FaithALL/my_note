@@ -437,8 +437,22 @@ _语言基础部分_
 
   * RTTI：运行时类型识别
 
-    * dynamic_cast：
-    * typeid：返回type_info或其公有派生类的常量对象的引用，该对象可表征表达式的类型，支持==、!=、name等操作。仅当typeid作用的对象，返回该指针的静态编译时类型。
+    * dynamic_cast：在公有继承基类、派生类和同类间进行转换
+    
+      ```c++
+      //e的类型必须是type的公有派生类、公有基类或者就是type才可以转换成功
+      dynamic_cast<type*>(e);		//e是一个有效的指针，失败返回空指针
+      dynamic_cast<type&>(e);		//e是一个左值，失败抛出异常bad_cast
+      dynamic_cast<type&&>(e);	//e不为左值
+      ```
+    
+    * typeid：返回常量对象的引用，该对象的类型是type_info或者type_info的公有派生类，可表征表达式的类型。
+    
+      * type_info支持==、!=、name等操作。
+      * typeid作用于数组或函数时，返回数组或函数类型，而非指针类型。
+      * 仅当typeid作用于指针，返回该指针的静态编译时类型，而非其指向对象的类型。
+    
+    * 典型应用是具有继承关系的类，`==`运算符的实现
   
 
 ### template
