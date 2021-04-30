@@ -1,4 +1,4 @@
-[toc]
+# C++
 
 ```mermaid
 graph LR
@@ -13,7 +13,16 @@ cpp(C++) --- stl(标准库)
 >
 > C++编程风格：面向过程(Process-oriented)、面向对象(Object-oriented)、基于对象、泛型(Generic)...
 
-## c++纵览
+## 目录
+
+* [basic](#basic)
+* [class](#class)
+* [template](#template)
+* [底层与实现](#底层与实现)
+
+### basic
+
+_语言基础部分_
 
 * main函数
 
@@ -114,12 +123,6 @@ cpp(C++) --- stl(标准库)
   * 静态(私有)函数：只在本文件内可见
   * [类的静态属性](https://zh.cppreference.com/w/cpp/language/static)：全局数据区，类内是声明，类外定义时初始化(不要static)
   * [类的静态方法](https://zh.cppreference.com/w/cpp/language/static)：无this指针，类外定义不要static
-
-* [struct内存对齐](https://levphy.github.io/2017/03/23/memory-alignment.html)
-
-  * 结构体各个成员的偏移量必须是其大小的整数倍(第一个成员偏移量是0)
-  * 结构体大小必须是最大成员大小的整数倍
-  * `#pragma pack(n)`可指定结构体成员n字节一对齐，不再考虑前两条规则
 
 * 指针和引用
 
@@ -268,16 +271,6 @@ cpp(C++) --- stl(标准库)
   * const_cast：改变对象的底层const，去除const不是为了修改，而是适应已有的接口
   * reinterpret_cast：为运算对象在位模式层次重新提供解释
 
-* 类类型转换
-
-  * 能通过一个实参调用的构造函数定义了一条从构造函数的参数向类类型隐式转换的规则，这种构造函数也称为转换构造函数(converting constructor)。
-  * 类型转换运算符：
-    * `operator type() const;`
-    * 类成员函数，无返回类型，行参列表为空，type必须能作为函数返回类型，const
-  * explicit的作用，只能在类内使用
-    * 禁止转换构造函数的隐式转换，只能使用直接初始化
-    * 禁止类型转换运算符非条件的隐式转换，一般是`operator bool() const`
-
 * 异常
 
   * try-catch配对使用，如果try没有匹配的catch，程序将沿着与函数调用链相反的方向搜寻，找不到则转到terminate库函数
@@ -333,6 +326,15 @@ cpp(C++) --- stl(标准库)
     
     decltype(arr)* func(int i);				decltype(func)* functoin(int i);
     ```
+
+* [C99柔性数组](https://www.jianshu.com/p/9a67c7af9de4)：在一个结构体的最后，申明一个长度为空的数组，就可以使得这个结构体是可变长的。
+
+  * 包含柔性数组的结构体或联合体不能作为一个结构体的成员或数组的元素
+  * 柔性数组本身不占空间，只代表了一个不可修改的地址偏移
+  * 包含柔性数组的结构体应该使用malloc进行内存分配
+  * 尽管部分C++编译器有该扩展，但并不是C++语言标准
+
+### class
 
 * 枚举类型：枚举成员在编译器确定
 
@@ -397,7 +399,17 @@ cpp(C++) --- stl(标准库)
     * 递增/递减运算符`++/--`：前置无参返回引用，后置int参数返回值
     * 成员访问运算符`*/->`：`point->mem`相当于`内置类型：(*point).mem、类类型：point.operator()->mem`，*运算符返回引用
     * 成员调用运算符`()`：可定义不同参数
-    * 类型转换运算符：无返回类型、无形参、const
+    * 类型转换运算符：见“类类型转换”
+
+* 类类型转换
+
+  * 能通过一个实参调用的构造函数定义了一条从构造函数的参数向类类型隐式转换的规则，这种构造函数也称为转换构造函数(converting constructor)。
+  * 类型转换运算符：
+    * `operator type() const;`
+    * 类成员函数，无返回类型，行参列表为空，type必须能作为函数返回类型，const
+  * explicit的作用，只能在类内使用
+    * 禁止转换构造函数的隐式转换，只能使用直接初始化
+    * 禁止类型转换运算符非条件的隐式转换，一般是`operator bool() const`
 
 * OOP：面向对象程序设计
 
@@ -423,153 +435,163 @@ cpp(C++) --- stl(标准库)
 
   * 抽象类：含有纯虚函数的类，不能实例化。
 
-  * 多态实现机制：每一个含有虚函数的类及其派生类都有一个**虚表(vtbl)**，虚表保存着该类所有虚函数的指针。同时该类对象都有一个指向虚表的指针，称为**虚表指针(vptr)**。当用派生类对象初始化/赋值基类对象时，基类对象的vptr不会发生改变。但使用指针或引用时，仅仅是对派生类对象进行重新解释。
-
-    ```c++
-    //Base含有虚函数
-    class Derived : public Base {...};
-    Derived p;
-    Base b = p;    //b的vptr依旧指向Base的vtbl，不表现多态
-    Base *b1 = &p; //b1是对p地址的重新解释，*b1的vptr与p的vptr相同
-    //引用同理
-    ```
-
   * RTTI：运行时类型识别
 
-  * dynamic_cast：主要用于将基类的指针或引用安全的转换为派生类的指针或引用
+    * dynamic_cast：
+    * typeid：返回type_info或其公有派生类的常量对象的引用，该对象可表征表达式的类型，支持==、!=、name等操作。仅当typeid作用的对象，返回该指针的静态编译时类型。
+  
 
-    * typeid：返回type_info或其公有派生类的常量对象的引用，type_info支持==、!=、name等操作
+### template
 
-* 模板：包括函数模板和类模板。
+_包括函数模板和类模板。_
 
-  * 只有用到才实例化。
+* 只有用到才实例化。
 
-  * 模板声明必须以`template<typename ......>`开头
+* 模板声明必须以`template<typename ......>`开头
 
-  * 类型模板参数、非类型模板参数
+* 类型模板参数、非类型模板参数
+
+  ```c++
+  //类型模板参数，T表示一个类型
+  template <typename T>
+  void func(const T& parm) {......}
+  //非类型模板参数，N表示一个值
+  //非类型模板参数可以是整型/指向对象或函数的指针或左值引用
+  //绑定到非类型整型参数的实参必须是一个常量表达式
+  //绑定到指针或引用非类型参数的实参必须是static，指针也可用nullptr或0
+  template <unsigned N>
+  void func(const char (&p)[N]) {.....}
+  ```
+
+* 默认模板参数
+
+  ```c++
+  //默认实参
+  template <typenamte T = int>
+  class number{};
+  number<> test; //类模板使用默认实参
+  ```
+  
+* 表明模板参数是类型
+
+  ```c++
+  //通过::运算符访问的名字默认不是类型，要表明是类型，加typename关键字
+  template <typename T>
+  typename T::value_type top(const T& t) {
+      //显示调用T类型中的value_type类型的默认构造函数
+      return typename T::value_type();
+  }
+  ```
+
+* 函数模板
+
+  * 可以在调用函数模板时显式指定模板实参。
+  
+  * 成员模板：类(普通类/模板类)的成员函数是模板。类模板的成员模板与类模板独立。成员模板不能是虚函数。
+  
+  * 模板实参推断：从函数实参确定模板实参的过程
+  
+    * 模板参数能自动转换的只有const转换及数组或函数到指针(引用不行)的转换。
+  
+    * 用函数模板名初始化/赋值一个函数指针时，用函数指针的类型推断函数模板实参。
+  
+    * 万能引用：模板参数右值引用可以绑定到左值或右值
+  
+      ```cpp
+      //右值引用绑定到左值，模板参数被推断为左值引用
+      //绑定到右值时，模板参数被推断为原类型
+      //X& &、X& &&、X&& & 被折叠成X&
+      //X&& &&折叠成X&&
+      template <typename T> void func(T&&);
+      int x = 0;
+      func(x);  //T被推断为int&，根据引用折叠，此func的形参为int&
+      func(1);  //T被推断为int
+      ```
+  
+* 类模板
+
+  * 定义在类模板之外的成员函数，static属性，必须以`template <......>`开头
+
+  * 在类作用域内，可以使用模板名而不提供实参
+
+  * 友元
 
     ```c++
-    //类型模板参数，T表示一个类型
+    //模板与友元
+    //需要友元的前置声明
     template <typename T>
-    void func(const T& parm) {......}
-    //非类型模板参数，N表示一个值
-    //非类型模板参数可以是整型/指向对象或函数的指针或左值引用
-    //绑定到非类型整型参数的实参必须是一个常量表达式
-    //绑定到指针或引用非类型参数的实参必须是static，指针也可用nullptr或0
-    template <unsigned N>
-    void func(const char (&p)[N]) {.....}
-    ```
-
-  * 默认模板参数
-
-    ```c++
-    //默认实参
-    template <typenamte T = int>
-    class number{};
-    number<> test; //类模板使用默认实参
-    ```
-    
-  * 表明模板参数是类型
-
-    ```c++
-    //通过::运算符访问的名字默认不是类型，要表明是类型，加typename关键字
-    template <typename T>
-    typename T::value_type top(const T& t) {
-        //显示调用T类型中的value_type类型的默认构造函数
-        return typename T::value_type();
+    class test {
+        //一对一
+        friend class test_help<T>;
+        //多对一
+        friend class help;
+        //多对多
+        template <typename X> friend class test_help2;
+        //模板类型对自己
+        friend T;
+        //类似还有一对多(具体对模板)
+        .....
     }
     ```
-
-  * 函数模板
-
-    * 可以在调用函数模板时显式指定模板实参。
     
-    * 成员模板：类(普通类/模板类)的成员函数是模板。类模板的成员模板与类模板独立。成员模板不能是虚函数。
-    
-    * 模板实参推断：从函数实参确定模板实参的过程
-    
-      * 模板参数能自动转换的只有const转换及数组或函数到指针(引用不行)的转换。
-    
-      * 用函数模板名初始化/赋值一个函数指针时，用函数指针的类型推断函数模板实参。
-    
-      * 万能引用：模板参数右值引用可以绑定到左值或右值
-    
-        ```cpp
-        //右值引用绑定到左值，模板参数被推断为左值引用
-        //绑定到右值时，模板参数被推断为原类型
-        //X& &、X& &&、X&& & 被折叠成X&
-        //X&& &&折叠成X&&
-        template <typename T> void func(T&&);
-        int x = 0;
-        func(x);  //T被推断为int&，根据引用折叠，此func的形参为int&
-        func(1);  //T被推断为int
-        ```
-    
-  * 类模板
-
-    * 定义在类模板之外的成员函数，static属性，必须以`template <......>`开头
-
-    * 在类作用域内，可以使用模板名而不提供实参
-
-    * 友元
-
-      ```c++
-      //模板与友元
-      //需要友元的前置声明
-      template <typename T>
-      class test {
-          //一对一
-          friend class test_help<T>;
-          //多对一
-          friend class help;
-          //多对多
-          template <typename X> friend class test_help2;
-          //模板类型对自己
-          friend T;
-          //类似还有一对多(具体对模板)
-          .....
-      }
-      ```
-      
-    * 类模板的类型别名
-
-      ```c++
-      //模板类型别名，typedef不可
-      template <typename T> using twin = pair<T, T>;
-      twin<string> test;   //等价于pair<string, string> test;
-      template <typename T> using twin = pair<T, int>; //指定类型
-      ```
-
-    * 显式实例化：减少多个文件中实例化相同模板的开销
-
-      ```c++
-      //实例化定义会实例化所有成员(方法、属性)。
-      //类似全局变量的用法
-      extern template declaration; 	//实例化声明
-      template declaration;			//实例化定义
-      ```
-
-  * 可变参数模板：可变数目的参数称为模板包，分为模板参数包、函数参数包。
+  * 类模板的类型别名
 
     ```c++
-    //Args为模板参数包，表示0-*个类型
-    //rest为函数参数包，表示0-*个函数参数
-    //sizeof...获取参数包中元素的数目
-    template <typename T, typename... Args>
-    void print(const T& t, const Args& ... rest) {
-        cout << sizeof...(Args) << endl;
-        cout << sizeof...(rest) << endl;
-    }
-    //理解包扩展rest...
+    //模板类型别名，typedef不可
+    template <typename T> using twin = pair<T, T>;
+    twin<string> test;   //等价于pair<string, string> test;
+    template <typename T> using twin = pair<T, int>; //指定类型
     ```
 
-  * 模板特例化
+  * 显式实例化：减少多个文件中实例化相同模板的开销
 
-    * 特例化以`template <>`开头
-    * 全特例化
-    * 部分特例化(仅限类模板)
+    ```c++
+    //实例化定义会实例化所有成员(方法、属性)。
+    //类似全局变量的用法
+    extern template declaration; 	//实例化声明
+    template declaration;			//实例化定义
+    ```
 
->* [C99柔性数组](https://www.jianshu.com/p/9a67c7af9de4)：在一个结构体的最后，申明一个长度为空的数组，就可以使得这个结构体是可变长的。
->    * 包含柔性数组的结构体或联合体不能作为一个结构体的成员或数组的元素
->    * 柔性数组本身不占空间，只代表了一个不可修改的地址偏移
->    * 包含柔性数组的结构体应该使用malloc进行内存分配
+* 可变参数模板：可变数目的参数称为模板包，分为模板参数包、函数参数包。
+
+  ```c++
+  //Args为模板参数包，表示0-*个类型
+  //rest为函数参数包，表示0-*个函数参数
+  //sizeof...获取参数包中元素的数目
+  template <typename T, typename... Args>
+  void print(const T& t, const Args& ... rest) {
+      cout << sizeof...(Args) << endl;
+      cout << sizeof...(rest) << endl;
+  }
+  //理解包扩展rest...
+  ```
+
+* 模板特例化
+
+  * 特例化以`template <>`开头
+  * 全特例化
+  * 部分特例化(仅限类模板)
+
+### 底层与实现
+
+_与平台相关，非语言标准_
+
+* 内存对齐：基本数据类型的起始地址必须是K的倍数，K一般是该数据字节数
+
+  * 好处：简化处理器和内存系统之间接口的硬件设计，提高内存系统性能
+  * [struct内存对齐](https://levphy.github.io/2017/03/23/memory-alignment.html)
+    * 结构体各个成员的偏移量必须是其大小的整数倍(第一个成员偏移量是0)
+    * 结构体大小必须是最大成员大小的整数倍
+    * `#pragma pack(n)`可指定结构体成员n字节一对齐，不再考虑前两条规则
+
+* 多态实现机制：每一个直接或间接含有虚函数的类都有一个**虚函数表(vtbl)**，虚函数表保存着该类所有虚函数的指针。同时该类对象都有一个指向虚函数表的指针，称为**虚表指针(vptr)**。当用派生类对象初始化/赋值基类对象时，基类对象的虚表指针不会发生改变。但使用指针或引用时，会对指针或引用进行重新解释。
+
+  ```c++
+  //Base含有虚函数
+  class Derived : public Base {...};
+  Derived p;
+  Base b = p;    //b的vptr依旧指向Base的vtbl，不表现多态
+  Base *b1 = &p; //b1是对p地址的重新解释，*b1的vptr与p的vptr相同
+  //引用同理
+  ```
+
