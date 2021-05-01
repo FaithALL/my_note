@@ -266,10 +266,10 @@ _语言基础部分_
 
 * 强制类型转换：一般应该避免使用，尤其是reinterpret_cast
 
-  * static_cast：不包含const的明确定义的类型转换都可以使用，可以将左值转化为右值引用
-  * dynamic_cast：运行时转换，在公有继承树上强制转换指针或引用，会进行安全检查
-  * const_cast：改变对象的底层const，去除const不是为了修改，而是适应已有的接口
-  * reinterpret_cast：为运算对象在位模式层次重新提供解释
+  * static_cast：适用于任何具有明确定义，且不改变底层const的类型转换。在编译时转换，不做运行时检查。
+  * dynamic_cast：在继承层次中向上、向下或者横向转换**指针或引用**，会进行安全检查
+  * const_cast：适用于改变底层const(一般是去除)的类型转换。去除const是为了适应已有的接口
+  * reinterpret_cast：按转成的类型，在位模式上重新解释对象
 
 * 异常
 
@@ -437,13 +437,14 @@ _语言基础部分_
 
   * RTTI：运行时类型识别
 
-    * dynamic_cast：在公有继承基类、派生类和同类间进行转换
+    * dynamic_cast：在公有继承基类、派生类和同类间进行转换，进行安全检查
     
       ```c++
+      //主要用于将指向派生类对象的基类指针或引用转换为派生类的指针或引用
       //e的类型必须是type的公有派生类、公有基类或者就是type才可以转换成功
+      //可以对空指针进行dynamic_cast，结果是所需类型的空指针
       dynamic_cast<type*>(e);		//e是一个有效的指针，失败返回空指针
       dynamic_cast<type&>(e);		//e是一个左值，失败抛出异常bad_cast
-      dynamic_cast<type&&>(e);	//e不为左值
       ```
     
     * typeid：返回常量对象的引用，该对象的类型是type_info或者type_info的公有派生类，可表征表达式的类型。
