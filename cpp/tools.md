@@ -44,6 +44,8 @@
     * -I指定目录
     * gcc的环境变量`CPLUS_INCLUDE_PATH`
     * 编译器内定路径`/usr/include`、`/usr/local/include`、`/usr/lib/gcc/x...`
+  
+* 反汇编`objdump -d`
 
 ## 链接(link)
 
