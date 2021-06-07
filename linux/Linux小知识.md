@@ -19,15 +19,51 @@
   sudo passwd 用户名
   ```
 
-* apt命令
+* 安装软件相关
 
-  | 命令             | 功能                     |
-  | ---------------- | ------------------------ |
-  | apt purge        | 删除软件包及配置文件     |
-  | apt search       | 搜索应用程序             |
-  | apt show         | 显示细节                 |
-  | apt edit-sources | 编辑源列表               |
-  | apt remove       | 删除软件包，保留配置文件 |
+  * apt命令，apt源修改文件(/etc/apt/sources.list 和 /etc/apt/sources.list.d)
+
+    | 命令             | 功能                     |
+    | ---------------- | ------------------------ |
+    | apt purge        | 删除软件包及配置文件     |
+    | apt search       | 搜索应用程序             |
+    | apt show         | 显示细节                 |
+    | apt edit-sources | 编辑源列表               |
+    | apt remove       | 删除软件包，保留配置文件 |
+
+  * [apt设置代理](https://zhuanlan.zhihu.com/p/44056084)
+
+    ```shell
+    #sudo后貌似不走全局代理
+    #为某次使用设置代理
+    #设置http
+    sudo apt-get -o Acquire::http::proxy="http://<proxy_addr>:<proxy_port>" upgrade
+    #设置https
+    sudo apt-get -o Acquire::https::proxy="http://<proxy_addr>:<proxy_port>" upgrade
+    #也同时设置http和https
+    ```
+
+  * [软件包架构](https://linux.cn/article-2935-1.html)
+
+    ```shell
+    #查看内核架构(amd64)
+    dpkg --print-architecture
+    #查看多架构支持(i386)
+    dpkg --print-foreign-architectures
+    #增加多架构支持(i386)
+    sudo dpkg --add-architecture i386
+    #移除多架构支持(i386)
+    sudo dpkg --remove-architecture i386
+    ```
+
+  * [snap设置代理](https://askubuntu.com/questions/764610/how-to-install-snap-packages-behind-web-proxy-on-ubuntu-16-04/1084862#1084862)
+
+    ```shell
+    sudo snap set system proxy.http="http://<proxy_addr>:<proxy_port>"
+    sudo snap set system proxy.https="http://<proxy_addr>:<proxy_port>"
+    #查看代理
+    sudo snap get core proxy
+    ```
 
 * zip解压缩乱码解决
 
@@ -43,27 +79,6 @@
   ps -Ao stat,ppid,pid,cmd | grep -e '^[zZ]'
   #重新加载父进程
   kill -HUP ppid
-  ```
-
-* [snap设置代理](https://askubuntu.com/questions/764610/how-to-install-snap-packages-behind-web-proxy-on-ubuntu-16-04/1084862#1084862)
-
-  ```shell
-  sudo snap set system proxy.http="http://<proxy_addr>:<proxy_port>"
-  sudo snap set system proxy.https="http://<proxy_addr>:<proxy_port>"
-  #查看代理
-sudo snap get core proxy
-  ```
-  
-* [apt设置代理](https://zhuanlan.zhihu.com/p/44056084)
-
-  ```shell
-  #sudo后貌似不走全局代理
-  #为某次使用设置代理
-  #设置http
-  sudo apt-get -o Acquire::http::proxy="http://<proxy_addr>:<proxy_port>" upgrade
-  #设置https
-  sudo apt-get -o Acquire::https::proxy="http://<proxy_addr>:<proxy_port>" upgrade
-  #也同时设置http和https
   ```
 
 * ctrl+c、ctrl+z、ctrl+d
