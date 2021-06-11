@@ -8,6 +8,13 @@
 
   想办法连接上网后，使用`附加驱动`安装wifi驱动
 
+* [禁用蓝牙开机自启](https://askubuntu.com/questions/67758/how-can-i-deactivate-bluetooth-on-system-startup)(需要安装tlp)
+
+  ```shell
+  # 编辑/etc/tlp.conf
+  DEVICES_TO_DISABLE_ON_STARTUP="bluetooth"
+  ```
+
 * 拨号上网
 
 ```shell
@@ -227,7 +234,7 @@ sudo apt-get install typora
   #卸载命令
   sudo vmware-installer -u vmware-workstation
   #禁用开机自启服务
-sudo update-rc.d vmware disable
+  sudo update-rc.d vmware disable
   sudo update-rc.d vmware-USBArbitrator disable
   sudo update-rc.d vmware-workstation-server disable
   #手动开启vmware服务
@@ -258,7 +265,7 @@ sudo update-rc.d vmware disable
   ```shell
   sudo apt install postgresql
   #设置postgres用户密码
-sudo -u postgres psql
+  sudo -u postgres psql
   psql
   \password
   输入新密码
