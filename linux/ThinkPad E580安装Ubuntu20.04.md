@@ -199,6 +199,14 @@ sudo apt-get install typora
   sudo apt install cppreference-doc-en-html 
   ```
 
+* zsh
+
+  ```shell
+  sudo apt install zsh
+  #更改默认shell
+  chsh -s /bin/zsh
+  ```
+
 * tmux
 
   ```shell
