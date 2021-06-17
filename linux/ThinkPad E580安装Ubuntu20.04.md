@@ -305,4 +305,13 @@ sudo apt-get install typora
   #查看镜像源
   npm config get registry
   ```
+  
+* [docker](https://www.cnblogs.com/yahuian/p/13888668.html)
 
+  ```shell
+  sudo apt install docker.io
+  #更改源
+  #修改/etc/docker/daemon.json
+  ```
+
+  
