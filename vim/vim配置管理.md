@@ -75,11 +75,11 @@ Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}
     ```shell
     cd ~/.vim/plugged/youcompleteme/
     git submodule update --init --recursive
-    python3 install.py --clangd-completer
+    #c-family 和 go
+    python3 install.py --clangd-completer --go-completer 
     ```
-
+    
     | 选项              | 快捷键        |
     | ----------------- | ------------- |
     | 向前/向后浏览选项 | Tab/Shift Tab |
-
 

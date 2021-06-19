@@ -39,9 +39,8 @@ map <C-i> :below terminal ++rows=8<CR>
 call plug#begin('~/.vim/plugged')			                    "vim-plug插件管理
     Plug 'dracula/vim',{'as': 'dracula' }			            "主题
     Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}	"语法高亮
-    Plug 'valloric/youcompleteme',{'for':['c','cpp','python']}	"自动补全
+    Plug 'valloric/youcompleteme',{'for':['c','cpp','python','go']}	"自动补全
     Plug 'Raimondi/delimitMate'	        						"括号补全
-"    Plug 'skywind3000/vim-terminal-help'
 call plug#end()
 
 
@@ -55,17 +54,14 @@ let g:cpp_class_scope_highlight = 1     "高亮显示::之前的类名
 
 
 "======================自动补全插件=========================
-"根据不同的文件类型加载默认配置文件
-autocmd FileType cpp 
-    \ let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf/cpp/.ycm_extra_conf.py'
-autocmd FileType c 
-    \ let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf/c/.ycm_extra_conf.py'
+"c/c++语言配置文件
+let g:ycm_global_ycm_extra_conf='.vim/.ycm_extra_conf.py'
 
 "使用自定义.ycm_extra_conf.py时不询问
 let g:ycm_confirm_extra_conf=0
 "两个字母就触发语义补全
 let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python': ['re!\w{2}'],
+			\ 'c,cpp,python,go': ['re!\w{2}'],
 			\ }
 "候选补全区的颜色
 highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
@@ -80,6 +76,7 @@ let g:ycm_filetype_whitelist={
             \"c":1,
             \"cpp":1,
             \"python":1,
+            \"go":1,
             \}
 "屏蔽YCM的诊断信息
 "let g:ycm_show_diagnostics_ui = 0
