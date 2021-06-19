@@ -39,9 +39,8 @@ map <C-i> :below terminal ++rows=8<CR>
 call plug#begin('~/.vim/plugged')			                    "vim-plug插件管理
     Plug 'dracula/vim',{'as': 'dracula' }			            "主题
     Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}	"语法高亮
-    Plug 'valloric/youcompleteme',{'for':['c','cpp','python']}	"自动补全
+    Plug 'valloric/youcompleteme',{'for':['c','cpp','python','go']}	"自动补全
     Plug 'Raimondi/delimitMate'	        						"括号补全
-"    Plug 'skywind3000/vim-terminal-help'
 call plug#end()
 
 
@@ -65,7 +64,7 @@ autocmd FileType c
 let g:ycm_confirm_extra_conf=0
 "两个字母就触发语义补全
 let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python': ['re!\w{2}'],
+			\ 'c,cpp,python,go': ['re!\w{2}'],
 			\ }
 "候选补全区的颜色
 highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
@@ -80,6 +79,7 @@ let g:ycm_filetype_whitelist={
             \"c":1,
             \"cpp":1,
             \"python":1,
+            \"go":1,
             \}
 "屏蔽YCM的诊断信息
 "let g:ycm_show_diagnostics_ui = 0
