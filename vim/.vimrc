@@ -54,11 +54,8 @@ let g:cpp_class_scope_highlight = 1     "高亮显示::之前的类名
 
 
 "======================自动补全插件=========================
-"根据不同的文件类型加载默认配置文件
-autocmd FileType cpp 
-    \ let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf/cpp/.ycm_extra_conf.py'
-autocmd FileType c 
-    \ let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf/c/.ycm_extra_conf.py'
+"c/c++语言配置文件
+let g:ycm_global_ycm_extra_conf='.vim/.ycm_extra_conf.py'
 
 "使用自定义.ycm_extra_conf.py时不询问
 let g:ycm_confirm_extra_conf=0
