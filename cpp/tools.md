@@ -140,6 +140,12 @@
 
 * valgrind
 
+  ```shell
+  #最好使用-O0和-g编译选项
+  #经典用法，检测内存问题
+  valgrind --tool=memcheck ./application
+  ```
+
 * google test
 
   ```shell
@@ -153,3 +159,4 @@
   ```
 
   
+
