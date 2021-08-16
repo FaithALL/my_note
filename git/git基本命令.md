@@ -69,7 +69,7 @@
 * 显示所有分支的所有操作(包括被删除的commit)
 
   ```shell
-  git relog
+  git reflog
   ```
 
 ### 撤销(undo)
@@ -151,8 +151,12 @@ master是主分支，dev是开发分支，feature分支是具体功能开发分�
 * Rebase
 
   ```shell
-  #将原本分叉的提交变成直线
-  git rebase
+  #合并多个commit
+  git rebase -i <commit>
+  #变更基准,使提交看起来是一条直线,没有分叉
+  git checkout dev
+  git rebase master
+  #解决冲突后,结果是dev的开发就像是在master最新的提交上进行的
   ```
 
 
@@ -179,7 +183,7 @@ master是主分支，dev是开发分支，feature分支是具体功能开发分�
   ```shell
   #第一次加-u，可以将本地master分支与远程master分支关联起来
   git push -u origin master
-#之后
+  #之后
   git push origin master
   #推送其他分支
   git push origin <branch name>
