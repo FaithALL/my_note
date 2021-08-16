@@ -28,50 +28,57 @@
 
   ```shell
   #SSH配置文件在.ssh/config
-  ssh user@host				#以用户user登录到远程主机host
-  ssh -p {port} user@host		#以指定端口登录
-  ssh-copy-id user@host		#拷贝本机ssh公钥到远程主机，避免重复输入密码
-  scp {fn} user@host:path		#拷贝文件到远程主机
+  ssh user@host                 #以用户user登录到远程主机host
+  ssh -p {port} user@host       #以指定端口登录
+  ssh-copy-id user@host         #拷贝本机ssh公钥到远程主机，避免重复输入密码
+  scp {fn} user@host:path       #拷贝文件到远程主机
   
   #系统信息
-  uname -a					#查看内核版本等信息
-  uptime						#查看系统当前时间、运行时间、负载等信息
-  top							#查看CPU(t)、内存(m)占用
+  uname -a                      #查看内核版本等信息
+  uptime                        #查看系统当前时间、运行时间、负载等信息
+  top                           #查看CPU(t)、内存(m)占用
+  pstack {pid}                  #查看进程的线程数量和线程调用栈
   
   #网络
-  dig {domain}				#获取域名dns信息
-  tcpdump	-i lo				#指定网卡为lo(本地回环)
-  #指定主机		  host {ip}	
-  #指定源主机		 src host {ip}
-  #指定目的主机		dst host {ip}
-  #指定端口		  port {number}
-  #指定抓包数		 -c {number}
-  #显示16进制格式	-X
-  #显示时间戳		 -t
+  telnet {ip} {port}            #socket连接ip::port
+  dig {domain}                  #获取域名dns信息
+  host {domain}                 #获取域名ip
+  tcpdump   -i lo               #指定网卡为lo(本地回环)
+  #指定主机       host {ip} 
+  #指定源主机     src host {ip}
+  #指定目的主机   dst host {ip}
+  #指定端口       port {number}
+  #指定抓包数     -c {number}
+  #显示16进制格式 -X
+  #显示时间戳     -t
   #不解析主机名和端口名 -n
-  netstat -a					#列出所有监听和非监听状态的连接
-  #列出进程进程信息		-p
-  #指定udp\tcp			 -u\-t
-  #不解析主机名和端口名    -n
-  lsof						#list open file
+  netstat -a                    #列出所有监听和非监听状态的连接
+  #列出进程进程信息     -p
+  #指定udp\tcp          -u\-t
+  #不解析主机名和端口名 -n
+  lsof -Pni                 #查看打开的socket,i指定网络相关，P使用端口,n使用ip
+  nc -v {ip} {port}         #模拟客户端连接ip::port
+  nc -v -l {ip} {port}      #模拟服务端监听ip::port
+  #netcat默认以\n为每次消息结束标志，-C选项指定结束标志为\r\n
+  #用>和<来收发文件
   
   #文件
-  grep {pat} {fn}             #在文件中查找出现过 pat 的内容
-  stat {fn}           		#显示文件的详细信息
-  wc {fn}             		#统计文件有多少行，多少个单词
-  head {fn} -n x				#查看文件头x行
-  tail {fn} -n x				#查看文件尾x行
-  less {fn}					#查看文件少量内容
-  find -name filename 2>/dev/null	#查找文件(过滤无权限提示)
+  grep {pat} {fn}           #在文件中查找出现过 pat 的内容
+  stat {fn}                 #显示文件的详细信息
+  wc {fn}                   #统计文件有多少行，多少个单词
+  head {fn} -n x            #查看文件头x行
+  tail {fn} -n x            #查看文件尾x行
+  less {fn}                 #查看文件少量内容
+  find -name filename 2>/dev/null   #查找文件(过滤无权限提示)
   
   #权限
-  chmod ugo+-r/w/x {fn}		#更改user/group/other读写执行权限
+  chmod ugo+-r/w/x {fn}     #更改user/group/other读写执行权限
   
   #[解]压缩
-  zip xxx.zip xxx/			#zip压缩
-  unzip xxx.zip				#zip解压缩
-  tar -zcvf xxx.tar.gz xxx/	#tar压缩
-  tar -zxvf xxx.tar.gz		#tar解压缩
+  zip xxx.zip xxx/          #zip压缩
+  unzip xxx.zip             #zip解压缩
+  tar -zcvf xxx.tar.gz xxx/ #tar压缩
+  tar -zxvf xxx.tar.gz      #tar解压缩
   
   ```
 
@@ -84,10 +91,10 @@
 * [shell语法](https://github.com/skywind3000/awesome-cheatsheets/blob/master/languages/bash.sh)
 
   ```shell
-  {varname}={value}				#变量赋值，不加空格，字符串字面值加不加双引号都可
-  ${varname}						#引用变量的值
-  echo ${varname} "test"			#输出变量/字符串，原封不动输出echo 后的内容
-  {varname}=`expr ${varname1} op ${varname2}`		#运算
+  {varname}={value}                 #变量赋值，不加空格，字符串字面值加不加双引号都可
+  ${varname}                        #引用变量的值
+  echo ${varname} "test"            #输出变量/字符串，原封不动输出echo 后的内容
+  {varname}=`expr ${varname1} op ${varname2}`       #运算
   
   #数字比较符号<、>、=、<=、>=、!=
   #l:less、t:than、g:greater、e:euqual、n:not
@@ -100,19 +107,19 @@
   #if语句
   if [ ... ]
   then
-  	...
+    ...
   else
-  	...
+    ...
   fi
   
   #for循环语句
   for var int range(全写或者{a...b})
   do
-  	...
+    ...
   done
   #while循环语句
   while [ ... ]
   do
-  	...
+    ...
   done
   ```
