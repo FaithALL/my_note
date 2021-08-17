@@ -17,58 +17,58 @@
 
 * 拨号上网
 
-```shell
-#最推荐(图形化配置)
-终端内nm-connection-editor
-+ --> DSL/PPPoE
-修改Parent interface为有线网卡
-设置Username和Password
-保存
-重启
-```
+  ```shell
+  #最推荐(图形化配置)
+  终端内nm-connection-editor
+  + --> DSL/PPPoE
+  修改Parent interface为有线网卡
+  设置Username和Password
+  保存
+  重启
+  ```
 
-```shell
-#推荐使用
-nmcli connection edit type pppoe 
-set pppoe.username XXXXX
-set pppoe.password XXXXXX
-save
-yes
-quit
-#通过右上角连接pppoe
-```
+  ```shell
+  #推荐使用
+  nmcli connection edit type pppoe 
+  set pppoe.username XXXXX
+  set pppoe.password XXXXXX
+  save
+  yes
+  quit
+  #通过右上角连接pppoe
+  ```
 
-```shell
-#拨号上网,右上角图标会出现问题
-sudo pppoeconf
-#将lcp-echo-failure 4 改为 lcp-echo-failure 20 (或者更大，防止断断续续) 
-sudo vim /etc/ppp/options
-```
+  ```shell
+  #拨号上网,右上角图标会出现问题
+  sudo pppoeconf
+  #将lcp-echo-failure 4 改为 lcp-echo-failure 20 (或者更大，防止断断续续) 
+  sudo vim /etc/ppp/options
+  ```
 
 * 热点
 
-```shell
-终端内nm-connection-editor
-+ --> Wi-Fi
-设置SSID(热点名称)、Device(设置为有线网卡)
-Wi-Fi安全性-->Security(WPA及WPA个人)、密码
-常规-->所有用户都可连接这个网络不选
-保存
-重启
-Wi-Fi右上角-->连接到隐藏网络
-```
+  ```shell
+  终端内nm-connection-editor
+  + --> Wi-Fi
+  设置SSID(热点名称)、Device(设置为有线网卡)
+  Wi-Fi安全性-->Security(WPA及WPA个人)、密码
+  常规-->所有用户都可连接这个网络不选
+  保存
+  重启
+  Wi-Fi右上角-->连接到隐藏网络
+  ```
 
 * 换更新源（换阿里云）
 * [gnome扩展](https://www.linuxidc.com/Linux/2017-12/149813.htm)
 
-```shell
-sudo apt install gnome-tweak-tool
-sudo apt install chrome-gnome-shell
-#chrome安装GNOME Shell integration插件
-#搜索dash to dock ---> turn on
-#搜索GSConnect --> turn on
-#搜索IBus Tweaker ---> turn on
-```
+  ```shell
+  sudo apt install gnome-tweak-tool
+  sudo apt install chrome-gnome-shell
+  #chrome安装GNOME Shell integration插件
+  #搜索dash to dock ---> turn on
+  #搜索GSConnect --> turn on
+  #搜索IBus Tweaker ---> turn on
+  ```
 
 * [capslock映射为ctrl](https://www.cnblogs.com/litifeng/p/6667175.html)
 
@@ -83,93 +83,93 @@ sudo apt install chrome-gnome-shell
 
 * [开机动画](https://tianyijian.github.io/2018/04/05/ubuntu-boot-animation/#attention) [动画素材](https://www.gnome-look.org/p/1156215)(暂时弃用)
 
-```shell
-tar zvxf Paw-Ubuntu-Floral.tar.gz 
-cd Paw-Ubuntu-Floral/
-mv paw-ubuntu-floral.plymouth Paw-Ubuntu-Floral.plymouth
+  ```shell
+  tar zvxf Paw-Ubuntu-Floral.tar.gz 
+  cd Paw-Ubuntu-Floral/
+  mv paw-ubuntu-floral.plymouth Paw-Ubuntu-Floral.plymouth
 
-# 将Paw-Ubuntu-Floral.plymouth里/lib改为/usr/share
+  # 将Paw-Ubuntu-Floral.plymouth里/lib改为/usr/share
 
-sudo cp -r Paw-Ubuntu-Floral /usr/share/plymouth/themes
+  sudo cp -r Paw-Ubuntu-Floral /usr/share/plymouth/themes
 
-sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/Paw-Ubuntu-Floral/Paw-Ubuntu-Floral.plymouth 100
+  sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/Paw-Ubuntu-Floral/Paw-Ubuntu-Floral.plymouth 100
 
-sudo update-alternatives --config default.plymouth 
-# 选择Paw-Ubuntu-Floral.plymouth那个
-sudo update-initramfs -u
-```
+  sudo update-alternatives --config default.plymouth 
+  # 选择Paw-Ubuntu-Floral.plymouth那个
+  sudo update-initramfs -u
+  ```
 
 * [远程桌面](https://wiki.archlinux.org/index.php/Vino)
 
-```shell
-#安装gnome自带远程桌面
-sudo apt install vino
-#禁用加密,貌似是自带加密不兼容
-gsettings set org.gnome.Vino require-encryption false
-```
+  ```shell
+  #安装gnome自带远程桌面
+  sudo apt install vino
+  #禁用加密,貌似是自带加密不兼容
+  gsettings set org.gnome.Vino require-encryption false
+  ```
 
 ## 软件安装
 
 * gcc套件
 
-```shell
-sudo apt install build-essential
-```
+  ```shell
+  sudo apt install build-essential
+  ```
 
 * java
 
-```shell
-sudo apt install default-jdk
-```
+  ```shell
+  sudo apt install default-jdk
+  ```
 
 * vim
 * make
 * git
 
-```shell
-#git设置HTTP代理(每次需要输入GitHub用户名和密码)
-git config --global http.proxy "http://127.0.0.1:8080"
-git config --global https.proxy "http://127.0.0.1:8080"
-#取消
-git config --global --unset http.proxy
-git config --global --unset https.proxy
-```
+  ```shell
+  #git设置HTTP代理(每次需要输入GitHub用户名和密码)
+  git config --global http.proxy "http://127.0.0.1:8080"
+  git config --global https.proxy "http://127.0.0.1:8080"
+  #取消
+  git config --global --unset http.proxy
+  git config --global --unset https.proxy
+  ```
 
-```shell
-#git设置ssh代理(方便)
-#修改 ~/.ssh/config 文件（不存在则新建）
-Host github.com
-   HostName github.com
-   User git
-   # 走 HTTP 代理
-   # ProxyCommand socat - PROXY:127.0.0.1:%h:%p,proxyport=8080
-   # 走 socks5 代理（推荐）
-   # ProxyCommand nc -v -x 127.0.0.1:1080 %h %p
-```
+  ```shell
+  #git设置ssh代理(方便)
+  #修改 ~/.ssh/config 文件（不存在则新建）
+  Host github.com
+     HostName github.com
+     User git
+     # 走 HTTP 代理
+     # ProxyCommand socat - PROXY:127.0.0.1:%h:%p,proxyport=8080
+     # 走 socks5 代理（推荐）
+     # ProxyCommand nc -v -x 127.0.0.1:1080 %h %p
+  ```
 
 * vlc(媒体播放)
 * [搜狗输入法](https://pinyin.sogou.com/linux/?r=pinyin)(弃用)
 
-```shell
-#先安装Fcitx 和 Fcitx配置，用自带的Ubuntu软件市场安装
+  ```shell
+  #先安装Fcitx 和 Fcitx配置，用自带的Ubuntu软件市场安装
 
-#fctix CPU占用100%解决 => fctix配置 -> 附加组件 -> 高级 -> 搜狗云拼音关闭
-```
+  #fctix CPU占用100%解决 => fctix配置 -> 附加组件 -> 高级 -> 搜狗云拼音关闭
+  ```
 
 * [坚果云](https://www.jianguoyun.com/s/downloads)(停用)
 * [typora](https://www.typora.io/#linux)
 
-```shell
-# or run:# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
-wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+  ```shell
+  # or run:# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
+  wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
 
-# add Typora's repository
-sudo add-apt-repository 'deb https://typora.io/linux ./'
-sudo apt-get update
+  # add Typora's repository
+  sudo add-apt-repository 'deb https://typora.io/linux ./'
+  sudo apt-get update
 
-# install typora
-sudo apt-get install typora
-```
+  # install typora
+  sudo apt-get install typora
+  ```
 
 * [WPS Office 2019 For Linux](https://linux.wps.cn/)(安装字体)
 
@@ -313,5 +313,19 @@ sudo apt-get install typora
   #更改源
   #修改/etc/docker/daemon.json
   ```
+
+* mysql
+
+  * 关闭密码强度校验：设置`/etc/my.conf`中的`validate_password`为`off`
+
+  * 允许远程连接：
+
+    ```shell
+    # 在配置文件/etc/mysql/my.conf中修改允许连接的ip
+    bind-address = 0.0.0.0
+    # 新建可远程连接的用户
+    grant all on *.* to UserName@'%' identified by UserPassword with grant option;
+    flush privileges;
+    ```
 
   
