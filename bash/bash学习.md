@@ -65,11 +65,14 @@
   #文件
   grep {pat} {fn}           #在文件中查找出现过 pat 的内容
   stat {fn}                 #显示文件的详细信息
-  wc {fn}                   #统计文件有多少行，多少个单词
+  wc -l {fn}                #统计文件有多少行，多少个单词
+  split -l {cnt} {old} {new}#按行拆分文件
   head {fn} -n x            #查看文件头x行
   tail {fn} -n x            #查看文件尾x行
   less {fn}                 #查看文件少量内容
   find -name filename 2>/dev/null   #查找文件(过滤无权限提示)
+  sed -i 's/old/new/g' {fn}         #全文将old替换为new
+  awk 'print $1,$4' {fn}            #打印文本中的第1、4项
   
   #权限
   chmod ugo+-r/w/x {fn}     #更改user/group/other读写执行权限
@@ -113,7 +116,7 @@
   fi
   
   #for循环语句
-  for var int range(全写或者{a...b})
+  for var in range(全写或者{a..b})
   do
     ...
   done
