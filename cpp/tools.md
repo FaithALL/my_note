@@ -32,6 +32,8 @@
   -Werror 将警告当成错误处理
   -Wextra / -W 打印一些额外的警告信息
   -Wl,<options> 将逗号分隔的options传递给链接器
+  -Werror=return-type 检查是否漏写return
+  -Werror=maybe-uninitialized 检查是否初始化
   
   -m32 生成32位程序
   ```
