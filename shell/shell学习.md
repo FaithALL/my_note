@@ -93,6 +93,8 @@
 
 * [shell语法](https://github.com/skywind3000/awesome-cheatsheets/blob/master/languages/bash.sh)
 
+  > [参考](https://www.junmajinlong.com/shell/index/)
+  
   ```shell
   {varname}={value}                 #变量赋值，不加空格，字符串字面值加不加双引号都可
   ${varname}                        #引用变量的值
