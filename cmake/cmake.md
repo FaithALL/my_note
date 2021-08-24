@@ -87,7 +87,7 @@
   #执行
   ./project_name
   
-  #为源代码引入宏定义(同add_definitions(-Dmacro_name))
+  #为源代码引入宏定义(同add_definitions(-Dmacro_name=value))
   cmake -D macro_name=value
   
   ```
