@@ -98,6 +98,9 @@
   ${varname}                        #引用变量的值
   echo ${varname} "test"            #输出变量/字符串，原封不动输出echo 后的内容
   {varname}=`expr ${varname1} op ${varname2}`       #运算
+  # 执行cmd命令
+  `cmd`
+  $(cmd)
   
   #数字比较符号<、>、=、<=、>=、!=
   #l:less、t:than、g:greater、e:euqual、n:not
@@ -120,9 +123,20 @@
   do
     ...
   done
+  # for循环
+  for ((expr1;expr2;expr3))
+  do
+  ...
+  done
+  
   #while循环语句
   while [ ... ]
   do
     ...
   done
+  
+  # shell函数
+  function func_name() {CMD_LIST}
+  function func_name {CMD_LIST}
+  func_name() {CMD_LIST}
   ```
