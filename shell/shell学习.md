@@ -38,6 +38,7 @@
   uptime                        #查看系统当前时间、运行时间、负载等信息
   top                           #查看CPU(t)、内存(m)占用
   pstack {pid}                  #查看进程的线程数量和线程调用栈
+  strace -p {pid}               #查看进程动态信息
   
   #网络
   telnet {ip} {port}            #socket连接ip::port
