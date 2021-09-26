@@ -109,6 +109,7 @@
   set var = {expression}    # 变量赋值
   set follow-fork-mode mode # 在fork后执行父进程或子进程，mode可选parent、child
   info threads              # 显示可调试的所有线程
+  thread apply all bt       # 打印所有线程调用栈
   thread id                 # 调试目标id指定的线程
   ```
   
