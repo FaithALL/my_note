@@ -57,7 +57,7 @@
   #列出进程进程信息     -p
   #指定udp\tcp          -u\-t
   #不解析主机名和端口名 -n
-  lsof -Pni                 #查看打开的socket,i指定网络相关，P使用端口,n使用ip
+  lsof -Pni                 #查看打开的socket,i指定网络相关，P使用端口，n使用ip
   nc -v {ip} {port}         #模拟客户端连接ip::port
   nc -v -l {ip} {port}      #模拟服务端监听ip::port
   #netcat默认以\n为每次消息结束标志，-C选项指定结束标志为\r\n
