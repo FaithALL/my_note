@@ -149,17 +149,6 @@
   valgrind --tool=memcheck ./application
   ```
 
-* google test
-
-  ```shell
-  #安装
-  git clone git@github.com:google/googletest.git
-  #进入项目目录后
-  mkdir build 
-  cd build && cmake ..
-  make
-  sudo make install
-  ```
+* [googletest](https://github.com/google/googletest)
 
   
-
