@@ -64,7 +64,7 @@
   #用>和<来收发文件
   
   #文件
-  grep {pat} {fn}           #在文件中查找出现过 pat 的内容
+  grep {pat} {fn}           #在文件中查找出现过 pat 的内容，-i忽略大小写
   stat {fn}                 #显示文件的详细信息
   wc -l {fn}                #统计文件有多少行，多少个单词
   split -l {cnt} {old} {new}#按行拆分文件
