@@ -8,6 +8,8 @@
   >
   > [参考3](https://github.com/fishCoder/CMakePractice)
   >
+  > [find_package原理](https://zhuanlan.zhihu.com/p/97369704)
+  >
   > CMakeLists.txt：支持大写、小写、大小写混合
 
   ```cmake
