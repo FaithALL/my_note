@@ -73,7 +73,7 @@
   less {fn}                 #查看文件少量内容
   find -name filename 2>/dev/null   #查找文件(过滤无权限提示)
   sed -i 's/old/new/g' {fn}         #全文将old替换为new
-  awk 'print $1,$4' {fn}            #打印文本中的第1、4项
+  awk '{print $1,$4}' {fn}          #打印文本中的第1、4项
   
   #权限
   chmod ugo+-r/w/x {fn}     #更改user/group/other读写执行权限
