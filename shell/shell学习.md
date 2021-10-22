@@ -44,6 +44,9 @@
   telnet {ip} {port}            #socket连接ip::port
   dig {domain}                  #获取域名dns信息
   host {domain}                 #获取域名ip
+  ifconfig/ip                   #查看网络配置相关信息
+  route                         #网络路由相关
+  iptables                      #数据包过滤转发相关(四表五链)
   tcpdump   -i lo               #指定网卡为lo(本地回环)
   #指定主机       host {ip} 
   #指定源主机     src host {ip}
