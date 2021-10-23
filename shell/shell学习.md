@@ -78,6 +78,11 @@
   sed -i 's/old/new/g' {fn}         #全文将old替换为new
   awk '{print $1,$4}' {fn}          #打印文本中的第1、4项
   
+  #文件系统和磁盘
+  du -h {dir}               #查看目录磁盘大小(含文件)
+  df -h                     #查看文件系统容量、使用、挂载点等信息
+  fdisk -l                  #查看磁盘分区(表)信息
+  
   #权限
   chmod ugo+-r/w/x {fn}     #更改user/group/other读写执行权限
   
