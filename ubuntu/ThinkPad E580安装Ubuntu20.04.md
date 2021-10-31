@@ -123,7 +123,9 @@
   ```
 
 * vim
+
 * make
+
 * git
 
   ```shell
@@ -148,25 +150,27 @@
   ```
 
 * vlc(媒体播放)
+
 * [搜狗输入法](https://pinyin.sogou.com/linux/?r=pinyin)(弃用)
 
   ```shell
   #先安装Fcitx 和 Fcitx配置，用自带的Ubuntu软件市场安装
-
+  
   #fctix CPU占用100%解决 => fctix配置 -> 附加组件 -> 高级 -> 搜狗云拼音关闭
   ```
 
 * [坚果云](https://www.jianguoyun.com/s/downloads)(停用)
+
 * [typora](https://www.typora.io/#linux)
 
   ```shell
   # or run:# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
   wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
-
+  
   # add Typora's repository
   sudo add-apt-repository 'deb https://typora.io/linux ./'
   sudo apt-get update
-
+  
   # install typora
   sudo apt-get install typora
   ```
@@ -312,6 +316,8 @@
   sudo apt install docker.io
   #更改源
   #修改/etc/docker/daemon.json
+  #让非root用户可以使用docker
+  sudo usermod -aG docker 用户名
   ```
 
 * mysql
@@ -328,4 +334,8 @@
     flush privileges;
     ```
 
-  
+* pip
+
+  * [配置文件](https://pip.pypa.io/en/stable/topics/configuration/)在`~/.config/pip/pip.conf`和`~/.pip/pip.conf`
+  * 代理配置[详见](https://pip.pypa.io/en/stable/user_guide/#config-file)
+
