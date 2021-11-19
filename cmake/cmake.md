@@ -30,6 +30,11 @@
   # 赋多个值个变量
   SET(PARAM main.c fun.h fun.c)
   
+  
+  #查找头文件路径
+  find_path(std_lib_name_INCLUDE_DIRS name path)
+  #查找库文件路径
+  find_library(std_lib_name_LIBRARIES name path)
   #引入外部依赖
   find_package(std_lib_name VERSION REQUIRED)
   #生成库类型(动态，静态)
@@ -44,7 +49,7 @@
   
   #定义一个函数
   function(function_name arg)
-  #添加一个子目录
+  #添加一个子目录，并构建该目录
   add_subdirectory(dir)
   #查找当前目录所有文件，并保存到SRC——LIST变量中
   AUX_SOURCE_DIRECTORY(. SRC_LIST)
@@ -89,9 +94,11 @@
   #执行
   ./project_name
   
-  #为源代码引入宏定义(同add_definitions(-Dmacro_name=value))
-  cmake -D macro_name=value
-  
+  #定义变量
+  cmake -D var=value
+  #cmake -D CMAKE_EXPORT_COMPILE_COMMANDS=ON 将编译命令写入compile_commands.json
+  #指定生成器
+  cmake -G generator_name
   ```
-
+  
   
