@@ -92,6 +92,8 @@
   tar -zcvf xxx.tar.gz xxx/ #tar压缩
   tar -zxvf xxx.tar.gz      #tar解压缩
   
+  #定时任务
+  crontab [-u user] {-l | -r | -e}
   ```
 
   > `grep`正则表达式：

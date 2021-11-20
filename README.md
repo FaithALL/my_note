@@ -1,10 +1,10 @@
 **my note**
 
-> 这是我在Linux环境下，各种工具链学习和环境配置的记录
-
-* [cpp](cpp)：c++、标准库、历史变更、设计模式、tools
+* [cmake](cmake)
+* [cpp](cpp)：c++、标准库、第三方库、历史变更、设计模式、tools
+* [cs](cs)：计算机相关基础知识
 * [git](git)：git基本使用
-* [linux](linux)：工具安装、环境配置和相关理论
+* [ubuntu](ubuntu)：工具安装、环境配置和相关小知识
 * [vim](vim)：vim基本配置和操作
-* [bash](bash)：bash常用
+* [shell](shell)：bash基础语法、Linux常用命令
 
