@@ -36,6 +36,7 @@
   -Werror=maybe-uninitialized 检查是否初始化
   
   -m32 生成32位程序
+  -masm=intel 生成intel风格的汇编代码(要加-S选项)
   ```
   
 * 头文件路径查找优先级
@@ -47,7 +48,7 @@
     * gcc的环境变量`CPLUS_INCLUDE_PATH`
     * 编译器内定路径`/usr/include`、`/usr/local/include`、`/usr/lib/gcc/x...`
   
-* 反汇编`objdump -d`
+* 反汇编`objdump -d filename.o`
 
 ## 链接(link)
 
