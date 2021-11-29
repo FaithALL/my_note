@@ -109,7 +109,9 @@
   run {args}                # 以某参数运行程序
   print                     # 打印变量的值
   next                      # 单步跳过，碰到函数不会进入
+  nexti                     # 执行1条指令，碰到函数不会进入
   step                      # 单步进入，碰到函数会进去
+  stepi                     # 执行1条指令
   finish                    # 运行到当前函数返回
   continue                  # 一直运行到断点位置
   disas                     # 反汇编当前函数
@@ -124,15 +126,16 @@
   thread id                 # 调试目标id指定的线程
   shell clear               # 清空屏幕
   list                      # 显示对应的源文件
+  x/s $rdi                  # 以字符串形式检查rdi所指的地址内容
   ```
   
   >linux下调试错误
   >
   >```shell
-  >ulimit -c unlimited		#设置可以生成core文件
-  >gcc -g test.c			#编译时加-g选项
-  >gdb ./a.out ./core		#开启调试
-  >where					#gdb中查询位置
+  >ulimit -c unlimited	    #设置可以生成core文件
+  >gcc -g test.c           #编译时加-g选项
+  >gdb ./a.out ./core      #开启调试
+  >where                   #gdb中查询位置
   >```
 
 ## 运行(run)
