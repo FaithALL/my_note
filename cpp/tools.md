@@ -35,6 +35,8 @@
   -Werror=return-type 检查是否漏写return
   -Werror=maybe-uninitialized 检查是否初始化
   
+  -v 打印命令运行阶段和编译器驱动程序的版本号
+  
   -m32 生成32位程序
   -masm=intel 生成intel风格的汇编代码(要加-S选项)
   -mavx2 生成AVX2汇编代码
