@@ -1,7 +1,13 @@
+* 内建命令和外部命令
+
+  * 内建命令是shell程序的一部分，通常在系统加载运行时就被加载并驻留系统内存中。执行速度比外部命令快，也不需要创建子进程。
+  * 外部命令是文件系统中的可执行文件，在`PATH`环境变量的路径下可以找到，执行需要创建新进程。
+  * `type`命令可以识别外部命令和内建命令。
+  
 * bash配置文件
 
   * 按范围
-    * 全局生效：`/etc/profile`、`/etc/profile.d/*.sh`、`/etc/bashrc`
+    * 全局生效：`/etc/profile`、`/etc/bash.bashrc`
     * 个人用户生效：`~/.profile`、`~/.bashrc`
     
   * 按功能
@@ -13,20 +19,16 @@
     ```shell
     #使用闪烁的|
     echo -ne "\e[5;6 q"
-    #显示环境变量
-    env
-    #修改环境变量
-    #当前终端有效
-    export PATH=$PATH:/tmp/test
-    #将上述语句放到bash配置文件，永久生效
-    
-    #重新加载，读取并执行file中的命令
-    source {file}
     ```
-  
+
 * [常用命令](https://github.com/skywind3000/awesome-cheatsheets/blob/master/languages/bash.sh)
 
   ```shell
+  #内建命令
+  history                       #显示最近使用的命令
+  alias -p                      #查看当前命令别名
+  export name=value             #在当前shell及子进程导出为环境变量
+  
   #SSH配置文件在.ssh/config
   ssh user@host                 #以用户user登录到远程主机host
   ssh -p {port} user@host       #以指定端口登录
@@ -105,7 +107,7 @@
 * [shell语法](https://github.com/skywind3000/awesome-cheatsheets/blob/master/languages/bash.sh)
 
   > [参考](https://www.junmajinlong.com/shell/index/)
-  
+
   ```shell
   {varname}={value}                 #变量赋值，不加空格，字符串字面值加不加双引号都可
   ${varname}                        #引用变量的值
