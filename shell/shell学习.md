@@ -29,6 +29,11 @@
   alias -p                      #查看当前命令别名
   export name=value             #在当前shell及子进程导出为环境变量
   
+  #开发相关
+  ./app <infile >outfile         #运行程序，重定向IO
+  objdump -d filename            #反汇编
+  valgrind --tool=memcheck ./app #检查程序内存问题
+  
   #SSH配置文件在.ssh/config
   ssh user@host                 #以用户user登录到远程主机host
   ssh -p {port} user@host       #以指定端口登录
