@@ -31,6 +31,8 @@
     | apt edit-sources | 编辑源列表               |
     | apt remove       | 删除软件包，保留配置文件 |
 
+    -y选项：交互式操作时默认输入Y
+
   * [apt设置代理](https://zhuanlan.zhihu.com/p/44056084)
 
     ```shell
