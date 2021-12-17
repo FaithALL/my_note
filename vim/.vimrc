@@ -36,11 +36,12 @@ set hlsearch		"高亮显示搜索结果
 map <C-i> :below terminal ++rows=8<CR>
 
 "======================vim-plug插件=========================
-call plug#begin('~/.vim/plugged')			                    "vim-plug插件管理
-    Plug 'dracula/vim',{'as': 'dracula' }			            "主题
-    Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}	"语法高亮
-    Plug 'valloric/youcompleteme',{'for':['c','cpp','python','go']}	"自动补全
-    Plug 'Raimondi/delimitMate'	        						"括号补全
+call plug#begin('~/.vim/plugged')			                        "vim-plug插件管理
+    Plug 'dracula/vim',{'as': 'dracula' }			                "主题
+    Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}     "语法高亮
+    Plug 'valloric/youcompleteme',{'for':['c','cpp','python'], 'do': 
+                \ 'cd ~/.vim/plugged/youcompleteme/ && python3 install.py --clangd-completer'} "自动补全
+    Plug 'Raimondi/delimitMate'	                                    "括号补全
 call plug#end()
 
 
@@ -54,29 +55,25 @@ let g:cpp_class_scope_highlight = 1     "高亮显示::之前的类名
 
 
 "======================自动补全插件=========================
-"c/c++语言配置文件
-let g:ycm_global_ycm_extra_conf='.vim/.ycm_extra_conf.py'
+"加载默认配置文件
+"let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 
 "使用自定义.ycm_extra_conf.py时不询问
-let g:ycm_confirm_extra_conf=0
+"let g:ycm_confirm_extra_conf=0
 "两个字母就触发语义补全
 let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python,go': ['re!\w{2}'],
+			\ 'c,cpp,python': ['re!\w{2}'],
 			\ }
 "候选补全区的颜色
 highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
 highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
 "补全内容不以分割子窗口形式出现,只显示补全列表
 set completeopt-=preview
-"关闭函数原型预览(感觉效果和上一个一样)
-"set completeopt=menu,menuone
-"let g:ycm_add_preview_to_completeopt = 0
 "避免分析白名单以外的文件类型
 let g:ycm_filetype_whitelist={
             \"c":1,
             \"cpp":1,
-            \"python":1,
-            \"go":1,
+            \"python":1
             \}
 "屏蔽YCM的诊断信息
 "let g:ycm_show_diagnostics_ui = 0
