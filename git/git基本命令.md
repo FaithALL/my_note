@@ -15,6 +15,33 @@
   git config --global core.quotepath off
   ```
 
+* 设置代理
+
+  * 设置HTTP代理
+
+    ```shell
+    #git设置HTTP代理，适用于HTTP协议下载
+    git config --global http.proxy "http://127.0.0.1:8080"
+    git config --global https.proxy "http://127.0.0.1:8080"
+    #取消
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
+    ```
+
+  * 设置ssh代理
+
+    ```shell
+    #git设置ssh代理(方便)
+    #修改 ~/.ssh/config 文件（不存在则新建）
+    Host github.com
+       HostName github.com
+       User git
+       # 走 HTTP 代理
+       # ProxyCommand socat - PROXY:127.0.0.1:%h:%p,proxyport=8080
+       # 走 socks5 代理（推荐）
+       # ProxyCommand nc -v -x 127.0.0.1:1080 %h %p
+    ```
+
 ### 创建(create)
 
 * 从一个已存在的仓库克隆

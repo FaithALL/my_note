@@ -128,27 +128,6 @@
 
 * git
 
-  ```shell
-  #git设置HTTP代理(每次需要输入GitHub用户名和密码)
-  git config --global http.proxy "http://127.0.0.1:8080"
-  git config --global https.proxy "http://127.0.0.1:8080"
-  #取消
-  git config --global --unset http.proxy
-  git config --global --unset https.proxy
-  ```
-
-  ```shell
-  #git设置ssh代理(方便)
-  #修改 ~/.ssh/config 文件（不存在则新建）
-  Host github.com
-     HostName github.com
-     User git
-     # 走 HTTP 代理
-     # ProxyCommand socat - PROXY:127.0.0.1:%h:%p,proxyport=8080
-     # 走 socks5 代理（推荐）
-     # ProxyCommand nc -v -x 127.0.0.1:1080 %h %p
-  ```
-
 * vlc(媒体播放)
 
 * [搜狗输入法](https://pinyin.sogou.com/linux/?r=pinyin)(弃用)
@@ -319,20 +298,6 @@
   #让非root用户可以使用docker
   sudo usermod -aG docker 用户名
   ```
-
-* mysql
-
-  * 关闭密码强度校验：设置`/etc/my.conf`中的`validate_password`为`off`
-
-  * 允许远程连接：
-
-    ```shell
-    # 在配置文件/etc/mysql/my.conf中修改允许连接的ip
-    bind-address = 0.0.0.0
-    # 新建可远程连接的用户
-    grant all on *.* to UserName@'%' identified by UserPassword with grant option;
-    flush privileges;
-    ```
 
 * pip
 
