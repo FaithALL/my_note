@@ -33,6 +33,7 @@
   ./app <infile >outfile         #运行程序，重定向IO
   objdump -d filename            #反汇编
   valgrind --tool=memcheck ./app #检查程序内存问题
+  gprof ./app                    #分析程序性能，需要-pg编译选项
   
   #SSH配置文件在.ssh/config
   ssh user@host                 #以用户user登录到远程主机host
@@ -101,6 +102,13 @@
   
   #定时任务
   crontab [-u user] {-l | -r | -e}
+  
+  #wifi、蓝牙、设备
+  lspci                    #显示pci设备
+  lsusb                    #显示usb设备
+  rfkill list              #查看蓝牙和wifi设备列表
+  hciconfig -a             #查看蓝牙设备信息
+  iwconfig/iw              #查看无线网卡wifi信息
   ```
 
   > `grep`正则表达式：
