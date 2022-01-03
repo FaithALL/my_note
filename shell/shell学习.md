@@ -104,6 +104,9 @@
   crontab [-u user] {-l | -r | -e}
   
   #wifi、蓝牙、设备
+  lsmod                    #查看内核模块
+  modprobe -r <name>       #删除内核模块
+  modprobe <name>          #加载内核模块
   lspci                    #显示pci设备
   lsusb                    #显示usb设备
   rfkill list              #查看蓝牙和wifi设备列表
