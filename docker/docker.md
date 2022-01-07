@@ -50,5 +50,7 @@
   docker cp path CONTAINER:path #复制目录/文件到容器
   docker run --name test -d -p 8080:80 IMAGE
                #指定容器名为test,映射容器80端口到主机8080,后台启动容器
+  --privileged                  #使container内的root具有root权限
+  --restart=always              #重启docker时，也重启容器
   ```
 
