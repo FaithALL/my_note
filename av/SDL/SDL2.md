@@ -40,6 +40,12 @@
   * x和y常用的宏：`SDL_WINDOWPOS_CENTERED`、`SDL_WINDOWPOS_UNDEFINED`。
   * flags：`SDL_WINDOW_FULLSCREEN`、`SDL_WINDOW_BORDERLESS`、`SDL_WINDOW_RESIZABLE`等
   
+* 从一个`native window`创建窗口
+
+  ```c
+  SDL_Window * SDL_CreateWindowFrom(const void *data);
+  ```
+  
 * 销毁窗口
 
   ```c
@@ -110,6 +116,15 @@
   
   * pixels是纹理的裸像素数据。
   * pitch是一行像素数据的字节数，包括行间填充。
+  
+* 更新YUV格式纹理
+
+  ```c
+  int SDL_UpdateYUVTexture(SDL_Texture * texture,
+                           const SDL_Rect * rect,
+                           const Uint8 *Yplane, int Ypitch,
+                           const Uint8 *Uplane, int Upitch,
+                           const Uint8 *Vplane, int Vpitch);
   
 * 销毁纹理
 
@@ -187,6 +202,17 @@
   ```c
   int SDL_PollEvent(SDL_Event* event);
   ```
+  
+  * 立即返回，如果没有未决事件返回0
+  
+* 等待下一个可用事件
+
+  ```c
+  int SDL_WaitEvent(SDL_Event * event);
+  ```
+
+  * 等待直到有事件为止，错误返回0
+
 
 ### 音频
 
@@ -203,3 +229,21 @@
   ```c
   void SDL_PauseAudio(int pause_on);
   ```
+  
+* 混合音频，从而可以同时播放多个音频
+
+  ```c
+  void SDL_MixAudio(Uint8 * dst, const Uint8 * src,
+                    Uint32 len, int volume);
+  ```
+  
+  * volume音量，常用值SDL_MIX_MAXVOLUME。
+  
+* 关闭音频设备
+
+  ```c
+  void SDL_CloseAudio(void);
+  ```
+
+> 以上播放音频的方式是“拉”，还有一种方式是“推”，见[SDL_QueueAudio](https://wiki.libsdl.org/SDL_QueueAudio)。除此之外，SDL还有一组新的音频播放API：[SDL_OpenAudioDevice](https://wiki.libsdl.org/SDL_OpenAudioDevice)、[SDL_PauseAudioDevice](https://wiki.libsdl.org/SDL_PauseAudioDevice)、[SDL_MixAudioFormat](https://wiki.libsdl.org/SDL_MixAudioFormat)、[SDL_CloseAudioDevice](https://wiki.libsdl.org/SDL_CloseAudioDevice)等
+
