@@ -4,23 +4,20 @@
   * 外部命令是文件系统中的可执行文件，在`PATH`环境变量的路径下可以找到，执行需要创建新进程。
   * `type`命令可以识别外部命令和内建命令。
   
-* bash配置文件
+* [bash/zsh的四种运行模式](https://zhuanlan.zhihu.com/p/47819029)
 
-  * 按范围
-    * 全局生效：`/etc/profile`、`/etc/bash.bashrc`
-    * 个人用户生效：`~/.profile`、`~/.bashrc`
-    
-  * 按功能
-    * profile：用于定义环境变量，运行命令或脚本
-    * bashrc：用于别名、函数、本地变量
-    
-  * 常用，[参考1](https://gohom.win/2016/03/22/bash-twinkle/)，[参考2](https://zh.wikipedia.org/wiki/ANSI%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97)
-    
-    ```shell
-    #使用闪烁的|
-    echo -ne "\e[5;6 q"
-    ```
-
+  * 交互模式：用于接受用户命令
+  
+  * 非交互模式：用于执行一段脚本
+  
+  * 登录模式：终端登陆、ssh连接、`su --login <username>`切换用户
+  
+  * 非登录模式：直接运行bash时，`su <username>`切换用户时
+  
+  * 四种模式组合会有配置文件加载的差异
+  
+    <div align=center><img width="407" height="427" src="https://www.solipsys.co.uk/images/BashStartupFiles1.png"/></div>
+  
 * [常用命令](https://github.com/skywind3000/awesome-cheatsheets/blob/master/languages/bash.sh)
 
   ```shell
@@ -121,7 +118,7 @@
   > * 单个字符`.`、多个字符`*`
   > * 范围`[]`
 
-* [shell语法](https://github.com/skywind3000/awesome-cheatsheets/blob/master/languages/bash.sh)
+* [bash语法](https://github.com/skywind3000/awesome-cheatsheets/blob/master/languages/bash.sh)
 
   > [参考](https://www.junmajinlong.com/shell/index/)
 

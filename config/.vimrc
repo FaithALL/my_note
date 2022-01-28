@@ -28,6 +28,10 @@ set incsearch		"开启实时搜索,跳到第一个匹配项
 set ignorecase		"搜索时忽略大小写
 set hlsearch		"高亮显示搜索结果
 
+"设置补全列表的颜色
+highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
+highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
+
 "set foldmethod=syntax	"基于语法进行代码折叠
 "set nofoldenable	    "启动vim时关闭代码折叠
 
@@ -36,12 +40,12 @@ set hlsearch		"高亮显示搜索结果
 map <C-i> :below terminal ++rows=8<CR>
 
 "======================vim-plug插件=========================
-call plug#begin('~/.vim/plugged')			                        "vim-plug插件管理
-    Plug 'dracula/vim',{'as': 'dracula' }			                "主题
-    Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}     "语法高亮
-    Plug 'valloric/youcompleteme',{'for':['c','cpp','python'], 'do': 
-                \ 'cd ~/.vim/plugged/youcompleteme/ && python3 install.py --clangd-completer'} "自动补全
+call plug#begin()                                                   "vim-plug插件管理
     Plug 'Raimondi/delimitMate'	                                    "括号补全
+    Plug 'octol/vim-cpp-enhanced-highlight',{'for':['c','cpp']}     "语法高亮
+    Plug 'dracula/vim', {'as':'dracula'}                            "颜色主题
+    Plug 'valloric/youcompleteme',{'for':['c','cpp','cmake'], 'do': 
+                \ 'cd ~/.vim/plugged/youcompleteme/ && python3 install.py --clangd-completer'} "自动补全
 call plug#end()
 
 
@@ -50,30 +54,36 @@ call plug#end()
 
 
 "======================语法高亮插件=========================
-let g:cpp_class_decl_highlight = 1      "高亮显示声明中的类名
 let g:cpp_class_scope_highlight = 1     "高亮显示::之前的类名
+let g:cpp_class_decl_highlight = 1      "高亮显示声明中的类名
 
 
 "======================自动补全插件=========================
-"加载默认配置文件
-"let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-
-"使用自定义.ycm_extra_conf.py时不询问
-"let g:ycm_confirm_extra_conf=0
-"两个字母就触发语义补全
-let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python': ['re!\w{2}'],
-			\ }
-"候选补全区的颜色
-highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
-highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
-"补全内容不以分割子窗口形式出现,只显示补全列表
-set completeopt-=preview
 "避免分析白名单以外的文件类型
 let g:ycm_filetype_whitelist={
             \"c":1,
             \"cpp":1,
-            \"python":1
+            \"cmake":1
             \}
+
+"两个字母就触发语义补全
+let g:ycm_semantic_triggers =  {
+			\ 'c,cpp,cmake': ['re!\w{2}'],
+			\ }
+
+"补全内容不以分割子窗口形式出现,只显示补全列表
+set completeopt-=preview
+
 "屏蔽YCM的诊断信息
 "let g:ycm_show_diagnostics_ui = 0
+
+"cmake lsp自动补全
+let g:ycm_language_server = [
+  \   {
+  \     'name': 'cmake',
+  \     'cmdline': [ 'cmake-language-server' ],
+  \     'filetypes': [ 'cmake' ],
+  \    },
+  \ ]
+
+
