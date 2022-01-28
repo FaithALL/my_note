@@ -187,7 +187,7 @@
   ```shell
   sudo apt install zsh
   #更改默认shell
-  chsh -s /bin/zsh
+  chsh -s /usr/bin/zsh
   ```
 
 * tmux
