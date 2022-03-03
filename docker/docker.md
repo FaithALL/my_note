@@ -38,6 +38,7 @@
   docker image                  #查看image相关选项
   docker image ls -a            #查看镜像
   docker image rm IMAGE         #删除镜像
+  docker commit CONTAINER       #从容器创建镜像
   docker build -t NAME PATH     #用PATH目录的Dockerfile制作镜像NAME
   
   # container
