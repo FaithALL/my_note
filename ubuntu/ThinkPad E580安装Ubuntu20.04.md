@@ -8,6 +8,14 @@
 
   想办法连接上网后，使用`附加驱动`安装wifi驱动
 
+  [取消Wi-Fi省电功能](https://linrunner.de/tlp/faq/radio.html)
+
+  ```shell
+  # 编辑/etc/tlp.conf
+  # 也可修改/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf相关配置
+  WIFI_PWR_ON_AC=off
+  WIFI_PWR_ON_BAT=off
+
 * [禁用蓝牙开机自启](https://askubuntu.com/questions/67758/how-can-i-deactivate-bluetooth-on-system-startup)(需要安装tlp)
 
   ```shell
@@ -59,6 +67,7 @@
   ```
 
 * 换更新源（换阿里云）
+
 * [gnome扩展](https://www.linuxidc.com/Linux/2017-12/149813.htm)
 
   ```shell
