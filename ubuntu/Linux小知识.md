@@ -6,10 +6,12 @@
   - `~/.local/share/applications` # 一部分本地图标
   - `/var/lib/snapd/desktop/applications` # snap 类软件在此
 
-* 软件路径
+* 目录结构：遵循[FHS](https://zh.wikipedia.org/wiki/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84%E6%A0%87%E5%87%86)
 
-  * /usr/lib
-  * /usr/bin
+  * `/`
+  * `/usr/`
+  * `/usr/local`
+  * `$HOME/.local`
 
 * su初始密码设定
 
@@ -88,7 +90,7 @@
   * ctrl + c：强行终止进程，发送SIGINT信号
   * ctrl + z：挂起进程，发送SIGSTOP信号(可用bg使其在后台运行，使用fg转入前台运行)
   * ctrl + d：一个特殊的二进制值，表示EOF，不发送信号(但进程接收后一般是选择终止运行)
-  
+
 * 文件描述符的限制
 
   ```shell
