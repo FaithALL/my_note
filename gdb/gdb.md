@@ -20,6 +20,7 @@
   continue                  # 一直运行到断点位置
   disas                     # 反汇编当前函数
   disas {funcname}          # 反汇编函数funcname
+  where/bt                  # 查看调用栈
   set var = {expression}    # 变量赋值
   set follow-fork-mode mode # 在fork后执行父进程或子进程，mode可选parent、child
   info break                # 显示断点信息
@@ -33,11 +34,13 @@
   x/s $rdi                  # 以字符串形式检查rdi所指的地址内容
   ```
   
-  >linux下调试错误
+  >linux下调试段错误
   >
   >```shell
   >ulimit -c unlimited	    #设置可以生成core文件
-  >gcc -g test.c           #编译时加-g选项
+  >#文件/proc/sys/kernel/core_pattern控制core文件生成位置
+  >#ubuntu的apport会在上述文件拦截core，可以关掉
+  >gcc -g test.c           #编译时加-g选项，编译运行后可以生成core文件
   >gdb ./a.out ./core      #开启调试
   >where                   #gdb中查询位置
   >```
