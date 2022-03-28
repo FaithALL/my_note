@@ -43,9 +43,9 @@ _语言基础部分_
     ```c++
     #ifndef HEADER_H
     #define HEADER_H
-    ​```
-    ​```
-    ​```
+    ...
+    ...
+    ...
     #endif
     ```
 
@@ -63,20 +63,6 @@ _语言基础部分_
     * `__LINE__`存放当前行号的整型字面值
     * `__TIME__`存放文件编译时间的字符串字面值
     * `__DATE__`存放文件编译日期的字符串字面值
-
-* 五种对象类型
-
-  * 自动对象(automatic object)，定义处创建，块尾处销毁，定义处到块尾可见
-
-  * 局部静态对象(local static object)，第一次执行时创建并初始化，程序终止时销毁，定义处到块尾可见
-
-    > 自动对象和局部静态对象都属于局部对象，但一般默认局部对象是自动对象
-
-  * 全局变量，程序运行时创建，程序终止时销毁，默认本文件内可见
-
-  * 动态对象，new时创建，delete时销毁。
-
-  * [线程存储对象](https://zhuanlan.zhihu.com/p/340201634)，用(thread_local)修饰，线程开始时分配，线程结束时释放，用法相当线程内的static(修饰全局变量，局部变量，类成员)
 
 * 对象初始化方式
 
@@ -124,6 +110,8 @@ _语言基础部分_
   * [类的静态属性](https://zh.cppreference.com/w/cpp/language/static)：全局数据区，类内是声明，类外定义时初始化(不要static)
   * [类的静态方法](https://zh.cppreference.com/w/cpp/language/static)：无this指针，类外定义不要static
 
+* [thread_local关键字](https://zhuanlan.zhihu.com/p/340201634)：线程生命期，线程开始时分配，线程结束时释放，可修饰全局变量、局部变量、类成员变量
+
 * 指针和引用
 
   * 指针变量是对象，它存储的是地址值(和机器字长位数一样)，引用是某个对象的别名
@@ -146,9 +134,9 @@ _语言基础部分_
 
   * NULL是头文件cstdlib的预处理变量，为0
   * nullptr是c++11新增关键字，使用起来更方便，推荐使用
-  
+
   > nullptr在重载函数的匹配和模板实例化上更合适(因为NULL被识别成整型，而非指针)
-  
+
 * new和delete
 
   * new表达式原理，分三步
@@ -203,6 +191,7 @@ _语言基础部分_
 * mutable
 
   * mutable修饰类的数据成员表明该数据成员在任何成员函数内可以修改，即使是在const成员函数内。
+  * mutable添加在lambda表达式的参数列表后，能修改值捕获的变量。
 
 * typedef和using
 
@@ -218,7 +207,7 @@ _语言基础部分_
   point_arr* p;
   ```
 
-* auto和decltype
+* auto和decltype：主要用于模板
 
   * 使用auto 需要注意的地方
 
@@ -250,6 +239,8 @@ _语言基础部分_
       > decltype(*p)和decltype((p))结果都是引用，decltype(x)取决于x的类型
       
     * decltype作用于数组时，得到的是数组类型
+    
+    * `decltype(auto) x = y`相当于`decltype(y) x = y` 
 
 * 下标类型
 
@@ -283,7 +274,7 @@ _语言基础部分_
   * 实参相同类型，initializer_list<T>，需传{}参数
   * 实参不同类型，可变参数模板
   * c风格，省略符
-  
+
 * 函数匹配过程
 
   * 第一步，确定候选函数(candidate function)，候选函数两个特征：一是与被调用函数同名，二是其声明在调用点可见。
@@ -296,36 +287,19 @@ _语言基础部分_
   * 函数形参匹配时，顶层const会被忽略，如同时定义`void fcn(const int i) 和 void fcn(int i)`会产生二义性，产生语法错误，底层const不会忽略。
 
   * 函数名字查找发生类型匹配之前，先在本层作用域查找，一旦查到就不再向外层作用域查找。
-  
+
   * 数组类型作为形参，会自动转换为指针，如`void print(const int*)  void print(const int[])`和`void print(const int[10])`完全等价，但数组的引用或指针作为形参必须完全匹配，如`void print(const int (&arr)[10])`和`void print(int (*martrix)[10])`。多维数组做形参，第二维及其以后维度的大小都是数组类型的一部分，不能省略。
-  
+
     > 数组转换为指针的后果之一就是，不能使用范围for循环
     >
     > 数组转指针：大多数表达式中，数组类型自动转换成指向首元素的指针，但当数组作为`decltype、&、sizeof、typeid`的运算对象时，不会转换。
-  
-* 函数返回数组的指针/引用或函数指针的五种方法
 
-  * 类型别名
+* lambda表达式：本质是一个重载了函数调用运算符的未命名类的未命名对象
 
-  * 直接声明
-
-  * 尾置返回类型
-
-  * decltype
-
-  * auto(C++14)
-
-    ```c++
-    typedef int arr[10];							typedef bool func(int, int);
-    using arr = int [10];							using func = bool(int, int);
-    arr* func(int i);									func* function(int i);
-    
-    int (*func(int i)) [10];						bool (*function(int i))(int, int);
-    
-    auto func(int i) -> int (*) [10];		auto function(int i) -> bool (*)(int, int);
-    
-    decltype(arr)* func(int i);				decltype(func)* functoin(int i);
-    ```
+  * `[captures] (params) -> ret {body}` 
+  * 捕获列表必须为局部非static变量，其它变量无需捕获直接可见
+  * 参数列表不能有默认值，但可以忽略；参数的类型可以是`auto`
+  * 返回值经常忽略
 
 * [C99柔性数组](https://www.jianshu.com/p/9a67c7af9de4)：在一个结构体的最后，申明一个长度为空的数组，就可以使得这个结构体是可变长的。
 
@@ -356,7 +330,7 @@ _语言基础部分_
 
   * 类中不能重新定义外层作用域的名字。即类中出现外层作用域的名字则视为一种类型，不能重新typedef或者using。(所以一般类型别名放在类声明开始。)
 
-* 编译器默认创建的类成员：无参构造函数，拷贝构造函数，移动构造函数，复制赋值运算符，移动赋值运算符，析构函数（如果没自定义，会默认合成）
+* 编译器默认创建的类成员：无参构造函数，拷贝构造函数，移动构造函数，拷贝赋值运算符，移动赋值运算符，析构函数（如果没自定义，会默认合成）
 
 * this
 
@@ -454,8 +428,6 @@ _语言基础部分_
       * 仅当typeid作用于指针，返回该指针的静态编译时类型，而非其指向对象的类型。
     
     * 典型应用是具有继承关系的类，`==`运算符的实现
-    
-  * PImpl：`Pointer to implementation`或`Private Implementation`。外部类只含有public方法和内部类对象的指针，负责声明接口。内部类负责具体实现。
   
 
 ### template
