@@ -16,10 +16,10 @@ PROMPT="%{$fg_bold[green]%}%n@%m%{$reset_color%}:%{$fg_bold[blue]%}%~%{$reset_co
 echo -ne "\e[5;6 q"
 
 # 别名
-alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -27,8 +27,8 @@ alias l='ls -CF'
 
 # 命令历史记录
 HISTFILE=~/.bash_history
-HISTSIZE=1000
-SAVEHIST=2000
+SAVEHIST=4096                   # 存储在文件的命令数
+HISTSIZE=2048                   # 加载到内存的命令数
 setopt INC_APPEND_HISTORY       # 立即写入记录文件
 setopt HIST_EXPIRE_DUPS_FIRST   # 淘汰记录时,首先淘汰重复记录
 setopt HIST_IGNORE_ALL_DUPS     # 如果新记录是重复的,删除老的记录
