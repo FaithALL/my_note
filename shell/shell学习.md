@@ -45,7 +45,6 @@
   top                           #查看CPU(t)、内存(m)占用
   pstack {pid}                  #查看进程的线程数量和线程调用栈
   strace -p {pid}               #查看进程动态信息
-  systemctl enable/disable/stop/start/restart/mask/unmask {name}
   
   #网络
   telnet {ip} {port}            #socket连接ip::port
@@ -112,13 +111,13 @@
   hciconfig -a             #查看蓝牙设备信息
   iwconfig/iw              #查看无线网卡wifi信息
   ```
-
+  
   > `grep`正则表达式：
   >
   > * 行首`^`、行尾`$`
   > * 单个字符`.`、多个字符`*`
   > * 范围`[]`
-
+  
 * [bash语法](https://github.com/skywind3000/awesome-cheatsheets/blob/master/languages/bash.sh)
 
   > [参考](https://www.junmajinlong.com/shell/index/)
