@@ -6,14 +6,15 @@ case $- in
       *) return;;
 esac
 
-# 使用256色
-export TERM="xterm-256color"
-
 # 命令行提示符
 autoload -U colors && colors
-PROMPT="%{$fg_bold[green]%}%n@%m%{$reset_color%}:%{$fg_bold[blue]%}%~%{$reset_color%}$ "
+PROMPT="%{$fg_bold[blue]%}%~%{$reset_color%} "
 # 使用闪烁的|
 echo -ne "\e[5;6 q"
+# 小写字母也可以匹配大写字母
+# https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # 别名
 alias grep='grep --color=auto'
@@ -24,11 +25,10 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-
 # 命令历史记录
 HISTFILE=~/.bash_history
 SAVEHIST=4096                   # 存储在文件的命令数
-HISTSIZE=2048                   # 加载到内存的命令数
+HISTSIZE=4096                   # 加载到内存的命令数
 setopt INC_APPEND_HISTORY       # 立即写入记录文件
 setopt HIST_EXPIRE_DUPS_FIRST   # 淘汰记录时,首先淘汰重复记录
 setopt HIST_IGNORE_ALL_DUPS     # 如果新记录是重复的,删除老的记录
@@ -45,7 +45,6 @@ if [ ! -f "$ANTIGEN" ]; then
 	echo "Installing antigen ..."
 	[ ! -d "$HOME/.local" ] && mkdir -p "$HOME/.local" 2> /dev/null
 	[ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin" 2> /dev/null
-	# [ ! -f "$HOME/.z" ] && touch "$HOME/.z"
 	URL="http://git.io/antigen"
 	TMPFILE="/tmp/antigen.zsh"
 	if [ -x "$(which curl)" ]; then
