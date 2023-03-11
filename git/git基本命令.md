@@ -38,8 +38,10 @@
        User git
        # 走 HTTP 代理
        # ProxyCommand socat - PROXY:127.0.0.1:%h:%p,proxyport=8080
-       # 走 socks5 代理（推荐）
+       # 走 socks5 代理（openbsd-nc）
        # ProxyCommand nc -v -x 127.0.0.1:1080 %h %p
+       # 使用nmap的nc设置socks5代理
+       # ProxyCommand ncat --proxy-type socks5 --proxy 127.0.0.1:1080 %h %p
     ```
 
 ### 创建(create)
