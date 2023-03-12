@@ -9,8 +9,6 @@ esac
 # 命令行提示符
 autoload -U colors && colors
 PROMPT="%{$fg_bold[blue]%}%~%{$reset_color%} "
-# 使用闪烁的|
-echo -ne "\e[5;6 q"
 # 小写字母也可以匹配大写字母
 # https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
 autoload -Uz compinit && compinit
@@ -59,7 +57,7 @@ if [ ! -f "$ANTIGEN" ]; then
 		echo ""
 		echo "ERROR: downloading antigen.zsh ($URL) failed !!"
 		exit
-	fi;
+	fi
 	echo "move $TMPFILE to $ANTIGEN"
 	mv "$TMPFILE" "$ANTIGEN"
 fi
@@ -75,3 +73,14 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Tell Antigen that you're done.
 antigen apply
+
+# fzf
+if [ -x "$(which fzf)" ]; then
+    # mac: brew install fzf && $(brew --prefix)/opt/fzf/install
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    # archlinux: pacman -S fzf
+    [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+    [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+    # config
+    export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+fi
