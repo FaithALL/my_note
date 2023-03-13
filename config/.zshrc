@@ -1,4 +1,5 @@
-# 参考https://github.com/skywind3000/vim/blob/master/etc/zshrc.zsh
+# zsh配置, 参考https://github.com/skywind3000/vim/blob/master/etc/zshrc.zsh
+# path: ~/.zshrc
 
 # If not running interactively, don't do anything
 case $- in
