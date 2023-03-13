@@ -1,0 +1,7 @@
+# rime平台特化配置(linux-ibus)
+# path: ~/.config/ibus/rime/ibus_rime.custom.yaml
+
+patch:
+  style:
+    horizontal: true
+    color_scheme: aqua
