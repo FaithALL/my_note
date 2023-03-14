@@ -1,5 +1,6 @@
 # rime所有输入方案通用配置
 # path: ~/.config/ibus/rime/default.custom.yaml (linux-ibus)
+# path: ~/Library/Rime/default.custom.yaml (mac)
 
 # 自造词快捷键 fn-Shift-BackSpace (mac) || Shift-BackSpace (other)
 # 参考1 https://einverne.github.io/post/2014/11/rime.html
