@@ -582,4 +582,7 @@ _与平台相关，非语言标准_
   Base *b1 = &p; //b1是对p地址的重新解释，*b1的vptr与p的vptr相同
   //引用同理
   ```
+* glibc、libstdc++和libc++
 
+    * C标准包括C语法和C标准库，C语法由编译器实现，glibc是Linux平台上使用最广泛的C函数库，其中包括C标准库的实现，也包括所有系统函数，几乎所有C程序都要调用glibc的库函数，所以glibc是Linux平台C程序运行的基础。glibc提供一组头文件和一组库文件，最基本、最常用的C标准库函数和系统函数在libc.so库文件中，几乎所有C程序的运行都依赖于libc.so，有些做数学计算的C程序依赖于libm.so。
+    * libstdc++是GCC的c++标准库实现，libc++是LLVM的c++标准库实现。
