@@ -4,4 +4,4 @@
 patch:
   style:
     horizontal: true
-    color_scheme: aqua
+    inline_preedit: false

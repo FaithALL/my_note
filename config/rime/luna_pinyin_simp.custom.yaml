@@ -1,7 +1,6 @@
 # rime明月拼音简化字方案特化配置
 # path: ~/.config/ibus/rime/luna_pinyin_simp.custom.yaml (linux-ibus)
 # path: ~/Library/Rime/luna_pinyin_simp.custom.yaml (mac)
-# emoji支持需要https://github.com/rime/rime-emoji
 
 patch:
   switches:
@@ -15,12 +14,8 @@ patch:
       reset: 1                        # 默认简体
       states: ["漢字", "汉字"]
 
-  recognizer/patterns/punct: "^i([A-Za-z]+)$"
   punctuator:
       import_preset: default
-      symbols:
-        "imail": "guoqiang.mail@qq.com"
-        "itel": "18091411674"
       half_shape:                     # 半角模式使用部分全角字符
         "\\" : "、"
         "/"  : "/"
@@ -30,7 +25,9 @@ patch:
         "*"  : "*"
         "<"  : "《"
         ">"  : "》"
+        "^"  : "^"
 
+  # emoji支持需要https://github.com/rime/rime-emoji
   switches/@next:
     name: emoji_suggestion
     reset: 1

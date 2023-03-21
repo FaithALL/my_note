@@ -3,10 +3,6 @@
 # path: ~/Library/Rime/default.custom.yaml (mac)
 
 # 自造词快捷键 fn-Shift-BackSpace (mac) || Shift-BackSpace (other)
-# 参考1 https://einverne.github.io/post/2014/11/rime.html
-# 参考2 https://chenhe.me/post/oh-my-rime/
-# 参考3 https://www.dreamxu.com/install-config-squirrel/
-# 参考4 https://ssnhd.com/2022/01/06/rime/
 patch:
   schema_list:
     - schema: luna_pinyin_simp
@@ -15,12 +11,15 @@ patch:
 
   key_binder:
     bindings:
-      - { when: paging, accept: Control+b, send: Page_Up } 
-      - { when: has_menu, accept: Control+f, send: Page_Down }
+      - { when: composing, accept: Control+p, send: Left }
+      - { when: composing, accept: Control+n, send: Right }
+      - { when: composing, accept: Control+b, send: Page_Up }
+      - { when: composing, accept: Control+f, send: Page_Down }
       - { when: composing, accept: Control+h, send: BackSpace }
-      - { when: composing, accept: Control+p, send: Up }
-      - { when: composing, accept: Control+n, send: Down }
-
+      - { when: composing, accept: Control+a, send: Home }
+      - { when: composing, accept: Control+e, send: End }
+      - { when: composing, accept: Control+bracketleft, send: Escape }
+    
   ascii_composer:
     good_old_caps_lock: true
     switch_key:
