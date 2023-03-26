@@ -75,6 +75,9 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # Tell Antigen that you're done.
 antigen apply
 
+# 设置默认编辑器
+export EDITOR=vim
+
 # fzf
 if [ -x "$(which fzf)" ]; then
     # mac: brew install fzf && $(brew --prefix)/opt/fzf/install
