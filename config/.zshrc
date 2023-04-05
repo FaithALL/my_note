@@ -25,7 +25,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # 命令历史记录
-HISTFILE=~/.bash_history
+HISTFILE=~/.zsh_history
 SAVEHIST=4096                   # 存储在文件的命令数
 HISTSIZE=4096                   # 加载到内存的命令数
 setopt INC_APPEND_HISTORY       # 立即写入记录文件
