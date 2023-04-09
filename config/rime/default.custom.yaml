@@ -2,7 +2,7 @@
 # path: ~/.config/ibus/rime/default.custom.yaml (linux-ibus)
 # path: ~/Library/Rime/default.custom.yaml (mac)
 
-# 自造词快捷键 fn-Shift-BackSpace (mac) || Shift-BackSpace (other)
+# 删除自造词 fn-Shift-BackSpace (mac) || Shift-Delete (linux)
 patch:
   schema_list:
     - schema: luna_pinyin_simp
