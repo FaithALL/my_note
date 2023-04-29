@@ -1,11 +1,8 @@
 " ===========基本==============
-set nocompatible                                    " 关闭vi兼容模式
 set noswapfile                                      " 不使用交换文件
 set wildmenu                                        " 开启vim命令模式智能补全
 set mouse=a                                         " 所有模式可以使用鼠标
-set ttymouse=sgr                                    " 鼠标处理方式
 set updatetime=300                                  " 过时将交换文件写入磁盘和CursorHold
-set encoding=utf-8                                  " 设置vim内部使用的编码
 set timeout timeoutlen=1000 ttimeoutlen=100         " 修改延迟,详情见 :h timeoutlen
 let mapleader=","                                   " leader键默认为\ 设置为,
 
@@ -19,14 +16,13 @@ set softtabstop=4                                   " 影响backspace的行为
 
 " ===========显示==============
 syntax enable                                       " 开启语法高亮
-syntax on                                           " 允许指定语法高亮代替默认方案
 set number                                          " 当前行显示绝对行号
 set relativenumber                                  " 其他行显示相对行号
 set cursorline                                      " 高亮当前行
 set laststatus=2                                    " 总是显示statusline
 set signcolumn=yes                                  " 总是显示signcolumn
-set fillchars=vert:│                                " 设置竖直分割符为│ 
-autocmd FileType help wincmd L                      " 执行:help命令时左右显示
+set guicursor=""                                    " 进入nvim不改变终端光标
+set fillchars=vert:│                                " vim设置分屏分割符为│
 set noshowmode                                      " 不显示INSERT、VISUAL等模式
 set showcmd                                         " 显示部分命令的状态
 set showmatch                                       " 高亮括号另一半
@@ -66,7 +62,7 @@ nnoremap <leader>fb :Buffers<CR>
 
 " =========================== COC ===========================
 " coc扩展, 部分插件配置文件见 :CocConfig
-let g:coc_global_extensions = ['coc-pairs', 'coc-explorer', 'coc-json', 'coc-clangd']
+let g:coc_global_extensions = ['coc-pairs', 'coc-json', 'coc-clangd']
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "<CR>"
 if has('nvim')
