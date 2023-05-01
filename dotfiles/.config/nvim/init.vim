@@ -62,6 +62,7 @@ nnoremap <leader>fb :Buffers<CR>
 
 " =========================== COC ===========================
 " coc扩展, 部分插件配置文件见 :CocConfig
+let g:coc_config_home = '~/.config/nvim'
 let g:coc_global_extensions = ['coc-pairs', 'coc-json', 'coc-clangd']
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "<CR>"

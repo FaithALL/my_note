@@ -1,0 +1,32 @@
+{
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.warningSign": "!!",
+    "diagnostic.errorSign": "->",
+    "coc.preferences.formatOnSave": true,
+    "pairs.enableCharacters": [
+        "(",
+        "[",
+        "{",
+        "<",
+        "'",
+        "`"
+    ],
+    "languageserver": {
+        "cmake": {
+            "command": "~/.local/bin/cmake-language-server",
+            "filetypes": [
+                "cmake"
+            ],
+            "rootPatterns": [
+                "build/"
+            ],
+            "initializationOptions": {
+                "buildDirectory": "build"
+            }
+        }
+    },
+    "clangd.compilationDatabasePath": "build",
+    "clangd.fallbackFlags": [
+        "-std=c++17"
+    ]
+}
