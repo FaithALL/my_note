@@ -14,6 +14,8 @@ PROMPT="%{$fg_bold[blue]%}%~%{$reset_color%} "
 # https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+# 使用emacs风格的键绑定
+bindkey -e
 
 # 别名
 alias grep='grep --color=auto'
