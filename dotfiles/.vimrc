@@ -31,7 +31,7 @@ set hlsearch                                        " 搜索时高亮显示匹�
 set foldmethod=syntax                               " 基于语法进行代码折叠
 set nofoldenable                                    " 启动vim时关闭代码折叠
 set background=dark                                 " 暗色背景
-nnoremap <silent> <C-L> :nohlsearch<return><C-L>    " <C-L>取消搜索结果的高亮
+nnoremap <silent><C-L> :nohlsearch<return><C-L>     " <C-L>取消搜索结果的高亮
 
 " ======================vim-plug插件=========================
 call plug#begin()
@@ -54,24 +54,24 @@ let g:lightline = { 'colorscheme': 'gruvbox_material' }
 " ==========================模糊搜索=========================
 " 默认不预览, 使用ctrl-/切换预览
 let g:fzf_preview_window = ['hidden,right,50%', 'ctrl-/']
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fg :GFiles<CR>
-nnoremap <leader>fw :Rg<CR>
-nnoremap <leader>fb :Buffers<CR>
+nnoremap <silent><leader>ff :Files<CR>
+nnoremap <silent><leader>fg :GFiles<CR>
+nnoremap <silent><leader>fw :Rg<CR>
+nnoremap <silent><leader>fb :Buffers<CR>
 
 " =========================== COC ===========================
 " coc扩展, 部分插件配置文件见 :CocConfig
 let g:coc_config_home = '~/.config/coc'
 let g:coc_global_extensions = ['coc-pairs', 'coc-explorer', 'coc-json', 'coc-clangd']
-inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "<CR>"
+inoremap <silent><expr><TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
+inoremap <silent><expr><CR> coc#pum#visible() ? coc#pum#confirm() : "<CR>"
 if has('nvim')
-  inoremap <silent><expr> <C-space> coc#refresh()
+  inoremap <silent><expr><C-space> coc#refresh()
 else
-  inoremap <silent><expr> <C-@> coc#refresh()
+  inoremap <silent><expr><C-@> coc#refresh()
 endif
 
-nnoremap <silent> K :call ShowDocumentation()<CR>
+nnoremap <silent>K :call ShowDocumentation()<CR>
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
@@ -80,13 +80,14 @@ function! ShowDocumentation()
   endif
 endfunction
 
-nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
-nnoremap <silent> g] <Plug>(coc-diagnostic-next)
-nnoremap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> gtd <Plug>(coc-type-definition)
-nnoremap <silent> gi <Plug>(coc-implementation)
-nnoremap <silent> gr <Plug>(coc-references)
-nnoremap <leader>rn <Plug>(coc-rename)
-nnoremap <leader>re <Plug>(coc-refactor)
-nnoremap <leader>qf <Plug>(coc-fix-current)
-nnoremap <leader>ch :CocCommand clangd.switchSourceHeader<CR>
+nnoremap <silent>[g <Plug>(coc-diagnostic-prev)
+nnoremap <silent>g] <Plug>(coc-diagnostic-next)
+nnoremap <silent>gd <Plug>(coc-definition)
+nnoremap <silent>gtd <Plug>(coc-type-definition)
+nnoremap <silent>gi <Plug>(coc-implementation)
+nnoremap <silent>gr <Plug>(coc-references)
+nnoremap <silent><leader>rn <Plug>(coc-rename)
+nnoremap <silent><leader>re <Plug>(coc-refactor)
+nnoremap <silent><leader>qf <Plug>(coc-fix-current)
+nnoremap <silent><leader>ch :CocCommand clangd.switchSourceHeader<CR>
+nnoremap <silent><leader>e :CocCommand explorer<CR>
