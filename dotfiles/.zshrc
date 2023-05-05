@@ -88,5 +88,7 @@ if [ -x "$(which fzf)" ]; then
     [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
     [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
     # config
+    export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git,.DS_Store}"'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 fi
