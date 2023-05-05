@@ -41,6 +41,7 @@ call plug#begin()
     Plug 'junegunn/fzf.vim'                                             " 模糊搜索
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                     " coc
     Plug 'bfrg/vim-cpp-modern'                                          " cpp语法高亮
+    Plug 'tpope/vim-fugitive'                                           " git命令
 call plug#end()
 
 " ==========================颜色主题=========================
@@ -90,4 +91,5 @@ nnoremap <silent><leader>rn <Plug>(coc-rename)
 nnoremap <silent><leader>re <Plug>(coc-refactor)
 nnoremap <silent><leader>qf <Plug>(coc-fix-current)
 nnoremap <silent><leader>ch :CocCommand clangd.switchSourceHeader<CR>
-nnoremap <silent><leader>e :CocCommand explorer<CR>
+nnoremap <silent><leader>e :CocCommand explorer --sources=buffer+,file+<CR>
+nnoremap <silent><leader>j :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
