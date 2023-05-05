@@ -1,5 +1,6 @@
 # clangd配置, 参考https://youtrack.jetbrains.com/articles/CPP-A-90276519/Clang-Tidy-in-CLion-2021.3-default-configuration
-# path: ~/.config/clangd/config.yaml
+# path: ~/.config/clangd/config.yaml (linux)
+# path: ~/Library/Preferences/clangd/config.yaml (mac)
 Diagnostics:
   UnusedIncludes: Strict
   ClangTidy:
