@@ -1,7 +1,8 @@
 " ===========基本==============
 set noswapfile                                      " 不使用交换文件
-set wildmenu                                        " 开启vim命令模式智能补全
+set wildmenu                                        " 开启命令模式智能补全
 set mouse=a                                         " 所有模式可以使用鼠标
+set shell=zsh                                       " 设置默认shell为zsh
 set updatetime=300                                  " 过时将交换文件写入磁盘和CursorHold
 set timeout timeoutlen=1000 ttimeoutlen=100         " 修改延迟,详情见 :h timeoutlen
 let mapleader=","                                   " leader键默认为\ 设置为,
@@ -29,9 +30,9 @@ set incsearch                                       " 开启实时搜索,跳到�
 set ignorecase                                      " 搜索时忽略大小写
 set hlsearch                                        " 搜索时高亮显示匹配项
 set foldmethod=syntax                               " 基于语法进行代码折叠
-set nofoldenable                                    " 启动vim时关闭代码折叠
+set nofoldenable                                    " 启动时关闭代码折叠
 set background=dark                                 " 暗色背景
-nnoremap <silent><C-L> :nohlsearch<return><C-L>     " <C-L>取消搜索结果的高亮
+nnoremap <silent> <C-L> :nohlsearch<return><C-L>
 
 " ======================vim-plug插件=========================
 call plug#begin()
@@ -39,9 +40,10 @@ call plug#begin()
     Plug 'itchyny/lightline.vim'                                        " statusline
     Plug 'junegunn/fzf'                                                 " 模糊搜索
     Plug 'junegunn/fzf.vim'                                             " 模糊搜索
+    Plug 'tpope/vim-fugitive'                                           " git命令
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                     " coc
     Plug 'bfrg/vim-cpp-modern'                                          " cpp语法高亮
-    Plug 'tpope/vim-fugitive'                                           " git命令
+    Plug 'udalov/kotlin-vim'                                            " kotlin语法高亮
 call plug#end()
 
 " ==========================颜色主题=========================
@@ -55,24 +57,24 @@ let g:lightline = { 'colorscheme': 'gruvbox_material' }
 " ==========================模糊搜索=========================
 " 默认不预览, 使用ctrl-/切换预览
 let g:fzf_preview_window = ['hidden,right,50%', 'ctrl-/']
-nnoremap <silent><leader>ff :Files<CR>
-nnoremap <silent><leader>fg :GFiles<CR>
-nnoremap <silent><leader>fw :Rg<CR>
-nnoremap <silent><leader>fb :Buffers<CR>
+nnoremap <silent> <leader>ff :Files<CR>
+nnoremap <silent> <leader>fg :GFiles<CR>
+nnoremap <silent> <leader>fw :Rg<CR>
+nnoremap <silent> <leader>fb :Buffers<CR>
 
 " =========================== COC ===========================
 " coc扩展, 部分插件配置文件见 :CocConfig
 let g:coc_config_home = '~/.config/coc'
 let g:coc_global_extensions = ['coc-pairs', 'coc-explorer', 'coc-json', 'coc-clangd']
-inoremap <silent><expr><TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
-inoremap <silent><expr><CR> coc#pum#visible() ? coc#pum#confirm() : "<CR>"
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "<CR>"
 if has('nvim')
-  inoremap <silent><expr><C-space> coc#refresh()
+  inoremap <silent><expr> <C-space> coc#refresh()
 else
-  inoremap <silent><expr><C-@> coc#refresh()
+  inoremap <silent><expr> <C-@> coc#refresh()
 endif
 
-nnoremap <silent>K :call ShowDocumentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
@@ -81,15 +83,15 @@ function! ShowDocumentation()
   endif
 endfunction
 
-nnoremap <silent>[g <Plug>(coc-diagnostic-prev)
-nnoremap <silent>g] <Plug>(coc-diagnostic-next)
-nnoremap <silent>gd <Plug>(coc-definition)
-nnoremap <silent>gtd <Plug>(coc-type-definition)
-nnoremap <silent>gi <Plug>(coc-implementation)
-nnoremap <silent>gr <Plug>(coc-references)
-nnoremap <silent><leader>rn <Plug>(coc-rename)
-nnoremap <silent><leader>re <Plug>(coc-refactor)
-nnoremap <silent><leader>qf <Plug>(coc-fix-current)
-nnoremap <silent><leader>ch :CocCommand clangd.switchSourceHeader<CR>
-nnoremap <silent><leader>e :CocCommand explorer --sources=buffer+,file+<CR>
-nnoremap <silent><leader>j :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
+nnoremap <silent> g] <Plug>(coc-diagnostic-next)
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> gtd <Plug>(coc-type-definition)
+nnoremap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
+nnoremap <silent> <leader>rn <Plug>(coc-rename)
+nnoremap <silent> <leader>re <Plug>(coc-refactor)
+nnoremap <silent> <leader>qf <Plug>(coc-fix-current)
+nnoremap <silent> <leader>ch :CocCommand clangd.switchSourceHeader<CR>
+nnoremap <silent> <leader>e :CocCommand explorer --sources=buffer+,file+<CR>
+nnoremap <silent> <leader>j :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
