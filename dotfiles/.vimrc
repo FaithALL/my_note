@@ -2,6 +2,9 @@
 set noswapfile                                      " 不使用交换文件
 set wildmenu                                        " 开启命令模式智能补全
 set mouse=a                                         " 所有模式可以使用鼠标
+if $TERM == 'alacritty'                             " alacritty终端设置鼠标识别方式
+    set ttymouse=sgr
+endif
 set shell=zsh                                       " 设置默认shell为zsh
 set updatetime=300                                  " 过时将交换文件写入磁盘和CursorHold
 set timeout timeoutlen=1000 ttimeoutlen=100         " 修改延迟,详情见 :h timeoutlen
@@ -44,6 +47,7 @@ call plug#begin()
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                     " coc
     Plug 'bfrg/vim-cpp-modern'                                          " cpp语法高亮
     Plug 'udalov/kotlin-vim'                                            " kotlin语法高亮
+    Plug 'tikhomirov/vim-glsl'                                          " glsl语法高亮
 call plug#end()
 
 " ==========================颜色主题=========================
