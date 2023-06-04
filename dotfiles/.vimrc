@@ -26,6 +26,8 @@ set cursorline                                      " 高亮当前行
 set laststatus=2                                    " 总是显示statusline
 set signcolumn=yes                                  " 总是显示signcolumn
 set fillchars=vert:│                                " 分屏分割符为│
+set list                                            " 默认显示特殊字符
+set listchars=tab:>-                                " \t显示为>-
 set noshowmode                                      " 不显示INSERT、VISUAL等模式
 set showcmd                                         " 显示部分命令的状态
 set showmatch                                       " 高亮括号另一半
@@ -56,7 +58,29 @@ call plug#end()
 colorscheme gruvbox-material
 
 " =========================statusline========================
-let g:lightline = { 'colorscheme': 'gruvbox_material' }
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
+function! GitBranch()
+    let branch = FugitiveHead()
+    return branch !=# '' ? ' ' . branch : ''
+endfunction
+
+let g:lightline = {
+    \ 'colorscheme': 'gruvbox_material',
+    \ 'active': {
+    \     'left': [ [ 'mode', 'paste' ],
+    \               [ 'filename', 'modified', 'currentfunction' ] ],
+    \     'right': [ [ 'lineinfo' ],
+    \                [ 'percent' ],
+    \                [ 'gitbranch', 'fileencoding', 'filetype'] ],
+    \ },
+    \ 'component_function': {
+    \     'currentfunction': 'CocCurrentFunction',
+    \     'gitbranch': 'GitBranch',
+    \ },
+    \ }
 
 " ==========================模糊搜索=========================
 " 默认不预览, 使用ctrl-/切换预览
