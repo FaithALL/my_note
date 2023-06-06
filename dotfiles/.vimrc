@@ -42,6 +42,7 @@ nnoremap <silent> <C-L> :nohlsearch<return><C-L>
 " ======================vim-plug插件=========================
 call plug#begin()
     Plug 'sainnhe/gruvbox-material'                                     " 颜色主题
+    Plug 'luochen1990/rainbow'                                          " 彩虹括号
     Plug 'itchyny/lightline.vim'                                        " statusline
     Plug 'junegunn/fzf'                                                 " 模糊搜索
     Plug 'junegunn/fzf.vim'                                             " 模糊搜索
@@ -56,6 +57,12 @@ call plug#end()
 " 在MacOS上,terminfo的xterm-256color存在问题,斜体注释不可用
 " https://apple.stackexchange.com/questions/266333/how-to-show-italic-in-vim-in-iterm2
 colorscheme gruvbox-material
+
+" ==========================彩虹括号=========================
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+    \ 'ctermfgs': [ 'red', 'lightgreen', 'yellow', 'lightblue', 'magenta', 'lightcyan' ]
+    \ }
 
 " =========================statusline========================
 function! CocCurrentFunction()
