@@ -1,8 +1,10 @@
 {
-    "diagnostic.checkCurrentLine": true,
+    "outline.sortBy": "position",
+    "outline.autoPreview": true,
     "diagnostic.warningSign": "!!",
     "diagnostic.errorSign": "->",
-    "coc.preferences.formatOnSave": true,
+    "diagnostic.checkCurrentLine": true,
+    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
     "pairs.enableCharacters": [
         "(",
         "[",
@@ -26,7 +28,6 @@
             }
         }
     },
-    "clangd.compilationDatabasePath": "build",
     "clangd.fallbackFlags": [
         "-std=c++17"
     ]
