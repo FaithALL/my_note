@@ -61,7 +61,10 @@ colorscheme gruvbox-material
 " ==========================彩虹括号=========================
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-    \ 'ctermfgs': [ 'red', 'lightgreen', 'yellow', 'lightblue', 'magenta', 'lightcyan' ]
+    \ 'ctermfgs': [ 'red', 'lightgreen', 'yellow', 'lightblue', 'magenta', 'lightcyan' ],
+    \ 'separately': {
+    \   'cmake': 0,
+    \ }
     \ }
 
 " =========================statusline========================
@@ -78,7 +81,7 @@ let g:lightline = {
     \ 'colorscheme': 'gruvbox_material',
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
-    \               [ 'filename', 'modified', 'currentfunction' ] ],
+    \               [ 'filename', 'currentfunction', 'modified' ] ],
     \     'right': [ [ 'lineinfo' ],
     \                [ 'percent' ],
     \                [ 'gitbranch', 'fileencoding', 'filetype'] ],
@@ -127,6 +130,7 @@ nnoremap <silent> gr <Plug>(coc-references)
 nnoremap <silent> <leader>rn <Plug>(coc-rename)
 nnoremap <silent> <leader>re <Plug>(coc-refactor)
 nnoremap <silent> <leader>qf <Plug>(coc-fix-current)
-nnoremap <silent> <leader>ch :CocCommand clangd.switchSourceHeader<CR>
+nnoremap <silent> <leader>sw :CocCommand clangd.switchSourceHeader<CR>
+nnoremap <silent> <leader>fo :CocCommand editor.action.formatDocument<CR>
 nnoremap <silent> <leader>e :CocCommand explorer --sources=buffer+,file+<CR>
 nnoremap <silent> <leader>j :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
