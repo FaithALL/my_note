@@ -1,9 +1,12 @@
 {
-    "outline.sortBy": "position",
     "outline.autoPreview": true,
-    "diagnostic.warningSign": "!!",
+    "outline.sortBy": "position",
     "diagnostic.errorSign": "->",
+    "diagnostic.warningSign": "!!",
+    "suggest.labelMaxLength": 100,
     "diagnostic.checkCurrentLine": true,
+    "notification.marginRight": 0,
+    "notification.statusLineProgress": false,
     "coc.preferences.currentFunctionSymbolAutoUpdate": true,
     "pairs.enableCharacters": [
         "(",
@@ -16,7 +19,7 @@
     "explorer.icon.enableNerdfont": true,
     "languageserver": {
         "cmake": {
-            "command": "~/.local/bin/cmake-language-server",
+            "command": "cmake-language-server",
             "filetypes": [
                 "cmake"
             ],
