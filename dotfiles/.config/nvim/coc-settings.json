@@ -1,0 +1,26 @@
+{
+    "outline.sortBy": "position",
+    "diagnostic.errorSign": ">",
+    "diagnostic.warningSign": "!",
+    "suggest.labelMaxLength": 100,
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.refreshOnInsertMode": true,
+    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+    "languageserver": {
+        "cmake": {
+            "command": "cmake-language-server",
+            "filetypes": [
+                "cmake"
+            ],
+            "rootPatterns": [
+                "build/"
+            ],
+            "initializationOptions": {
+                "buildDirectory": "build"
+            }
+        }
+    },
+    "clangd.fallbackFlags": [
+        "-std=c++17"
+    ]
+}
