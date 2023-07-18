@@ -88,7 +88,11 @@ require("lazy").setup({
                 lualine_c = {"diagnostics"},
                 lualine_x = {"encoding", "filetype"},
                 lualine_y = {"progress"},
-                lualine_z = {"location"},
+                lualine_z = {
+                  function()
+                    return " " .. os.date("%R")
+                  end,
+                },
             },
             extensions = { "fzf", "lazy", "nvim-tree" },
         },
@@ -99,9 +103,8 @@ require("lazy").setup({
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "cpp", "lua" },
+                ensure_installed = { "cpp", "kotlin","lua" },
                 highlight = { enable = true },
-                indent = { enable = true },
             })
         end,
     },
@@ -113,6 +116,11 @@ require("lazy").setup({
         },
     },
     {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+    },
+    {
         "nvim-tree/nvim-tree.lua",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
@@ -122,7 +130,7 @@ require("lazy").setup({
             vim.g.loaded_netrwPlugin = 1
         end,
         keys = {
-            {"<leader>e", "<cmd>NvimTreeToggle<CR>"},
+            {"<leader>e", "<cmd>NvimTreeFindFileToggle<CR>"},
         },
         opts = {
         },
@@ -157,6 +165,7 @@ require("lazy").setup({
         branch = "release",
         init = function()
             vim.g.coc_global_extensions = {
+                "coc-pairs",
                 "coc-json",
                 "coc-clangd",
             }
@@ -179,8 +188,8 @@ require("lazy").setup({
             vim.keymap.set("n", "gr", "<Plug>(coc-references)", {silent = true})
             vim.keymap.set("n", "<leader>rn", "<Plug>(coc-rename)", {silent = true})
             vim.keymap.set("n", "<leader>qf", "<Plug>(coc-fix-current)", {silent = true})
-            vim.keymap.set("n", "<leader>sw", ":CocCommand clangd.switchSourceHeader<CR>", {silent = true})
-            vim.keymap.set("n", "<leader>fo", ":CocCommand editor.action.formatDocument<CR>", {silent = true})
+            vim.keymap.set("n", "<leader>sw", "<cmd>CocCommand clangd.switchSourceHeader<CR>", {silent = true})
+            vim.keymap.set("n", "<leader>fo", "<cmd>CocCommand editor.action.formatDocument<CR>", {silent = true})
         end,
     },
     {
