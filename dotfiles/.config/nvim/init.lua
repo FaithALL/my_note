@@ -20,9 +20,10 @@ vim.opt.cursorline = true                       -- 高亮当前行
 vim.opt.guicursor = ""                          -- nvim设置光标样式
 vim.opt.signcolumn = "yes"                      -- 总是显示signcolumn
 vim.opt.list = true                             -- 默认显示特殊字符
-vim.opt.listchars = "tab:>-,trail:-,extends:>"  -- 设置特殊字符的显示
+vim.opt.listchars = "tab:>-,extends:>"          -- 设置特殊字符的显示
 vim.opt.showmode = false                        -- 不显示INSERT、VISUAL等模式
 vim.opt.ignorecase = true                       -- 搜索时忽略大小写
+vim.cmd([[autocmd TermOpen * startinsert]])     -- 打开终端时自动进入插入模式
 
 -- 插件管理器
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -86,7 +87,13 @@ require("lazy").setup({
                 lualine_a = {"mode"},
                 lualine_b = {"filename"},
                 lualine_c = {"diagnostics"},
-                lualine_x = {"encoding", "filetype"},
+                lualine_x = {
+                    function()
+                        return vim.fn["codeium#GetStatusString"]()
+                    end,
+                    "encoding",
+                    "filetype",
+                },
                 lualine_y = {"progress"},
                 lualine_z = {
                   function()
@@ -95,6 +102,24 @@ require("lazy").setup({
                 },
             },
             extensions = { "fzf", "lazy", "nvim-tree" },
+        },
+    },
+    {
+        "shellRaining/hlchunk.nvim",
+        event = { "UIEnter" },
+        enabled = false,
+        opts = {
+            indent = {
+            },
+            chunk = {
+                enable = false,
+            },
+            line_num = {
+                enable = false,
+            },
+            blank = {
+                enable = false,
+            }
         },
     },
     {
@@ -118,7 +143,8 @@ require("lazy").setup({
     {
         "folke/flash.nvim",
         event = "VeryLazy",
-        opts = {},
+        opts = {
+        },
     },
     {
         "nvim-tree/nvim-tree.lua",
@@ -193,13 +219,13 @@ require("lazy").setup({
         end,
     },
     {
-        "github/copilot.vim",
+        "Exafunction/codeium.vim",
         init = function()
-            vim.g.copilot_no_tab_map = true
+            vim.g.codeium_no_map_tab = true
         end,
         event = "InsertEnter",
         config = function()
-            vim.cmd([[imap <silent><script><expr> <C-F> copilot#Accept("\<CR>")]])
+            vim.cmd([[imap <silent><script><nowait><expr> <C-F> codeium#Accept()]])
         end,
     }
 })
