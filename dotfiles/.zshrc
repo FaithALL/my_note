@@ -8,8 +8,16 @@ case $- in
 esac
 
 # 命令行提示符
-autoload -U colors && colors
-PROMPT="%{$fg_bold[blue]%}%~%{$reset_color%} "
+setopt PROMPT_SUBST
+function parse_git_info() {
+    local branch_name_color=$'%F{yellow}'
+    local branch_name="$(git symbolic-ref --short HEAD 2> /dev/null)"
+    if [ -n "$branch_name" ]; then
+        printf "%s%s " "${branch_name_color}" "$branch_name"
+    fi
+}
+PROMPT='%B%F{blue}%~ $(parse_git_info)%f%b'
+
 # 小写字母也可以匹配大写字母
 # https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
 autoload -Uz compinit && compinit
@@ -78,7 +86,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen apply
 
 # 设置默认编辑器
-export EDITOR=vim
+export EDITOR=nvim
 
 # fzf
 if [ -x "$(which fzf)" ]; then

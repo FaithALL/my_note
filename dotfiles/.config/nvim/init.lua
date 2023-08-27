@@ -6,6 +6,7 @@ vim.opt.updatetime = 300                        -- 过时将交换文件写入�
 vim.opt.timeout = true                          -- 修改延迟,详情见 :h timeoutlen
 vim.opt.timeoutlen = 1000
 vim.opt.ttimeoutlen = 100
+vim.opt.clipboard = "unnamedplus"               -- 共享系统剪贴板
 vim.cmd("filetype indent on")                   -- 开启文件类型检查并适应不同语言缩进
 vim.opt.autoindent = true                       -- 新一行使用同样缩进
 vim.opt.expandtab = true                        -- 将新插入的Tab替换成空格
@@ -20,7 +21,8 @@ vim.opt.cursorline = true                       -- 高亮当前行
 vim.opt.guicursor = ""                          -- nvim设置光标样式
 vim.opt.signcolumn = "yes"                      -- 总是显示signcolumn
 vim.opt.list = true                             -- 默认显示特殊字符
-vim.opt.listchars = "tab:>-,extends:>"          -- 设置特殊字符的显示
+vim.opt.shortmess:append("I")                   -- 启动时不显示intro
+vim.opt.listchars = "tab:>-,trail:-,extends:>"  -- 设置特殊字符的显示
 vim.opt.showmode = false                        -- 不显示INSERT、VISUAL等模式
 vim.opt.ignorecase = true                       -- 搜索时忽略大小写
 vim.cmd([[autocmd TermOpen * startinsert]])     -- 打开终端时自动进入插入模式
@@ -128,7 +130,7 @@ require("lazy").setup({
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "cpp", "kotlin","lua" },
+                ensure_installed = { "cpp", "kotlin", "lua", "python" },
                 highlight = { enable = true },
             })
         end,
@@ -182,8 +184,12 @@ require("lazy").setup({
         keys = {
             {"<leader>ff", "<cmd>Files<CR>"},
             {"<leader>fg", "<cmd>GFiles<CR>"},
+            {"<leader>fc", "<cmd>GFiles?<CR>"},
             {"<leader>fw", "<cmd>Rg<CR>"},
             {"<leader>fb", "<cmd>Buffers<CR>"},
+            {"<leader>fhf", "<cmd>History<CR>"},
+            {"<leader>fh/", "<cmd>History/<CR>"},
+            {"<leader>fh:", "<cmd>History:<CR>"},
         },
     },
     {
@@ -194,6 +200,7 @@ require("lazy").setup({
                 "coc-pairs",
                 "coc-json",
                 "coc-clangd",
+                "coc-pyright",
             }
         end,
         config = function()
