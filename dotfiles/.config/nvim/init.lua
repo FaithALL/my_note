@@ -2,6 +2,7 @@
 vim.g.mapleader = ","                           -- leader键默认为\ 设置为,
 vim.opt.autowrite = true                        -- 自动保存
 vim.opt.shell = "zsh"                           -- 设置默认shell为zsh
+vim.opt.undofile = true                         -- 再次进入buffer仍可undo/redo
 vim.opt.updatetime = 300                        -- 过时将交换文件写入磁盘和CursorHold
 vim.opt.timeout = true                          -- 修改延迟,详情见 :h timeoutlen
 vim.opt.timeoutlen = 1000
@@ -195,6 +196,9 @@ require("lazy").setup({
     {
         "neoclide/coc.nvim",
         branch = "release",
+        dependencies = {
+            "rcarriga/nvim-notify",
+        },
         init = function()
             vim.g.coc_global_extensions = {
                 "coc-pairs",
@@ -223,6 +227,36 @@ require("lazy").setup({
             vim.keymap.set("n", "<leader>qf", "<Plug>(coc-fix-current)", {silent = true})
             vim.keymap.set("n", "<leader>sw", "<cmd>CocCommand clangd.switchSourceHeader<CR>", {silent = true})
             vim.keymap.set("n", "<leader>fo", "<cmd>CocCommand editor.action.formatDocument<CR>", {silent = true})
+
+            local coc_status_record = {}
+
+            require("notify").setup({
+                timeout = 1000,
+                minimum_width = 30,
+            })
+
+            function reset_coc_status_record(window)
+              coc_status_record = {}
+            end
+
+            function coc_status_notify(msg, level)
+              local notify_opts = { title = "LSP Status", timeout = 500, hide_from_history = true, on_close = reset_coc_status_record }
+              if coc_status_record ~= {} then
+                notify_opts["replace"] = coc_status_record.id
+              end
+              coc_status_record = require("notify")(msg, level, notify_opts)
+            end
+
+            vim.cmd[[
+                function! s:StatusNotify() abort
+                  let l:status = get(g:, 'coc_status', '')
+                  let l:level = 'info'
+                  if empty(l:status) | return '' | endif
+                  call v:lua.coc_status_notify(l:status, l:level)
+                endfunction
+
+                autocmd User CocStatusChange call s:StatusNotify()
+            ]]
         end,
     },
     {
@@ -234,5 +268,5 @@ require("lazy").setup({
         config = function()
             vim.cmd([[imap <silent><script><nowait><expr> <C-F> codeium#Accept()]])
         end,
-    }
+    },
 })
