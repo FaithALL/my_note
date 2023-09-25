@@ -52,6 +52,27 @@ require("lazy").setup({
         end,
     },
     {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons",
+          "MunifTanjim/nui.nvim",
+        },
+        keys = {
+          { "<leader>e", "<cmd>Neotree toggle<cr>"},
+        },
+        opts = {
+            sources = { "filesystem", "git_status" },
+            filesystem = {
+                filtered_items = {
+                    hide_dotfiles = false,
+                },
+                follow_current_file = { enabled = true },
+            },
+        }
+    },
+    {
         "akinsho/nvim-bufferline.lua",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
@@ -59,13 +80,15 @@ require("lazy").setup({
         event = "VeryLazy",
         opts = {
             options = {
+                always_show_bufferline = false,
                 indicator = {
                     style = "none",
                 },
                 offsets = {
                     {
-                        filetype = "NvimTree",
+                        filetype = "neo-tree",
                         text = "File Explorer",
+                        highlight = "Directory",
                         text_align = "left",
                         separator = false,
                     },
@@ -104,25 +127,7 @@ require("lazy").setup({
                   end,
                 },
             },
-            extensions = { "fzf", "lazy", "nvim-tree" },
-        },
-    },
-    {
-        "shellRaining/hlchunk.nvim",
-        event = { "UIEnter" },
-        enabled = false,
-        opts = {
-            indent = {
-            },
-            chunk = {
-                enable = false,
-            },
-            line_num = {
-                enable = false,
-            },
-            blank = {
-                enable = false,
-            }
+            extensions = { "fzf", "lazy", "neo-tree" },
         },
     },
     {
@@ -137,6 +142,18 @@ require("lazy").setup({
         end,
     },
     {
+        "RRethy/vim-illuminate",
+        event = { "BufReadPost", "BufNewFile" },
+        opts = {
+            delay = 200,
+        },
+        config = function()
+            require("illuminate").configure({
+                delay = 200,
+            })
+        end,
+    },
+    {
         "lewis6991/gitsigns.nvim",
         event = { "BufReadPre", "BufNewFile" },
         opts = {
@@ -146,21 +163,6 @@ require("lazy").setup({
     {
         "folke/flash.nvim",
         event = "VeryLazy",
-        opts = {
-        },
-    },
-    {
-        "nvim-tree/nvim-tree.lua",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        init = function()
-            vim.g.loaded_netrw = 1
-            vim.g.loaded_netrwPlugin = 1
-        end,
-        keys = {
-            {"<leader>e", "<cmd>NvimTreeFindFileToggle<CR>"},
-        },
         opts = {
         },
     },
@@ -184,8 +186,6 @@ require("lazy").setup({
         end,
         keys = {
             {"<leader>ff", "<cmd>Files<CR>"},
-            {"<leader>fg", "<cmd>GFiles<CR>"},
-            {"<leader>fc", "<cmd>GFiles?<CR>"},
             {"<leader>fw", "<cmd>Rg<CR>"},
             {"<leader>fb", "<cmd>Buffers<CR>"},
             {"<leader>fhf", "<cmd>History<CR>"},
