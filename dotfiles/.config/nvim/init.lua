@@ -52,6 +52,28 @@ require("lazy").setup({
         end,
     },
     {
+      "echasnovski/mini.bufremove",
+      keys = {
+        {
+          "<leader>bd",
+          function()
+            local bd = require("mini.bufremove").delete
+            if vim.bo.modified then
+              local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+              if choice == 1 then
+                vim.cmd.write()
+                bd(0)
+              elseif choice == 2 then
+                bd(0, true)
+              end
+            else
+              bd(0)
+            end
+          end
+        },
+      },
+    },
+    {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         dependencies = {
@@ -63,6 +85,7 @@ require("lazy").setup({
           { "<leader>e", "<cmd>Neotree toggle<cr>"},
         },
         opts = {
+            close_if_last_window = true,
             sources = { "filesystem", "git_status" },
             filesystem = {
                 filtered_items = {
@@ -121,11 +144,7 @@ require("lazy").setup({
                     "filetype",
                 },
                 lualine_y = {"progress"},
-                lualine_z = {
-                  function()
-                    return " " .. os.date("%R")
-                  end,
-                },
+                lualine_z = {"location"},
             },
             extensions = { "fzf", "lazy", "neo-tree" },
         },
@@ -196,9 +215,6 @@ require("lazy").setup({
     {
         "neoclide/coc.nvim",
         branch = "release",
-        dependencies = {
-            "rcarriga/nvim-notify",
-        },
         init = function()
             vim.g.coc_global_extensions = {
                 "coc-pairs",
@@ -227,36 +243,6 @@ require("lazy").setup({
             vim.keymap.set("n", "<leader>qf", "<Plug>(coc-fix-current)", {silent = true})
             vim.keymap.set("n", "<leader>sw", "<cmd>CocCommand clangd.switchSourceHeader<CR>", {silent = true})
             vim.keymap.set("n", "<leader>fo", "<cmd>CocCommand editor.action.formatDocument<CR>", {silent = true})
-
-            local coc_status_record = {}
-
-            require("notify").setup({
-                timeout = 1000,
-                minimum_width = 30,
-            })
-
-            function reset_coc_status_record(window)
-              coc_status_record = {}
-            end
-
-            function coc_status_notify(msg, level)
-              local notify_opts = { title = "LSP Status", timeout = 500, hide_from_history = true, on_close = reset_coc_status_record }
-              if coc_status_record ~= {} then
-                notify_opts["replace"] = coc_status_record.id
-              end
-              coc_status_record = require("notify")(msg, level, notify_opts)
-            end
-
-            vim.cmd[[
-                function! s:StatusNotify() abort
-                  let l:status = get(g:, 'coc_status', '')
-                  let l:level = 'info'
-                  if empty(l:status) | return '' | endif
-                  call v:lua.coc_status_notify(l:status, l:level)
-                endfunction
-
-                autocmd User CocStatusChange call s:StatusNotify()
-            ]]
         end,
     },
     {
