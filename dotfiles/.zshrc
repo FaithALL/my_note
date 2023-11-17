@@ -1,5 +1,6 @@
 # zsh配置, 参考https://github.com/skywind3000/vim/blob/master/etc/zshrc.zsh
-# path: ~/.zshrc
+# MacPath: ${HOME}/.zshrc
+# LinuxPath: ${HOME}/.zshrc
 
 # If not running interactively, don't do anything
 case $- in
@@ -87,6 +88,9 @@ antigen apply
 
 # 设置默认编辑器
 export EDITOR=nvim
+
+# 本地配置
+source ~/.special.zsh
 
 # fzf
 if [ -x "$(which fzf)" ]; then

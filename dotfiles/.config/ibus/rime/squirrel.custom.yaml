@@ -1,5 +1,5 @@
 # 鼠须管平台特化配置(mac)
-# path: ~/Library/Rime/squirrel.custom.yaml
+# MacPath: ${HOME}/Library/Rime/squirrel.custom.yaml
 
 patch:
   style/color_scheme: mac_light

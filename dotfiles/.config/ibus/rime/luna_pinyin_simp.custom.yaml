@@ -1,6 +1,6 @@
 # rime明月拼音简化字方案特化配置
-# path: ~/.config/ibus/rime/luna_pinyin_simp.custom.yaml (linux-ibus)
-# path: ~/Library/Rime/luna_pinyin_simp.custom.yaml (mac)
+# MacPath: ${HOME}/Library/Rime/luna_pinyin_simp.custom.yaml
+# LinuxPath: ${HOME}/.config/ibus/rime/luna_pinyin_simp.custom.yaml
 
 patch:
   switches:

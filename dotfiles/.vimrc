@@ -1,3 +1,6 @@
+" vim 配置
+" MacPath: ${HOME}/.vimrc
+" LinuxPath: ${HOME}/.vimrc
 " ===========基本==============
 let mapleader=","                                   " leader键默认为\ 设置为,
 set autowrite                                       " 自动保存

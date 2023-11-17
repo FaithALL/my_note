@@ -1,6 +1,6 @@
 # rime所有输入方案通用配置
-# path: ~/.config/ibus/rime/default.custom.yaml (linux-ibus)
-# path: ~/Library/Rime/default.custom.yaml (mac)
+# MacPath: ${HOME}/Library/Rime/default.custom.yaml
+# LinuxPath: ${HOME}/.config/ibus/rime/default.custom.yaml
 
 # 删除自造词 fn-Shift-BackSpace (mac) || Shift-Delete (linux)
 patch:

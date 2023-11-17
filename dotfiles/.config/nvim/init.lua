@@ -1,3 +1,6 @@
+-- neovim 配置
+-- MacPath: ${HOME}/.config/nvim/init.lua
+-- LinuxPath: ${HOME}/.config/nvim/init.lua
 -- 基本配置
 vim.g.mapleader = ","                           -- leader键默认为\ 设置为,
 vim.opt.autowrite = true                        -- 自动保存
@@ -155,7 +158,7 @@ require("lazy").setup({
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "cpp", "kotlin", "lua", "python" },
+                ensure_installed = { "comment", "cpp", "kotlin", "lua", "markdown", "python" },
                 highlight = { enable = true },
             })
         end,
@@ -254,5 +257,14 @@ require("lazy").setup({
         config = function()
             vim.cmd([[imap <silent><script><nowait><expr> <C-F> codeium#Accept()]])
         end,
+    },
+    {
+        "folke/zen-mode.nvim",
+        dependencies = {
+            "folke/twilight.nvim",
+        },
+        ft = "markdown",
+        opts = {
+        },
     },
 })

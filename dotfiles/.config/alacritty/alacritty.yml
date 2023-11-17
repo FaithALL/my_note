@@ -1,5 +1,6 @@
 # alacritty终端配置
-# path: ~/.config/alacritty/alacritty.yml
+# MacPath: ${HOME}/.config/alacritty/alacritty.yml
+# LinuxPath: ${HOME}/.config/alacritty/alacritty.yml
 
 env:
   LANG: en_US.UTF-8
