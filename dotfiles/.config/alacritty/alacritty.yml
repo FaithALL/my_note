@@ -16,19 +16,19 @@ window:
 
 font:
   normal:
-    family: SauceCodePro Nerd Font Mono
+    family: SauceCodePro NFM
     style: Regular
 
   bold:
-    family: SauceCodePro Nerd Font Mono
+    family: SauceCodePro NFM
     style: Bold
 
   italic:
-    family: SauceCodePro Nerd Font Mono
+    family: SauceCodePro NFM
     style: Italic
 
   bold_italic:
-    family: SauceCodePro Nerd Font Mono
+    family: SauceCodePro NFM
     style: Bold Italic
 
   size: 16
