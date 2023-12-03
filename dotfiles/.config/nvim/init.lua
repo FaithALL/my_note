@@ -1,9 +1,9 @@
 -- neovim 配置
 -- MacPath: ${HOME}/.config/nvim/init.lua
 -- LinuxPath: ${HOME}/.config/nvim/init.lua
+
 -- 基本配置
 vim.g.mapleader = ","                           -- leader键默认为\ 设置为,
-vim.opt.autowrite = true                        -- 自动保存
 vim.opt.shell = "zsh"                           -- 设置默认shell为zsh
 vim.opt.undofile = true                         -- 再次进入buffer仍可undo/redo
 vim.opt.updatetime = 300                        -- 过时将交换文件写入磁盘和CursorHold
@@ -29,7 +29,11 @@ vim.opt.shortmess:append("I")                   -- 启动时不显示intro
 vim.opt.listchars = "tab:>-,trail:-,extends:>"  -- 设置特殊字符的显示
 vim.opt.showmode = false                        -- 不显示INSERT、VISUAL等模式
 vim.opt.ignorecase = true                       -- 搜索时忽略大小写
-vim.cmd([[autocmd TermOpen * startinsert]])     -- 打开终端时自动进入插入模式
+
+-- buffer keymap
+vim.keymap.set("n", "<leader>bn", "<Cmd>bnext<CR>", { silent = true, desc = "Buffer next" })
+vim.keymap.set("n", "<leader>bp", "<Cmd>bprevious<CR>", { silent = true, desc = "Buffer previous" })
+vim.keymap.set("n", "<leader>bd", "<Cmd>bprevious | bdelete#<CR>", { silent = true, desc = "Buffer delete" })
 
 -- 插件管理器
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -55,37 +59,101 @@ require("lazy").setup({
         end,
     },
     {
-      "echasnovski/mini.bufremove",
-      keys = {
-        {
-          "<leader>bd",
-          function()
-            local bd = require("mini.bufremove").delete
-            if vim.bo.modified then
-              local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-              if choice == 1 then
-                vim.cmd.write()
-                bd(0)
-              elseif choice == 2 then
-                bd(0, true)
-              end
-            else
-              bd(0)
-            end
-          end
+        "voldikss/vim-floaterm",
+        init = function()
+            vim.g.floaterm_title = ""
+            vim.g.floaterm_autoclose = 2
+        end,
+        keys = {
+            { "<c-t>", "<Cmd>FloatermToggle<CR>", mode = { "n", "t" }, desc = "Toggle Floaterm" },
         },
-      },
+    },
+    {
+        "junegunn/fzf.vim",
+        dependencies = {
+            "junegunn/fzf",
+        },
+        init = function()
+            vim.g.fzf_preview_window = { "hidden,right,50%", "ctrl-/" }
+        end,
+        keys = {
+            { "<leader>ff", "<Cmd>Files<CR>", desc = "Find File" },
+            { "<leader>fw", "<Cmd>Rg<CR>", desc = "Find Word" },
+            { "<leader>fb", "<Cmd>Buffers<CR>", desc = "Find Buffer" },
+            { "<leader>fhf", "<Cmd>History<CR>", desc = "Find History File" },
+            { "<leader>fh/", "<Cmd>History/<CR>", desc = "Find History Search" },
+            { "<leader>fh:", "<Cmd>History:<CR>", desc = "Find History Command" },
+        },
+    },
+    {
+        "tpope/vim-commentary",
+        init = function()
+            vim.cmd([[autocmd FileType c,cpp setlocal commentstring=//\ %s]])
+        end,
+        keys = {
+            { "<leader><leader>", "<Plug>CommentaryLine", desc = "Comment" },
+            { "<leader><leader>", "<Plug>Commentary", mode = { "v" }, desc = "Comment" },
+        },
+    },
+    {
+        "neoclide/coc.nvim",
+        branch = "release",
+        init = function()
+            vim.g.coc_global_extensions = {
+                "coc-cmake",
+                "coc-pairs",
+                "coc-json",
+                "coc-clangd",
+                "coc-pyright",
+            }
+        end,
+        config = function()
+            vim.keymap.set( "i", "<tab>", "coc#pum#visible() ? coc#pum#confirm() : '<tab>'", { silent = true, expr = true } )
+            vim.keymap.set( "i", "<CR>", "coc#pum#visible() ? coc#pum#confirm() : '<CR>'", {silent = true, expr = true} )
+            vim.keymap.set( "i", "<c-space>", "coc#refresh()", {silent = true, expr = true} )
+            vim.keymap.set("n", "gd", "<Plug>(coc-definition)", { silent = true, desc = "Go to definition" })
+            vim.keymap.set("n", "gr", "<Plug>(coc-references)", { silent = true, desc = "Go to references" })
+            vim.keymap.set("n", "<leader>rn", "<Plug>(coc-rename)", { silent = true, desc = "Rename" })
+            vim.keymap.set("n", "<leader>qf", "<Plug>(coc-fix-current)", { silent = true, desc = "Quickfix" })
+            vim.keymap.set("n", "<leader>sw", "<Cmd>CocCommand clangd.switchSourceHeader<CR>", { silent = true, desc = "Switch (c family)" })
+            vim.keymap.set("n", "<leader>fo", "<Cmd>CocCommand editor.action.formatDocument<CR>", { silent = true, desc = "Format" })
+            vim.keymap.set(
+                "n",
+                "K",
+                function()
+                    local cw = vim.fn.expand("<cword>")
+                    if vim.fn.index({"vim", "help"}, vim.bo.filetype) >= 0 then
+                        vim.api.nvim_command("h " .. cw)
+                    elseif vim.api.nvim_eval("coc#rpc#ready()") then
+                        vim.fn.CocActionAsync("doHover")
+                    else
+                        vim.api.nvim_command("!" .. vim.o.keywordprg .. " " .. cw)
+                    end
+                end,
+                {silent = true}
+            )
+        end,
+    },
+    {
+        "Exafunction/codeium.vim",
+        init = function()
+            vim.g.codeium_no_map_tab = true
+        end,
+        event = "InsertEnter",
+        config = function()
+            vim.cmd([[imap <silent><script><nowait><expr> <c-f> codeium#Accept()]])
+        end,
     },
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         dependencies = {
-          "nvim-lua/plenary.nvim",
-          "nvim-tree/nvim-web-devicons",
-          "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
         },
         keys = {
-          { "<leader>e", "<cmd>Neotree toggle<cr>"},
+            { "<leader>e", "<Cmd>Neotree toggle<CR>", desc = "Toggle File Explorer" }
         },
         opts = {
             close_if_last_window = true,
@@ -136,9 +204,9 @@ require("lazy").setup({
                 globalstatus = true,
             },
             sections = {
-                lualine_a = {"mode"},
-                lualine_b = {"filename"},
-                lualine_c = {"diagnostics"},
+                lualine_a = { "mode" },
+                lualine_b = { "filename" },
+                lualine_c = { "diagnostics" },
                 lualine_x = {
                     function()
                         return vim.fn["codeium#GetStatusString"]()
@@ -146,11 +214,19 @@ require("lazy").setup({
                     "encoding",
                     "filetype",
                 },
-                lualine_y = {"progress"},
-                lualine_z = {"location"},
+                lualine_y = { "progress" },
+                lualine_z = { "location" },
             },
-            extensions = { "fzf", "lazy", "neo-tree" },
-        },
+            extensions = {
+                "fzf",
+                "lazy",
+                "neo-tree",
+                {
+                    sections = { lualine_a = { "mode" } },
+                    filetypes = { "floaterm" },
+                },
+            },
+        }
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -166,9 +242,6 @@ require("lazy").setup({
     {
         "RRethy/vim-illuminate",
         event = { "BufReadPost", "BufNewFile" },
-        opts = {
-            delay = 200,
-        },
         config = function()
             require("illuminate").configure({
                 delay = 200,
@@ -185,86 +258,6 @@ require("lazy").setup({
     {
         "folke/flash.nvim",
         event = "VeryLazy",
-        opts = {
-        },
-    },
-    {
-        "tpope/vim-commentary",
-        init = function()
-            vim.cmd([[autocmd FileType c,cpp setlocal commentstring=//\ %s]])
-        end,
-        keys = {
-            {"<leader><leader>", "<Plug>CommentaryLine"},
-            {"<leader><leader>", "<Plug>Commentary", mode = {"v"} },
-        },
-    },
-    {
-        "junegunn/fzf.vim",
-        dependencies = {
-            "junegunn/fzf",
-        },
-        init = function()
-            vim.g.fzf_preview_window = { "hidden,right,50%", "ctrl-/" }
-        end,
-        keys = {
-            {"<leader>ff", "<cmd>Files<CR>"},
-            {"<leader>fw", "<cmd>Rg<CR>"},
-            {"<leader>fb", "<cmd>Buffers<CR>"},
-            {"<leader>fhf", "<cmd>History<CR>"},
-            {"<leader>fh/", "<cmd>History/<CR>"},
-            {"<leader>fh:", "<cmd>History:<CR>"},
-        },
-    },
-    {
-        "neoclide/coc.nvim",
-        branch = "release",
-        init = function()
-            vim.g.coc_global_extensions = {
-                "coc-pairs",
-                "coc-json",
-                "coc-clangd",
-                "coc-pyright",
-            }
-        end,
-        config = function()
-            vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#confirm() : "<TAB>"', {silent = true, expr = true})
-            vim.keymap.set("i", "<CR>", 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', {silent = true, expr = true})
-            vim.keymap.set("i", "<C-space>", "coc#refresh()", {silent = true, expr = true})
-            vim.keymap.set("n", "K", function()
-                local cw = vim.fn.expand('<cword>')
-                if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
-                    vim.api.nvim_command('h ' .. cw)
-                elseif vim.api.nvim_eval('coc#rpc#ready()') then
-                    vim.fn.CocActionAsync('doHover')
-                else
-                    vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
-                end
-            end , {silent = true})
-            vim.keymap.set("n", "gd", "<Plug>(coc-definition)", {silent = true})
-            vim.keymap.set("n", "gr", "<Plug>(coc-references)", {silent = true})
-            vim.keymap.set("n", "<leader>rn", "<Plug>(coc-rename)", {silent = true})
-            vim.keymap.set("n", "<leader>qf", "<Plug>(coc-fix-current)", {silent = true})
-            vim.keymap.set("n", "<leader>sw", "<cmd>CocCommand clangd.switchSourceHeader<CR>", {silent = true})
-            vim.keymap.set("n", "<leader>fo", "<cmd>CocCommand editor.action.formatDocument<CR>", {silent = true})
-        end,
-    },
-    {
-        "Exafunction/codeium.vim",
-        init = function()
-            vim.g.codeium_no_map_tab = true
-        end,
-        event = "InsertEnter",
-        config = function()
-            vim.cmd([[imap <silent><script><nowait><expr> <C-F> codeium#Accept()]])
-        end,
-    },
-    {
-        "folke/zen-mode.nvim",
-        dependencies = {
-            "folke/twilight.nvim",
-        },
-        ft = "markdown",
-        opts = {
-        },
+        opts = {},
     },
 })

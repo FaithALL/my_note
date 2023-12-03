@@ -65,11 +65,11 @@
 
 * [-l选项](https://zhuanlan.zhihu.com/p/151219726)：约定生成的库文件总是以libXXX开头。在编译器通过-l参数链接库时，会寻找动态库和静态库(优先使用动态库)，比如-lpthread会自动去寻找libpthread.so和libpthread.a。如果生成的库并没有以lib开头，就不能使用-l选项，只能加在编译命令参数里的方式链接。例如g++ main.o test.so 
 
-* [静态库&动态库](https://zhuanlan.zhihu.com/p/151219726)、[静态库和动态库相互链接若干问题](https://segmentfault.com/a/1190000020240898)
+* [静态库&动态库](https://zhuanlan.zhihu.com/p/151219726)
 
   ```shell
   #静态库实质是对.o文件进行打包
-  ar crsv libtest.a libtes.o
+  ar crsv libtest.a libtest.o
   # r 替换归档文件中已有的文件或加入新文件 (必要)
   # c 不在必须创建库的时候给出警告
   # s 创建归档索引

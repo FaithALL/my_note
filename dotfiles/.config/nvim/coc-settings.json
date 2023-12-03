@@ -1,6 +1,7 @@
 // coc.nvim配置
 // MacPath: ${HOME}/.config/nvim/coc-settings.json
 // LinuxPath: ${HOME}/.config/nvim/coc-settings.json
+
 {
     "outline.sortBy": "position",
     "diagnostic.errorSign": ">",
@@ -9,20 +10,6 @@
     "diagnostic.checkCurrentLine": true,
     "diagnostic.refreshOnInsertMode": true,
     "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-    "languageserver": {
-        "cmake": {
-            "command": "cmake-language-server",
-            "filetypes": [
-                "cmake"
-            ],
-            "rootPatterns": [
-                "build/"
-            ],
-            "initializationOptions": {
-                "buildDirectory": "build"
-            }
-        }
-    },
     "clangd.fallbackFlags": [
         "-std=c++17"
     ]
