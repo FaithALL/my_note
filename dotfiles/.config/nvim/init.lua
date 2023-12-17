@@ -53,6 +53,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     {
         "sainnhe/gruvbox-material",
+        lazy = false,
         priority = 1000,
         config = function()
             vim.cmd([[colorscheme gruvbox-material]])
@@ -108,9 +109,9 @@ require("lazy").setup({
             }
         end,
         config = function()
-            vim.keymap.set( "i", "<tab>", "coc#pum#visible() ? coc#pum#confirm() : '<tab>'", { silent = true, expr = true } )
-            vim.keymap.set( "i", "<CR>", "coc#pum#visible() ? coc#pum#confirm() : '<CR>'", {silent = true, expr = true} )
-            vim.keymap.set( "i", "<c-space>", "coc#refresh()", {silent = true, expr = true} )
+            vim.keymap.set("i", "<tab>", "coc#pum#visible() ? coc#pum#confirm() : '<tab>'", { silent = true, expr = true })
+            vim.keymap.set("i", "<CR>", "coc#pum#visible() ? coc#pum#confirm() : '<CR>'", { silent = true, expr = true })
+            vim.keymap.set("i", "<c-space>", "coc#refresh()", { silent = true, expr = true })
             vim.keymap.set("n", "gd", "<Plug>(coc-definition)", { silent = true, desc = "Go to definition" })
             vim.keymap.set("n", "gr", "<Plug>(coc-references)", { silent = true, desc = "Go to references" })
             vim.keymap.set("n", "<leader>rn", "<Plug>(coc-rename)", { silent = true, desc = "Rename" })
@@ -121,16 +122,14 @@ require("lazy").setup({
                 "n",
                 "K",
                 function()
-                    local cw = vim.fn.expand("<cword>")
-                    if vim.fn.index({"vim", "help"}, vim.bo.filetype) >= 0 then
-                        vim.api.nvim_command("h " .. cw)
-                    elseif vim.api.nvim_eval("coc#rpc#ready()") then
-                        vim.fn.CocActionAsync("doHover")
+                    if vim.fn.CocAction('hasProvider', 'hover') then
+                        vim.fn.CocActionAsync('doHover')
                     else
-                        vim.api.nvim_command("!" .. vim.o.keywordprg .. " " .. cw)
+                        local cw = vim.fn.expand("<cword>")
+                        vim.api.nvim_command("h " .. cw)
                     end
                 end,
-                {silent = true}
+                { silent = true }
             )
         end,
     },
@@ -222,7 +221,9 @@ require("lazy").setup({
                 "lazy",
                 "neo-tree",
                 {
-                    sections = { lualine_a = { "mode" } },
+                    sections = {
+                        lualine_a = { "mode" },
+                    },
                     filetypes = { "floaterm" },
                 },
             },
