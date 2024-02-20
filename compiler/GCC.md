@@ -101,3 +101,11 @@
     * 系统环境变量`LD_LIBRARY_PATH`
     * 配置文件`/etc/ld.so.conf`中指定的路径
     * 默认`/lib`、`/usr/lib`
+
+### Command
+* nm objdump readelf ldd strip strings
+``` shell
+    # ldd可以查看可执行程序和动态库依赖的动态库
+    # 可能会执行程序, 可能会有风险
+    ldd main
+```

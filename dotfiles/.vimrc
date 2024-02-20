@@ -48,3 +48,64 @@ if !has('nvim')
 
     colorscheme morning                                 " 设置默认主题
 endif
+
+" ===========插件==============
+" 自动下载vim-plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+    Plug 'sainnhe/gruvbox-material'
+    Plug 'voldikss/vim-floaterm'
+    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf.vim'
+    Plug 'tpope/vim-commentary'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
+
+" gruvbox-material
+set background=dark
+colorscheme gruvbox-material
+
+" vim-floaterm
+let g:floaterm_title = ''
+let g:floaterm_autoclose = 2
+nnoremap    <silent><c-t>   :FloatermToggle<CR>
+tnoremap    <silent><c-t>   <c-\><c-n>:FloatermToggle<CR>
+
+" fzf
+let g:fzf_preview_window = ['hidden,right,50%', 'ctrl-/']
+nnoremap <silent><leader>ff     :Files<CR>
+nnoremap <silent><leader>fw     :Rg<CR>
+nnoremap <silent><leader>fb     :Buffers<CR>
+nnoremap <silent><leader>fhf    :History<CR>
+nnoremap <silent><leader>fh/    :History/<CR>
+nnoremap <silent><leader>fh:    :History:<CR>
+
+" vim-commentary
+autocmd FileType c,cpp,dart,kotlin setlocal commentstring=//\ %s
+nnoremap <silent><leader><leader>   <Plug>CommentaryLine"
+nnoremap <silent><leader><leader>   <Plug>Commentary"
+
+" coc
+let g:coc_global_extensions = ['coc-cmake', 'coc-flutter', 'coc-pairs', 'coc-json', 'coc-clangd', 'coc-pyright']
+inoremap <silent><expr><tab>    coc#pum#visible() ? coc#pum#confirm() : '<tab>'
+inoremap <silent><expr><CR>     coc#pum#visible() ? coc#pum#confirm() : '<CR>'
+inoremap <silent><expr><c-@>    coc#refresh()
+nnoremap <silent>gd             <Plug>(coc-definition)
+nnoremap <silent>gr             <Plug>(coc-references)
+nnoremap <silent><leader>rn     <Plug>(coc-rename)
+nnoremap <silent><leader>qf     <Plug>(coc-fix-current)
+nnoremap <silent><leader>sw     :CocCommand clangd.switchSourceHeader<CR>
+nnoremap <silent><leader>fo     :CocCommand editor.action.formatDocument<CR>
+nnoremap <silent>K              :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction

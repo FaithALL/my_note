@@ -1,9 +1,9 @@
 // coc.nvim配置
-// MacPath: ${HOME}/.config/nvim/coc-settings.json
-// LinuxPath: ${HOME}/.config/nvim/coc-settings.json
-
+// MacPath: ${HOME}/.vim/coc-settings.json
+// LinuxPath: ${HOME}/.vim/coc-settings.json
 {
     "outline.sortBy": "position",
+    "semanticTokens.enable": true,
     "diagnostic.errorSign": ">",
     "diagnostic.warningSign": "!",
     "suggest.labelMaxLength": 100,

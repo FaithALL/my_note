@@ -1,0 +1,48 @@
+# alacritty终端配置
+# MacPath: ${HOME}/.config/alacritty/alacritty.toml
+# LinuxPath: ${HOME}/.config/alacritty/alacritty.toml
+
+[shell]
+program = "/bin/zsh"
+args = ["--login"]
+
+[env]
+LANG = "en_US.UTF-8"
+
+[window]
+decorations = "none"
+opacity = 0.8
+
+[font]
+size = 18
+normal = { family = "SauceCodePro NFM", style = "Regular" }
+bold = { family = "SauceCodePro NFM", style = "Bold" }
+italic = { family = "SauceCodePro NFM", style = "Italic" }
+bold_italic = { family = "SauceCodePro NFM", style = "Bold Italic" }
+
+[cursor]
+style = { shape = "Beam", blinking = "Always" }
+
+[colors.primary]
+background = "0x282828"
+foreground = "0xdfbf8e"
+
+[colors.normal]
+black = "0x665c54"
+blue = "0x7daea3"
+cyan = "0x89b482"
+green = "0xa9b665"
+magenta = "0xd3869b"
+red = "0xea6962"
+white = "0xdfbf8e"
+yellow = "0xe78a4e"
+
+[colors.bright]
+black = "0x928374"
+blue = "0x7daea3"
+cyan = "0x89b482"
+green = "0xa9b665"
+magenta = "0xd3869b"
+red = "0xea6962"
+white = "0xdfbf8e"
+yellow = "0xe3a84e"
