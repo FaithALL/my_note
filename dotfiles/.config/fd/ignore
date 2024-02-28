@@ -1,0 +1,11 @@
+# fd 搜索时全局忽略文件
+# MacPath: ${HOME}/.config/fd/ignore
+# LinuxPath: ${HOME}/.config/fd/ignore
+#
+.cache
+.DS_Store
+.idea
+.gradle
+Caches
+Containers
+DerivedData

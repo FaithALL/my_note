@@ -19,14 +19,14 @@ function parse_git_info() {
 }
 PROMPT='%B%F{blue}%~ $(parse_git_info)%f%b'
 
-# 小写字母也可以匹配大写字母
-# https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
+# 小写字母也可以匹配大写字母, https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-# 使用emacs风格的键绑定
+
+# 使用Emacs风格的键绑定
 bindkey -e
 
-# 别名
+# 设置别名
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -46,46 +46,6 @@ setopt HIST_IGNORE_DUPS         # 不重复记录相同项
 setopt HIST_SAVE_NO_DUPS        # 不保存重复的记录项
 setopt HIST_REDUCE_BLANKS       # 记录时删除多余空格
 
-
-# 插件管理器antigen: https://github.com/zsh-users/antigen
-ANTIGEN="$HOME/.local/bin/antigen.zsh"
-
-# 如果不存在antigen,自动下载
-if [ ! -f "$ANTIGEN" ]; then
-    echo "Installing antigen ..."
-    [ ! -d "$HOME/.local" ] && mkdir -p "$HOME/.local" 2> /dev/null
-    [ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin" 2> /dev/null
-    URL="http://git.io/antigen"
-    TMPFILE="/tmp/antigen.zsh"
-    if [ -x "$(which curl)" ]; then
-        curl -L "$URL" -o "$TMPFILE"
-    elif [ -x "$(which wget)" ]; then
-        wget "$URL" -O "$TMPFILE"
-    else
-        echo "ERROR: please install curl or wget before installation !!"
-        exit
-    fi
-    if [ ! $? -eq 0 ]; then
-        echo ""
-        echo "ERROR: downloading antigen.zsh ($URL) failed !!"
-        exit
-    fi
-    echo "move $TMPFILE to $ANTIGEN"
-    mv "$TMPFILE" "$ANTIGEN"
-fi
-
-# 加载antigen
-source "$ANTIGEN"
-
-# 使用插件
-# 补全提示插件
-antigen bundle zsh-users/zsh-autosuggestions
-# 语法高亮插件(必须最后一个加载)
-antigen bundle zsh-users/zsh-syntax-highlighting
-
-# Tell Antigen that you're done.
-antigen apply
-
 # 设置默认编辑器
 export EDITOR=nvim
 
@@ -100,9 +60,36 @@ if [ -x "$(which fzf)" ]; then
     [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
     [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
     # config
-    export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore\
-                                -g "!{.cache,.git,.gradle,Caches,Containers,DerivedData}" \
-                                2>/dev/null'
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+    export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
+
+# download plugin from github, source it
+apply_plugin() {
+    local all_plugins_dir="$HOME/.zsh_plugins"
+    mkdir -p "$all_plugins_dir"
+
+    # check if plugin exists, if not download it
+    local plugin_name="$(basename $1)"
+    local plugin_dir="$all_plugins_dir/$plugin_name"
+    if [ ! -d "$plugin_dir" ]; then
+        echo "Downloading $1"
+        local plugin_url="https://github.com/$1.git"
+        git clone --depth=1 "$plugin_url" "$plugin_dir" > /dev/null 2>&1
+
+        if [ $? -ne 0 ]; then
+            echo "ERROR: git clone --depth=1 $plugin_url $plugin_dir failed"
+            return
+        fi
+        echo "Installed $1"
+    fi
+
+    local plugin_init="$plugin_dir/$plugin_name.zsh"
+    if [ -f "$plugin_init" ]; then
+        source "$plugin_init"
+    fi
+}
+
+apply_plugin zsh-users/zsh-autosuggestions
+apply_plugin zsh-users/zsh-syntax-highlighting

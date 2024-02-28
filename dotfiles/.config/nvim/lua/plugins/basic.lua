@@ -27,7 +27,7 @@ return {
             "junegunn/fzf",
         },
         init = function()
-            vim.g.fzf_preview_window = { "hidden,right,50%", "ctrl-/" }
+            vim.g.fzf_preview_window = { "hidden,right,50%", "alt-/" }
         end,
         keys = {
             { "<leader>ff", "<Cmd>Files<CR>", desc = "Find File" },
@@ -168,14 +168,6 @@ return {
                 delay = 200,
             })
         end,
-    },
-    {
-        "lewis6991/gitsigns.nvim",
-        enabled = false,
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            numhl = true,
-        },
     },
     {
         "folke/flash.nvim",

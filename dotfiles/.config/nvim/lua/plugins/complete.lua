@@ -89,7 +89,7 @@ return {
                         }
 
                         if kind_icons[item.kind] then
-                            item.kind = string.format('%s %s', kind_icons[item.kind], item.kind)
+                            item.kind = string.format("%s %s", kind_icons[item.kind], item.kind)
                         end
                         return item
                     end,
