@@ -7,9 +7,9 @@ local quickfix_preview_winid = nil
 local function quickfix_update_preview(qf_item)
     local current_filetype = vim.api.nvim_buf_get_option(qf_item.bufnr, "filetype")
     if current_filetype == "" then
-        local filename = vim.api.nvim_buf_get_name(qf_item.bufnr)
-        local filetype = vim.fn.fnamemodify(filename, ":e")
-        vim.api.nvim_buf_set_option(qf_item.bufnr, "filetype", filetype)
+        vim.api.nvim_buf_call(qf_item.bufnr, function()
+            vim.cmd("filetype detect")
+        end)
     end
     if not quickfix_preview_winid then
         quickfix_preview_winid = vim.api.nvim_open_win(qf_item.bufnr, false, {
@@ -35,25 +35,24 @@ local function quickfix_close_preview()
     end
 end
 
-local quickfix_enhance_group = vim.api.nvim_create_augroup("QuickfixEnhance", { clear = true })
+local quickfix_enhance_augroup = vim.api.nvim_create_augroup("QuickfixEnhance", { clear = true })
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "qf",
-    group = quickfix_enhance_group,
+    group = quickfix_enhance_augroup,
     callback = function(args)
-
         vim.api.nvim_create_autocmd({ "CursorMoved" }, {
             buffer = args.buf,
-            group = quickfix_enhance_group,
+            group = quickfix_enhance_augroup,
             callback = function()
-                local line_no = vim.api.nvim_win_get_cursor(0)[1]
-                local qf_item = vim.fn.getqflist()[line_no]
+                local lnum = vim.api.nvim_win_get_cursor(0)[1]
+                local qf_item = vim.fn.getqflist()[lnum]
                 quickfix_update_preview(qf_item)
             end,
         })
 
         vim.api.nvim_create_autocmd({ "WinLeave" }, {
             buffer = args.buf,
-            group = quickfix_enhance_group,
+            group = quickfix_enhance_augroup,
             callback = quickfix_close_preview,
         })
 
@@ -62,8 +61,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
             return "<CR>"
         end, { buffer = args.buf, expr = true })
 
-        vim.keymap.set("n", "<Esc>", function()
-            quickfix_close_preview()
-        end, { buffer = args.buf })
+        vim.keymap.set("n", "<Esc>", quickfix_close_preview, { buffer = args.buf })
     end
 })

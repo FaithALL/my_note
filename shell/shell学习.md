@@ -23,7 +23,6 @@
   ```shell
   #内建命令
   history                       #显示最近使用的命令
-  alias -p                      #查看当前命令别名
   export name=value             #在当前shell及子进程导出为环境变量
   name=value command            #只针对command命令设置环境变量
   
@@ -123,13 +122,14 @@
   > [参考](https://www.junmajinlong.com/shell/index/)
 
   ```shell
-  {varname}={value}                 #变量赋值，不加空格，字符串字面值加不加双引号都可
+  varname=value                     #变量赋值，不加空格
   ${varname}                        #引用变量的值
   echo ${varname} "test"            #输出变量/字符串，原封不动输出echo 后的内容
   {varname}=`expr ${varname1} op ${varname2}`       #运算
   # 执行cmd命令
   `cmd`
   $(cmd)
+  # 引号的作用是剥夺了所有字符的特殊含义, 但是双引号还是会处理变量扩展和转义字符而单引号不会
   
   #数字比较符号<、>、=、<=、>=、!=
   #l:less、t:than、g:greater、e:euqual、n:not

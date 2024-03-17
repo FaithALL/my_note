@@ -29,8 +29,8 @@ return {
             -- TODO: can replace with vim.diagnostic.config() after v0.10
             local signs = { Error = "", Warn = "", Hint = "", Info = "" }
             for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+                local name = "DiagnosticSign" .. type
+                vim.fn.sign_define(name, { text = icon, texthl = name, numhl = name })
             end
 
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -54,7 +54,7 @@ return {
                     vim.keymap.set({ "n", "v" }, "<leader>qf", function()
                         vim.lsp.buf.code_action{ only = { "quickfix" } }
                     end, opts)
-                    vim.keymap.set("n", "<leader>fo", function()
+                    vim.keymap.set({ "n", "v" }, "<leader>fo", function()
                         vim.lsp.buf.format{ async = true }
                     end, opts)
 

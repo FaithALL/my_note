@@ -52,46 +52,46 @@ return {
                     { name = "nvim_lsp" },
                     { name = "path" },
                     { name = "luasnip" },
-                }, {
                     { name = "buffer" },
                 }),
                 performance = {
                     max_view_entries = 50,
                 },
                 formatting = {
-                    format = function(_, item)
+                    format = function(entry, vim_item)
                         local kind_icons = {
-                          Text = "󰉿",
-                          Method = "󰆧",
-                          Function = "󰊕",
-                          Constructor = "",
-                          Field = "󰜢",
-                          Variable = "󰀫",
-                          Class = "󰠱",
-                          Interface = "",
-                          Module = "",
-                          Property = "󰜢",
-                          Unit = "",
-                          Value = "󰎠",
-                          Enum = "",
-                          Keyword = "󰌋",
-                          Snippet = "",
-                          Color = "󰏘",
-                          File = "󰈙",
-                          Reference = "",
-                          Folder = "󰉋",
-                          EnumMember = "",
-                          Constant = "󰏿",
-                          Struct = "󰙅",
-                          Event = "",
-                          Operator = "󰆕",
-                          TypeParameter = "󰅲",
+                            Text = "󰉿",
+                            Method = "󰆧",
+                            Function = "󰊕",
+                            Constructor = "",
+                            Field = "󰜢",
+                            Variable = "󰀫",
+                            Class = "󰠱",
+                            Interface = "",
+                            Module = "",
+                            Property = "󰜢",
+                            Unit = "",
+                            Value = "󰎠",
+                            Enum = "",
+                            Keyword = "󰌋",
+                            Snippet = "",
+                            Color = "󰏘",
+                            File = "󰈙",
+                            Reference = "",
+                            Folder = "󰉋",
+                            EnumMember = "",
+                            Constant = "󰏿",
+                            Struct = "󰙅",
+                            Event = "",
+                            Operator = "󰆕",
+                            TypeParameter = "󰅲",
                         }
-
-                        if kind_icons[item.kind] then
-                            item.kind = string.format("%s %s", kind_icons[item.kind], item.kind)
-                        end
-                        return item
+                        vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+                        local str = vim_item.abbr:match("^%s*(.+)%s*$")
+                        local width = math.floor(vim.api.nvim_win_get_width(0) * 0.8)
+                        str = str:sub(1, width)
+                        vim_item.abbr = str
+                        return vim_item
                     end,
                 },
             }

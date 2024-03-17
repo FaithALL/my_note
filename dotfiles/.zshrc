@@ -14,7 +14,7 @@ function parse_git_info() {
     local branch_name_color=$'%F{yellow}'
     local branch_name="$(git symbolic-ref --short HEAD 2> /dev/null)"
     if [ -n "$branch_name" ]; then
-        printf "%s%s " "${branch_name_color}" "$branch_name"
+        printf "%s%s " "$branch_name_color" "$branch_name"
     fi
 }
 PROMPT='%B%F{blue}%~ $(parse_git_info)%f%b'
@@ -61,8 +61,9 @@ if [ -x "$(which fzf)" ]; then
     [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
     # config
     export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-    export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow'
+    export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --no-ignore-vcs'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND='fd --type directory --hidden'
 fi
 
 # download plugin from github, source it
