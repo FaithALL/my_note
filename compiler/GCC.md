@@ -103,7 +103,7 @@
     * 默认`/lib`、`/usr/lib`
 
 ### Command
-* nm objdump readelf ldd strip strings
+* nm objdump readelf ldd strip strings otool install_name_tool patchelf
 ``` shell
     # ldd可以查看可执行程序和动态库依赖的动态库
     # 可能会执行程序, 可能会有风险

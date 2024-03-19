@@ -1,7 +1,0 @@
-# rime平台特化配置(linux-ibus)
-# LinuxPath: ${HOME}/.config/ibus/rime/ibus_rime.custom.yaml
-
-patch:
-  style:
-    horizontal: true
-    inline_preedit: false
